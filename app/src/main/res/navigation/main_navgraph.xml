@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navgraph"
+    app:startDestination="@id/logFragment">
+
+    <fragment
+        android:id="@+id/logFragment"
+        android:name="com.ort.altoqueperro.fragments.LogFragment"
+        android:label="log_fragment"
+        tools:layout="@layout/log_fragment" >
+        <action
+            android:id="@+id/action_logFragment_to_signUpFragment2"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/petFragment"
+        android:name="com.ort.altoqueperro.fragments.PetFragment"
+        android:label="pet_fragment"
+        tools:layout="@layout/pet_fragment" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.ort.altoqueperro.fragments.SignUpFragment"
+        android:label="sign_up_fragment"
+        tools:layout="@layout/sign_up_fragment" />
+</navigation>
