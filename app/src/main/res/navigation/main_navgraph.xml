@@ -31,4 +31,21 @@
             android:id="@+id/action_signUpFragment_to_petFragment"
             app:destination="@id/petFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/shelterListFragment"
+        android:name="com.ort.altoqueperro.fragments.ShelterListFragment"
+        android:label="ShelterListFragment" >
+        <action
+            android:id="@+id/action_shelterListFragment_to_shelterItemFragment"
+            app:destination="@id/shelterItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shelterItemFragment"
+        android:name="com.ort.altoqueperro.fragments.ShelterItemFragment"
+        android:label="shelter_item_fragment"
+        tools:layout="@layout/shelter_item_fragment" >
+        <argument
+            android:name="shelterData"
+            app:argType="com.ort.altoqueperro.entities.Shelter" />
+    </fragment>
 </navigation>
