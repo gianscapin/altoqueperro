@@ -100,7 +100,8 @@ class LogFragment : Fragment() {
             if(mail.isNotEmpty() && password.isNotEmpty()) {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(mail,password).addOnCompleteListener {
                     if(it.isSuccessful){
-                        println("inicio de sesión")
+                        val action = LogFragmentDirections.actionLogFragmentToPetFragment()
+                        v.findNavController().navigate(action)
                     }else{
                         println("credenciales no válidas")
                     }
