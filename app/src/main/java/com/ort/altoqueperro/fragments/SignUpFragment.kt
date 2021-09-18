@@ -1,6 +1,7 @@
 package com.ort.altoqueperro.fragments
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.activities.HomeActivity
 import com.ort.altoqueperro.entities.User
 import com.ort.altoqueperro.viewmodels.SignUpViewModel
 import org.w3c.dom.Text
@@ -77,6 +79,7 @@ class SignUpFragment : Fragment() {
 
             if(nameUser.isNotEmpty() && passwordUser.isNotEmpty() && mailUser.isNotEmpty() && phoneUser.isNotEmpty() && birthUser.isNotEmpty()){
                 registerUser(mailUser,passwordUser, nameUser, phoneUser, birthUser)
+                //startActivity(Intent(context, HomeActivity::class.java))
             }else{
                 Snackbar.make(v,"Tenes que completar todos los campos",Snackbar.LENGTH_SHORT).show()
             }
@@ -102,8 +105,9 @@ class SignUpFragment : Fragment() {
 
                 //database.child("users").child(id).setValue(data)
                 db.collection("users").document(id).set(data)
-                val action = SignUpFragmentDirections.actionSignUpFragmentToPetFragment()
+                val action = SignUpFragmentDirections.actionSignUpFragmentToPetFragment2()
                 v.findNavController().navigate(action)
+
             }
         }
     }

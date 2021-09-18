@@ -3,12 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Git/altoqueperro/app/src/main/res/layout/shelter_item.xml" value="0.1" />
-        <entry key="..\:/Git/altoqueperro/app/src/main/res/layout/shelter_item_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/gians/AndroidStudioProjects/AlToquePerro/app/src/main/res/layout/activity_home.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/gians/AndroidStudioProjects/AlToquePerro/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/gians/AndroidStudioProjects/AlToquePerro/app/src/main/res/layout/log_fragment.xml" value="0.2015625" />
         <entry key="..\:/Users/gians/AndroidStudioProjects/AlToquePerro/app/src/main/res/layout/pet_fragment.xml" value="0.2015625" />
         <entry key="..\:/Users/gians/AndroidStudioProjects/AlToquePerro/app/src/main/res/layout/sign_up_fragment.xml" value="0.25" />
+        <entry key="..\:/Users/gians/AndroidStudioProjects/AlToquePerro/app/src/main/res/menu/bottom_bar.xml" value="0.20520833333333333" />
       </map>
     </option>
   </component>

@@ -3,44 +3,42 @@
   <component name="navEditor-manualLayoutAlgorithm2">
     <option name="myPositions">
       <map>
-        <entry key="main_navgraph.xml">
+        <entry key="home_navgraph.xml">
           <value>
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="logFragment">
+                  <entry key="petFound">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="54" />
+                            <option name="x" value="238" />
+                            <option name="y" value="316" />
                           </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_logFragment_to_petFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_logFragment_to_signUpFragment2">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="petFragment">
+                  <entry key="petFragment2">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="500" />
-                            <option name="y" value="54" />
+                            <option name="x" value="40" />
+                            <option name="y" value="40" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="petLost">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-136" />
+                            <option name="y" value="314" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -51,8 +49,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="276" />
-                            <option name="y" value="-308" />
+                            <option name="x" value="37" />
+                            <option name="y" value="-290" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -63,8 +61,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="2" />
-                            <option name="y" value="-307" />
+                            <option name="x" value="-207" />
+                            <option name="y" value="-290" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -79,23 +77,95 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="signUpFragment">
+                </map>
+              </option>
+            </LayoutPositions>
+          </value>
+        </entry>
+        <entry key="main_navgraph.xml">
+          <value>
+            <LayoutPositions>
+              <option name="myPositions">
+                <map>
+                  <entry key="logFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="12" />
+                            <option name="x" value="27" />
+                            <option name="y" value="284" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_signUpFragment_to_petFragment">
+                            <entry key="action_logFragment_to_signUpFragment2">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="petFound">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="400" />
+                            <option name="y" value="619" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="petFragment2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="156" />
+                            <option name="y" value="661" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_petFragment2_to_petFound">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_petFragment2_to_petLost">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="petLost">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="447" />
+                            <option name="y" value="918" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="signUpFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="287" />
+                            <option name="y" value="284" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

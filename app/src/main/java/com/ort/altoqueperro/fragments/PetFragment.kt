@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
@@ -28,6 +30,8 @@ class PetFragment : Fragment() {
 
     lateinit var welcomeText: TextView
     lateinit var v: View
+    lateinit var foundPet: Button
+    lateinit var lostPet: Button
 
     private lateinit var viewModel: PetViewModel
     //private lateinit var database: DatabaseReference
@@ -40,6 +44,8 @@ class PetFragment : Fragment() {
         v = inflater.inflate(R.layout.pet_fragment, container, false)
 
         welcomeText = v.findViewById(R.id.welcomeText)
+        foundPet = v.findViewById(R.id.foundPetBtn)
+        lostPet = v.findViewById(R.id.lostPetBtn)
 
         return v
     }
@@ -53,10 +59,18 @@ class PetFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        mensajeDeBienvenida()
+        welcomeMessage()
+
+        foundPet.setOnClickListener {
+            foundPet()
+        }
+
+        lostPet.setOnClickListener {
+            lostPet()
+        }
     }
 
-    fun mensajeDeBienvenida():Unit{
+    fun welcomeMessage():Unit{
         val user = Firebase.auth.currentUser
 
         val docRef = db.collection("users").document(user?.uid.toString())
@@ -64,6 +78,16 @@ class PetFragment : Fragment() {
             welcomeText.text = "Bienvenido "+it.get("name").toString()+"!"
         }
 
+    }
+
+    fun foundPet():Unit{
+        val action = PetFragmentDirections.actionPetFragment2ToPetFound()
+        v.findNavController().navigate(action)
+    }
+
+    fun lostPet():Unit{
+        val action = PetFragmentDirections.actionPetFragment2ToPetLost()
+        v.findNavController().navigate(action)
     }
 
 }

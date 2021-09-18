@@ -1,9 +1,7 @@
 package com.ort.altoqueperro.fragments
 
-import android.content.ContentValues.TAG
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.ktx.FirebaseCommonKtxRegistrar
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.User
 import com.ort.altoqueperro.viewmodels.LogViewModel
@@ -100,8 +96,9 @@ class LogFragment : Fragment() {
             if(mail.isNotEmpty() && password.isNotEmpty()) {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(mail,password).addOnCompleteListener {
                     if(it.isSuccessful){
-                        val action = LogFragmentDirections.actionLogFragmentToPetFragment()
+                        val action = LogFragmentDirections.actionLogFragmentToPetFragment2()
                         v.findNavController().navigate(action)
+                        //v.findNavController().navigate(R.id.petFragment2)
                     }else{
                         println("credenciales no válidas")
                     }
