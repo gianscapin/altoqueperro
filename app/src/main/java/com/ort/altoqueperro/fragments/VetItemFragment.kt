@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.Vet
 import com.ort.altoqueperro.viewmodels.ShelterItemViewModel
 
 class VetItemFragment : Fragment() {
@@ -51,7 +52,7 @@ class VetItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val vetData = VetItemFragmentArgs.fromBundle(requireArguments()).vetData
+        val vetData:Vet = VetItemFragmentArgs.fromBundle(requireArguments()).vetData
 
         neighborhood.text = vetData.neighborhood
         distancia.text = "100 mts."
@@ -59,7 +60,7 @@ class VetItemFragment : Fragment() {
         address.text = vetData.street + " " + vetData.streetNumber
         phone.text = vetData.phone
         businesshour.text = vetData.businessHours
-        Glide.with(view.context).load(vetData.logo).into(logo)
+        Glide.with(view.context).load(vetData.logoURL).into(logo)
 
     }
 

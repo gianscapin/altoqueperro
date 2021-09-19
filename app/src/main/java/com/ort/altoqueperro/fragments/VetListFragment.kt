@@ -11,47 +11,50 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.adapter.ShelterListAdapter
+import com.ort.altoqueperro.adapter.VetListAdapter
 import com.ort.altoqueperro.entities.Shelter
 import com.ort.altoqueperro.entities.ShelterRepository
+import com.ort.altoqueperro.entities.Vet
+import com.ort.altoqueperro.entities.VetRepository
 import com.ort.altoqueperro.viewmodels.ShelterListViewModel
+import com.ort.altoqueperro.viewmodels.VetListViewModel
 
 class VetListFragment : Fragment() {
     lateinit var v: View
-    private lateinit var recShelters : RecyclerView
-    var shelterRepository : ShelterRepository = ShelterRepository()
+    private lateinit var recVet : RecyclerView
+    var vetRepository : VetRepository = VetRepository()
 
     companion object {
         fun newInstance() = VetListFragment()
     }
 
-    private lateinit var listViewModel: ShelterListViewModel
+    private lateinit var listViewModel: VetListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        v =  inflater.inflate(R.layout.shelter_list_fragment, container, false)
-        recShelters = v.findViewById(R.id.recylcer_view_shelterList)
+        v =  inflater.inflate(R.layout.vet_list_fragment, container, false)
+        recVet = v.findViewById(R.id.recylcer_view_vetList)
         return v
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        listViewModel = ViewModelProvider(this).get(ShelterListViewModel::class.java)
+        listViewModel = ViewModelProvider(this).get(VetListViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
     override fun onStart() {
         super.onStart()
-        recShelters.setHasFixedSize(true)
-        recShelters.layoutManager = LinearLayoutManager(context)
-        recShelters.adapter = ShelterListAdapter(shelterRepository.shelters){ onShelterClick(it)}
+        recVet.setHasFixedSize(true)
+        recVet.layoutManager = LinearLayoutManager(context)
+        recVet.adapter = VetListAdapter(vetRepository.getAllVets()){ onVetClick(it)}
     }
 
-    fun onShelterClick(shelter : Shelter){
-        //Snackbar.make(v, shelter.name.toString(),Snackbar.LENGTH_SHORT).show()
+    fun onVetClick(vet : Vet){
          val action =
-            ShelterListFragmentDirections.actionShelterListFragmentToShelterItemFragment(shelter)
+            VetListFragmentDirections.actionVetListFragmentToVetItemFragment(vet)
          v.findNavController().navigate(action);
     }
 
