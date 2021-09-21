@@ -1,5 +1,6 @@
 package com.ort.altoqueperro.fragments
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.activities.HomeNavigationActivity
 import com.ort.altoqueperro.entities.User
 import com.ort.altoqueperro.viewmodels.LogViewModel
 
@@ -96,8 +98,9 @@ class LogFragment : Fragment() {
             if(mail.isNotEmpty() && password.isNotEmpty()) {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(mail,password).addOnCompleteListener {
                     if(it.isSuccessful){
-                        val action = LogFragmentDirections.actionLogFragmentToPetFragment2()
-                        v.findNavController().navigate(action)
+                        //val action = LogFragmentDirections.actionLogFragmentToPetFragment2()
+                        //v.findNavController().navigate(action)
+                        startActivity(Intent(context, HomeNavigationActivity::class.java))
                         //v.findNavController().navigate(R.id.petFragment2)
                     }else{
                         println("credenciales no válidas")

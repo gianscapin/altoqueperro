@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AlToquePerro">
         <activity
+            android:name=".activities.HomeNavigationActivity"
+            android:exported="true"
+            android:label="@string/title_activity_home_navigation" />
+        <activity
             android:name=".activities.HomeActivity"
             android:exported="true" />
         <activity

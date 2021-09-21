@@ -1,17 +1,14 @@
 package com.ort.altoqueperro.fragments
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -19,10 +16,8 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.activities.HomeActivity
-import com.ort.altoqueperro.entities.User
+import com.ort.altoqueperro.activities.HomeNavigationActivity
 import com.ort.altoqueperro.viewmodels.SignUpViewModel
-import org.w3c.dom.Text
 
 class SignUpFragment : Fragment() {
 
@@ -79,7 +74,7 @@ class SignUpFragment : Fragment() {
 
             if(nameUser.isNotEmpty() && passwordUser.isNotEmpty() && mailUser.isNotEmpty() && phoneUser.isNotEmpty() && birthUser.isNotEmpty()){
                 registerUser(mailUser,passwordUser, nameUser, phoneUser, birthUser)
-                //startActivity(Intent(context, HomeActivity::class.java))
+                startActivity(Intent(activity, HomeNavigationActivity::class.java))
             }else{
                 Snackbar.make(v,"Tenes que completar todos los campos",Snackbar.LENGTH_SHORT).show()
             }
@@ -105,8 +100,8 @@ class SignUpFragment : Fragment() {
 
                 //database.child("users").child(id).setValue(data)
                 db.collection("users").document(id).set(data)
-                val action = SignUpFragmentDirections.actionSignUpFragmentToPetFragment2()
-                v.findNavController().navigate(action)
+                //val action = SignUpFragmentDirections.actionSignUpFragmentToPetFragment2()
+                //v.findNavController().navigate(action)
 
             }
         }
