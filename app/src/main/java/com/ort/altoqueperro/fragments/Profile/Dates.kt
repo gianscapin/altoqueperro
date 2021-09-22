@@ -1,4 +1,4 @@
-package com.ort.altoqueperro.fragments
+package com.ort.altoqueperro.fragments.Profile
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,15 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.viewmodels.DatesViewModel
 
-class Profile : Fragment() {
+class Dates : Fragment() {
 
     companion object {
-        fun newInstance() = Profile()
+        fun newInstance() = Dates()
     }
 
     lateinit var nameText: TextView
@@ -23,18 +21,17 @@ class Profile : Fragment() {
     lateinit var phoneText: TextView
     lateinit var birthText: TextView
     lateinit var v:View
-    val db = Firebase.firestore
 
-    private lateinit var viewModel: ProfileViewModel
+    private lateinit var viewModel: DatesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        v =  inflater.inflate(R.layout.profile_fragment, container, false)
+        v = inflater.inflate(R.layout.dates_fragment, container, false)
         nameText = v.findViewById(R.id.nameUser)
         mailText = v.findViewById(R.id.mailUser)
-        phoneText = v.findViewById(R.id.phoneUser)
+        phoneText = v.findViewById(R.id.nameUser)
         birthText = v.findViewById(R.id.birthUser)
 
         return v
@@ -42,30 +39,30 @@ class Profile : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(DatesViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
     override fun onStart() {
         super.onStart()
 
-        loadInfo()
+        var name = DatesArgs.fromBundle(requireArguments()).name
+        var mail = DatesArgs.fromBundle(requireArguments()).mail
+        var phone = DatesArgs.fromBundle(requireArguments()).phone
+        var birth = DatesArgs.fromBundle(requireArguments()).birth
+
+        completeDates(name,mail,phone,birth)
+
+
     }
 
-    fun loadInfo():Unit{
-
-        val user = Firebase.auth.currentUser
-
-
-        val docRef = db.collection("users").document(user?.uid.toString())
-
-        docRef.get().addOnSuccessListener {
-            nameText.text = it.get("name").toString()
-            mailText.text = it.get("email").toString()
-            phoneText.text = it.get("phone").toString()
-            birthText.text = it.get("birth").toString()
-        }
+    fun completeDates(name:String,mail:String,phone:String,birth:String):Unit{
+        nameText.text = name
+        mailText.text = mail
+        phoneText.text = phone
+        birthText.text = birth
     }
+
 
 
 }

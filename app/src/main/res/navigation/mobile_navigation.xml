@@ -49,11 +49,49 @@
         tools:layout="@layout/pet_found_fragment" />
     <fragment
         android:id="@+id/profileUser"
-        android:name="com.ort.altoqueperro.fragments.Profile"
+        android:name="com.ort.altoqueperro.fragments.Profile.Profile"
         android:label="profile_fragment"
-        tools:layout="@layout/profile_fragment" />
+        tools:layout="@layout/profile_fragment" >
+        <action
+            android:id="@+id/action_profileUser_to_dates"
+            app:destination="@id/dates" />
+        <action
+            android:id="@+id/action_profileUser_to_settings"
+            app:destination="@id/settings" />
+        <action
+            android:id="@+id/action_profileUser_to_myPetsLost"
+            app:destination="@id/myPetsLost" />
+    </fragment>
     <action
         android:id="@+id/action_petFragment2_to_petFound"
         app:destination="@id/petFound" />
+    <fragment
+        android:id="@+id/dates"
+        android:name="com.ort.altoqueperro.fragments.Profile.Dates"
+        android:label="dates_fragment"
+        tools:layout="@layout/dates_fragment" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="mail"
+            app:argType="string" />
+        <argument
+            android:name="birth"
+            app:argType="string" />
+        <argument
+            android:name="phone"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/myPetsLost"
+        android:name="com.ort.altoqueperro.fragments.Profile.MyPetsLost"
+        android:label="my_pets_lost_fragment"
+        tools:layout="@layout/my_pets_lost_fragment" />
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.ort.altoqueperro.fragments.Profile.Settings"
+        android:label="settings_fragment"
+        tools:layout="@layout/settings_fragment" />
 
 </navigation>
