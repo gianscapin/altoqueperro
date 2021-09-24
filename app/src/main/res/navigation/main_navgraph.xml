@@ -6,28 +6,6 @@
     app:startDestination="@id/logFragment">
 
     <fragment
-        android:id="@+id/petFragment2"
-        android:name="com.ort.altoqueperro.fragments.PetFragment"
-        android:label="pet_fragment"
-        tools:layout="@layout/pet_fragment">
-        <action
-            android:id="@+id/action_petFragment2_to_petFound"
-            app:destination="@id/petFound" />
-        <action
-            android:id="@+id/action_petFragment2_to_petLost"
-            app:destination="@id/petLost" />
-    </fragment>
-    <fragment
-        android:id="@+id/petLost"
-        android:name="com.ort.altoqueperro.fragments.PetLost"
-        android:label="pet_lost_fragment"
-        tools:layout="@layout/pet_lost_fragment" />
-    <fragment
-        android:id="@+id/petFound"
-        android:name="com.ort.altoqueperro.fragments.PetFound"
-        android:label="pet_found_fragment"
-        tools:layout="@layout/pet_found_fragment" />
-    <fragment
         android:id="@+id/logFragment"
         android:name="com.ort.altoqueperro.fragments.LogFragment"
         android:label="log_fragment"
@@ -37,7 +15,7 @@
             app:destination="@id/signUpFragment" />
         <action
             android:id="@+id/action_logFragment_to_petFragment2"
-            app:destination="@id/petFragment2" />
+            app:destination="@id/home_navgraph" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -46,6 +24,7 @@
         tools:layout="@layout/sign_up_fragment" >
         <action
             android:id="@+id/action_signUpFragment_to_petFragment2"
-            app:destination="@id/petFragment2" />
+            app:destination="@id/home_navgraph" />
     </fragment>
+    <include app:graph="@navigation/home_navgraph" />
 </navigation>

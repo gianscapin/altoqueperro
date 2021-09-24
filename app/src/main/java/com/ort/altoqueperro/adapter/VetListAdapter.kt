@@ -17,12 +17,12 @@ class VetListAdapter(private var vetList : MutableList<Vet>,
     class VetHolder(v: View): RecyclerView.ViewHolder(v) {
         var view: View = v
         var neighborhood:TextView = view.findViewById(R.id.neighborhood)
-        var distancia: TextView = view.findViewById(R.id.neighborhood)
-        var txtname: TextView = view.findViewById(R.id.neighborhood)
-        var address: TextView = view.findViewById(R.id.neighborhood)
-        var phone: TextView = view.findViewById(R.id.neighborhood)
-        var businesshour: TextView = view.findViewById(R.id.neighborhood)
-        var logo: ImageView = view.findViewById(R.id.neighborhood)
+        var distancia: TextView = view.findViewById(R.id.distancia)
+        var txtname: TextView = view.findViewById(R.id.txtname)
+        var address: TextView = view.findViewById(R.id.address)
+        var phone: TextView = view.findViewById(R.id.phone)
+        var businesshour: TextView = view.findViewById(R.id.businesshour)
+        //var logo: ImageView = view.findViewById(R.id.neighborhood)
 
         fun setData (vet:Vet) {
             neighborhood.text = vet.neighborhood
@@ -31,7 +31,7 @@ class VetListAdapter(private var vetList : MutableList<Vet>,
             address.text = vet.street + " " + vet.streetNumber
             phone.text = vet.phone
             businesshour.text = vet.businessHours
-            Glide.with(view.context).load(vet.logoURL).into(logo)
+          //  Glide.with(view.context).load(vet.logoURL).into(logo)
         }
     fun getCardLayout (): CardView {
         return view.findViewById(R.id.cardItem)

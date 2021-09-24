@@ -18,6 +18,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.866" />
 
+    <Button
+        android:id="@+id/btnMenu"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="136dp"
+        android:text="Lista"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.972" />
+
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="186dp"

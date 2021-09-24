@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_navgraph"
-    app:startDestination="@id/petFragment2">
+    app:startDestination="@id/petFragment">
 
     <fragment
         android:id="@+id/shelterListFragment"
@@ -23,7 +23,7 @@
             app:argType="com.ort.altoqueperro.entities.Shelter" />
     </fragment>
     <fragment
-        android:id="@+id/petFragment2"
+        android:id="@+id/petFragment"
         android:name="com.ort.altoqueperro.fragments.PetFragment"
         android:label="pet_fragment"
         tools:layout="@layout/pet_fragment" >
@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_petFragment2_to_petLost"
             app:destination="@id/petLost" />
+        <action
+            android:id="@+id/action_petFragment2_to_vetListFragment2"
+            app:destination="@id/vetListFragment" />
     </fragment>
     <fragment
         android:id="@+id/petFound"
@@ -47,7 +50,7 @@
     <fragment
         android:id="@+id/vetListFragment"
         android:name="com.ort.altoqueperro.fragments.VetListFragment"
-        android:label="VetListFragment" >
+        android:label="VetListFragment">
         <action
             android:id="@+id/action_vetListFragment_to_vetItemFragment"
             app:destination="@id/vetItemFragment" />

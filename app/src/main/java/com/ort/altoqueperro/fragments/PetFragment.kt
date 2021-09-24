@@ -1,6 +1,7 @@
 package com.ort.altoqueperro.fragments
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -32,6 +33,7 @@ class PetFragment : Fragment() {
     lateinit var v: View
     lateinit var foundPet: Button
     lateinit var lostPet: Button
+    lateinit var menu:Button
 
     private lateinit var viewModel: PetViewModel
     //private lateinit var database: DatabaseReference
@@ -46,6 +48,7 @@ class PetFragment : Fragment() {
         welcomeText = v.findViewById(R.id.welcomeText)
         foundPet = v.findViewById(R.id.foundPetBtn)
         lostPet = v.findViewById(R.id.lostPetBtn)
+        menu = v.findViewById(R.id.btnMenu)
 
         return v
     }
@@ -67,6 +70,10 @@ class PetFragment : Fragment() {
 
         lostPet.setOnClickListener {
             lostPet()
+        }
+        menu.setOnClickListener{
+            val action = PetFragmentDirections.actionPetFragment2ToVetListFragment2()
+            v.findNavController().navigate(action)
         }
     }
 
