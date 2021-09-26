@@ -2,17 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/petFragment2"
-        android:icon="@drawable/ic_baseline_map_24"
-        android:title="Mapa" />
-    <item
-        android:id="@+id/shelterListFragment"
-        android:icon="@drawable/shelter_icon"
-        android:title="Refugios"/>
-
-    <item
         android:id="@+id/profileUser"
         android:icon="@drawable/profile_icon"
         android:title="Perfil"/>
+
+    <item
+        android:id="@+id/petFragment2"
+        android:icon="@drawable/ic_baseline_map_24"
+        android:title="Mapa" />
+
+    <item
+        android:id="@+id/list"
+        android:icon="@drawable/list_icon"
+        android:title="Lista"/>
+
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settings_icon"
+        android:title="Ajustes"/>
+
 
 </menu>
