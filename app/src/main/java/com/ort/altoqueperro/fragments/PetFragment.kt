@@ -1,9 +1,7 @@
 package com.ort.altoqueperro.fragments
 
-import android.content.ContentValues.TAG
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +10,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.findNavController
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
@@ -43,7 +36,7 @@ class PetFragment : Fragment() {
     ): View? {
         v = inflater.inflate(R.layout.pet_fragment, container, false)
 
-        welcomeText = v.findViewById(R.id.welcomeText)
+        welcomeText = v.findViewById(R.id.newMapModeText)
         foundPet = v.findViewById(R.id.foundPetBtn)
         lostPet = v.findViewById(R.id.lostPetBtn)
 

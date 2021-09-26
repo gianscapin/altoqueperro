@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/profileUser"
+        android:id="@+id/newProfileUserFragment"
         android:icon="@drawable/profile_icon"
         android:title="Perfil"/>
     <item
-        android:id="@+id/petFragment2"
+        android:id="@+id/newMapModeFragment"
         android:icon="@drawable/map_icon"
         android:title="Modo Mapa" />
     <item
-        android:id="@+id/shelterListFragment"
+        android:id="@+id/newListModeFragment"
         android:icon="@drawable/list_icon"
         android:title="Modo Lista"/>
 

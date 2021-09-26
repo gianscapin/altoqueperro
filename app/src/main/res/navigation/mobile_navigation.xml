@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/petFragment2">
+    app:startDestination="@id/newMapModeFragment">
 
     <action
         android:id="@+id/action_petFragment2_to_petLost"
@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/shelterListFragment"
         android:name="com.ort.altoqueperro.fragments.ShelterListFragment"
-        android:label="ShelterListFragment">
+        android:label="shelter_list_fragment">
         <action
             android:id="@+id/action_shelterListFragment_to_shelterItemFragment"
             app:destination="@id/shelterItemFragment" />
@@ -56,8 +56,23 @@
         android:id="@+id/action_petFragment2_to_petFound"
         app:destination="@id/petFound" />
     <fragment
+        android:id="@+id/newProfileUserFragment"
+        android:name="com.ort.altoqueperro.fragments.NewProfileUserFragment"
+        android:label="new_profile_user_fragment"
+        tools:layout="@layout/new_profile_user_fragment" />
+    <fragment
+        android:id="@+id/newMapModeFragment"
+        android:name="com.ort.altoqueperro.fragments.NewMapModeFragment"
+        android:label="new_map_mode_fragment"
+        tools:layout="@layout/new_map_mode_fragment" />
+    <fragment
+        android:id="@+id/newListModeFragment"
+        android:name="com.ort.altoqueperro.fragments.NewListModeFragment"
+        android:label="new_list_mode_fragment"
+        tools:layout="@layout/new_list_mode_fragment" />
+    <fragment
         android:id="@+id/settings"
-        android:name="com.ort.altoqueperro.fragments.Settings"
+        android:name="com.ort.altoqueperro.fragments.SettingsFragment"
         android:label="settings_fragment"
         tools:layout="@layout/settings_fragment" />
     <fragment
