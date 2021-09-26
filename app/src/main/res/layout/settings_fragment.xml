@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Settings"
+    tools:context=".fragments.SettingsFragment"
     tools:layout_editor_absoluteX="-6dp"
     tools:layout_editor_absoluteY="-106dp">
 
