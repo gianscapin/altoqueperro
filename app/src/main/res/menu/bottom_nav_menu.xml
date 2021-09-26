@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/petFragment2"
-        android:icon="@drawable/ic_baseline_map_24"
-        android:title="Mapa" />
-    <item
-        android:id="@+id/shelterListFragment"
-        android:icon="@drawable/shelter_icon"
-        android:title="Refugios"/>
-
     <item
         android:id="@+id/profileUser"
         android:icon="@drawable/profile_icon"
         android:title="Perfil"/>
+    <item
+        android:id="@+id/petFragment2"
+        android:icon="@drawable/map_icon"
+        android:title="Modo Mapa" />
+    <item
+        android:id="@+id/shelterListFragment"
+        android:icon="@drawable/list_icon"
+        android:title="Modo Lista"/>
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settings"
+        android:title="Ajustes"/>
 
 </menu>
