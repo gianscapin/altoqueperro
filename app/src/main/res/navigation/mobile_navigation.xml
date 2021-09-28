@@ -80,5 +80,21 @@
         android:name="com.ort.altoqueperro.fragments.List"
         android:label="list_fragment"
         tools:layout="@layout/list_fragment" />
+    <fragment
+        android:id="@+id/vetListFragment"
+        android:name="com.ort.altoqueperro.fragments.VetListFragment"
+        android:label="VetListFragment" >
+        <action
+            android:id="@+id/action_vetListFragment_to_vetItemFragment"
+            app:destination="@id/vetItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/vetItemFragment"
+        android:name="com.ort.altoqueperro.fragments.VetItemFragment"
+        android:label="VetItemFragment" >
+        <argument
+            android:name="vetData"
+            app:argType="com.ort.altoqueperro.entities.Vet" />
+    </fragment>
 
 </navigation>
