@@ -1,22 +1,18 @@
 package com.ort.altoqueperro.fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.adapter.ShelterListAdapter
 import com.ort.altoqueperro.adapter.VetListAdapter
-import com.ort.altoqueperro.entities.Shelter
-import com.ort.altoqueperro.entities.ShelterRepository
 import com.ort.altoqueperro.entities.Vet
-import com.ort.altoqueperro.entities.VetRepository
-import com.ort.altoqueperro.viewmodels.ShelterListViewModel
+import com.ort.altoqueperro.repos.VetRepository
 import com.ort.altoqueperro.viewmodels.VetListViewModel
 
 class VetListFragment : Fragment() {

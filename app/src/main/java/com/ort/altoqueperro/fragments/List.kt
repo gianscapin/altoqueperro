@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.viewmodels.ListViewModel
 
 class List : Fragment() {
 

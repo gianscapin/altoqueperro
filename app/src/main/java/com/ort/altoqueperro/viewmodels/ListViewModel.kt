@@ -1,4 +1,4 @@
-package com.ort.altoqueperro.fragments
+package com.ort.altoqueperro.viewmodels
 
 import androidx.lifecycle.ViewModel
 
