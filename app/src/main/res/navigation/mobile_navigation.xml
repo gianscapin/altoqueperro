@@ -26,14 +26,7 @@
         android:id="@+id/petFragment2"
         android:name="com.ort.altoqueperro.fragments.PetFragment"
         android:label="pet_fragment"
-        tools:layout="@layout/pet_fragment">
-        <action
-            android:id="@+id/action_petFragment2_to_petFound"
-            app:destination="@id/petFound" />
-        <action
-            android:id="@+id/action_petFragment2_to_petLost"
-            app:destination="@id/petLost" />
-    </fragment>
+        tools:layout="@layout/pet_fragment"/>
     <fragment
         android:id="@+id/shelterListFragment"
         android:name="com.ort.altoqueperro.fragments.ShelterListFragment"
