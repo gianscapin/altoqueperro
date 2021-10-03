@@ -1,7 +1,5 @@
 package com.ort.altoqueperro.entities
 
-import android.media.Image
-import android.os.Parcelable
 import java.io.Serializable
 
 class Vet (

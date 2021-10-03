@@ -90,4 +90,26 @@
             app:argType="com.ort.altoqueperro.entities.Vet" />
     </fragment>
 
+    <fragment
+        android:id="@+id/lostPetListFragment"
+        android:name="com.ort.altoqueperro.fragments.LostPetListFragment"
+        android:label="LostPetListFragment" >
+        <action
+            android:id="@+id/action_lostPetListFragment_to_lostPetItemFragment"
+            app:destination="@id/lostPetItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lostPetItemFragment"
+        android:name="com.ort.altoqueperro.fragments.LostPetItemFragment"
+        android:label="LostPetItemFragment" >
+        <argument
+            android:name="petData"
+            app:argType="com.ort.altoqueperro.entities.Pet" />
+        <action
+            android:id="@+id/action_lostPetItemFragment_to_shelterListFragment"
+            app:destination="@id/shelterListFragment" />
+        <action
+            android:id="@+id/action_lostPetItemFragment_to_vetListFragment"
+            app:destination="@id/vetListFragment" />
+    </fragment>
 </navigation>

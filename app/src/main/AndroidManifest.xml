@@ -14,9 +14,6 @@
             android:exported="true"
             android:label="@string/title_activity_home_navigation" />
         <activity
-            android:name=".activities.HomeActivity"
-            android:exported="true" />
-        <activity
             android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>

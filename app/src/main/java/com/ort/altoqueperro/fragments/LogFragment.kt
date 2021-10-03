@@ -32,6 +32,7 @@ class LogFragment : Fragment() {
     lateinit var inputPassword: TextView
     lateinit var login: Button
     lateinit var signUp: Button
+    lateinit var testLogin: Button
     lateinit var rootLayout:ConstraintLayout
     lateinit var v:View
     val db = Firebase.firestore
@@ -50,6 +51,7 @@ class LogFragment : Fragment() {
         signUp = v.findViewById(R.id.btnSign)
         inputMail = v.findViewById(R.id.idUser)
         inputPassword = v.findViewById(R.id.idPassword)
+        testLogin = v.findViewById(R.id.btnTestLogin)
 
         return v
     }
@@ -109,6 +111,18 @@ class LogFragment : Fragment() {
             }
 
 
+        }
+        testLogin.setOnClickListener {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword("testatp@atp.com","testatp123").addOnCompleteListener {
+            if(it.isSuccessful){
+                //val action = LogFragmentDirections.actionLogFragmentToPetFragment2()
+                //v.findNavController().navigate(action)
+                startActivity(Intent(context, HomeNavigationActivity::class.java))
+                //v.findNavController().navigate(R.id.petFragment2)
+            }else{
+                println("credenciales no válidas")
+            }
+        }
         }
     }
 
