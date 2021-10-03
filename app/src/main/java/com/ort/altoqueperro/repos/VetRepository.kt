@@ -1,4 +1,6 @@
-package com.ort.altoqueperro.entities
+package com.ort.altoqueperro.repos
+
+import com.ort.altoqueperro.entities.Vet
 
 class VetRepository {
     fun getAllVets(): MutableList<Vet> {
@@ -35,6 +37,6 @@ class VetRepository {
                 "Argentina"
             )
 
-        );
+        )
     }
 }

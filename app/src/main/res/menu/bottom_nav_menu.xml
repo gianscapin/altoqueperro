@@ -9,7 +9,7 @@
         android:icon="@drawable/map_icon"
         android:title="Modo Mapa" />
     <item
-        android:id="@+id/newListModeFragment"
+        android:id="@+id/lostPetListFragment"
         android:icon="@drawable/list_icon"
         android:title="Modo Lista"/>
 
