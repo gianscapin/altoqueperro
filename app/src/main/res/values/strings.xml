@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AlToquePerro</string>
+    <string name="app_name">Al Toque Perro</string>
     <string name="title_activity_home_navigation">HomeNavigationActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
