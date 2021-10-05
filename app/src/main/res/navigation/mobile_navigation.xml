@@ -26,7 +26,7 @@
         android:id="@+id/petFragment2"
         android:name="com.ort.altoqueperro.fragments.PetFragment"
         android:label="pet_fragment"
-        tools:layout="@layout/pet_fragment"/>
+        tools:layout="@layout/pet_fragment" />
     <fragment
         android:id="@+id/shelterListFragment"
         android:name="com.ort.altoqueperro.fragments.ShelterListFragment"
@@ -76,7 +76,7 @@
     <fragment
         android:id="@+id/vetListFragment"
         android:name="com.ort.altoqueperro.fragments.VetListFragment"
-        android:label="VetListFragment" >
+        android:label="VetListFragment">
         <action
             android:id="@+id/action_vetListFragment_to_vetItemFragment"
             app:destination="@id/vetItemFragment" />
@@ -84,7 +84,7 @@
     <fragment
         android:id="@+id/vetItemFragment"
         android:name="com.ort.altoqueperro.fragments.VetItemFragment"
-        android:label="VetItemFragment" >
+        android:label="VetItemFragment">
         <argument
             android:name="vetData"
             app:argType="com.ort.altoqueperro.entities.Vet" />
@@ -93,15 +93,17 @@
     <fragment
         android:id="@+id/lostPetListFragment"
         android:name="com.ort.altoqueperro.fragments.LostPetListFragment"
-        android:label="LostPetListFragment" >
+        android:label="LostPetListFragment"
+        tools:layout="@layout/pet_list_fragment">
         <action
             android:id="@+id/action_lostPetListFragment_to_lostPetItemFragment"
             app:destination="@id/lostPetItemFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/lostPetItemFragment"
         android:name="com.ort.altoqueperro.fragments.LostPetItemFragment"
-        android:label="LostPetItemFragment" >
+        android:label="LostPetItemFragment">
         <argument
             android:name="petData"
             app:argType="com.ort.altoqueperro.entities.Pet" />
@@ -112,4 +114,5 @@
             android:id="@+id/action_lostPetItemFragment_to_vetListFragment"
             app:destination="@id/vetListFragment" />
     </fragment>
+
 </navigation>
