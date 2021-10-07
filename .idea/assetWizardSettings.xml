@@ -11,25 +11,11 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
-                        <option name="children">
-                          <map>
-                            <entry key="clipartAsset">
-                              <value>
-                                <PersistentState>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/add/baseline_add_24.xml" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_add" />
-                            <entry key="sourceFile" value="C:\Users\gians\AndroidStudioProjects\AlToquePerro" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_tabselectordis" />
+                            <entry key="sourceFile" value="$USER_HOME$/atp/tabselectordis.svg" />
                           </map>
                         </option>
                       </PersistentState>
