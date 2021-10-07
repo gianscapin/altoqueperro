@@ -50,7 +50,7 @@ class VetListFragment : Fragment() {
 
     fun onVetClick(vet : Vet){
          val action =
-            VetListFragmentDirections.actionVetListFragmentToVetItemFragment(vet)
+            ListModeDirections.actionListModeToVetItemFragment(vet)
          v.findNavController().navigate(action);
     }
 

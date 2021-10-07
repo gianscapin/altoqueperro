@@ -51,7 +51,7 @@ class LostPetListFragment : Fragment() {
     fun onLostPetClick(lostPet : Pet){
         //Snackbar.make(v, lostPet.name.toString(),Snackbar.LENGTH_SHORT).show()
         val action =
-            LostPetListFragmentDirections.actionLostPetListFragmentToLostPetItemFragment(lostPet)
+            ListModeDirections.actionListModeToLostPetItemFragment(lostPet)
         v.findNavController().navigate(action);
     }
 

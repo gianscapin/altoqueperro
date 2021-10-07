@@ -57,13 +57,11 @@ class LostPetItemFragment : Fragment() {
         Glide.with(view.context).load(lostPetData.pictureUrl).into(lostPetImage)
 
         btnVets.setOnClickListener {
-            val action = LostPetItemFragmentDirections.actionLostPetItemFragmentToVetListFragment()
-            v.findNavController().navigate(action)
+
         }
 
         btnShelters.setOnClickListener {
-            val action = LostPetItemFragmentDirections.actionLostPetItemFragmentToShelterListFragment()
-            v.findNavController().navigate(action)
+
         }
 
     }
