@@ -14,27 +14,10 @@
         android:label="pet_lost_fragment"
         tools:layout="@layout/pet_lost_fragment" />
     <fragment
-        android:id="@+id/shelterItemFragment"
-        android:name="com.ort.altoqueperro.fragments.ShelterItemFragment"
-        android:label="shelter_item_fragment"
-        tools:layout="@layout/shelter_item_fragment">
-        <argument
-            android:name="shelterData"
-            app:argType="com.ort.altoqueperro.entities.Shelter" />
-    </fragment>
-    <fragment
         android:id="@+id/petFragment2"
         android:name="com.ort.altoqueperro.fragments.PetFragment"
         android:label="pet_fragment"
         tools:layout="@layout/pet_fragment" />
-    <fragment
-        android:id="@+id/shelterListFragment"
-        android:name="com.ort.altoqueperro.fragments.ShelterListFragment"
-        android:label="shelter_list_fragment">
-        <action
-            android:id="@+id/action_shelterListFragment_to_shelterItemFragment"
-            app:destination="@id/shelterItemFragment" />
-    </fragment>
     <fragment
         android:id="@+id/petFound"
         android:name="com.ort.altoqueperro.fragments.PetFound"
@@ -59,11 +42,6 @@
         android:label="new_map_mode_fragment"
         tools:layout="@layout/new_map_mode_fragment" />
     <fragment
-        android:id="@+id/newListModeFragment"
-        android:name="com.ort.altoqueperro.fragments.NewListModeFragment"
-        android:label="new_list_mode_fragment"
-        tools:layout="@layout/new_list_mode_fragment" />
-    <fragment
         android:id="@+id/settings"
         android:name="com.ort.altoqueperro.fragments.SettingsFragment"
         android:label="settings_fragment"
@@ -74,45 +52,44 @@
         android:label="list_fragment"
         tools:layout="@layout/list_fragment" />
     <fragment
-        android:id="@+id/vetListFragment"
-        android:name="com.ort.altoqueperro.fragments.VetListFragment"
-        android:label="VetListFragment">
+        android:id="@+id/listMode"
+        android:name="com.ort.altoqueperro.fragments.ListMode"
+        android:label="ListMode" >
         <action
-            android:id="@+id/action_vetListFragment_to_vetItemFragment"
+            android:id="@+id/action_listMode_to_shelterItemFragment"
+            app:destination="@id/shelterItemFragment" />
+        <action
+            android:id="@+id/action_listMode_to_lostPetItemFragment"
+            app:destination="@id/lostPetItemFragment" />
+        <action
+            android:id="@+id/action_listMode_to_vetItemFragment"
             app:destination="@id/vetItemFragment" />
     </fragment>
     <fragment
         android:id="@+id/vetItemFragment"
         android:name="com.ort.altoqueperro.fragments.VetItemFragment"
-        android:label="VetItemFragment">
+        android:label="VetItemFragment" >
         <argument
             android:name="vetData"
             app:argType="com.ort.altoqueperro.entities.Vet" />
     </fragment>
-
-    <fragment
-        android:id="@+id/lostPetListFragment"
-        android:name="com.ort.altoqueperro.fragments.LostPetListFragment"
-        android:label="LostPetListFragment"
-        tools:layout="@layout/pet_list_fragment">
-        <action
-            android:id="@+id/action_lostPetListFragment_to_lostPetItemFragment"
-            app:destination="@id/lostPetItemFragment" />
-    </fragment>
-
     <fragment
         android:id="@+id/lostPetItemFragment"
         android:name="com.ort.altoqueperro.fragments.LostPetItemFragment"
-        android:label="LostPetItemFragment">
+        android:label="pet_item_fragment"
+        tools:layout="@layout/pet_item_fragment" >
         <argument
             android:name="petData"
             app:argType="com.ort.altoqueperro.entities.Pet" />
-        <action
-            android:id="@+id/action_lostPetItemFragment_to_shelterListFragment"
-            app:destination="@id/shelterListFragment" />
-        <action
-            android:id="@+id/action_lostPetItemFragment_to_vetListFragment"
-            app:destination="@id/vetListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shelterItemFragment"
+        android:name="com.ort.altoqueperro.fragments.ShelterItemFragment"
+        android:label="vet_item_fragment"
+        tools:layout="@layout/vet_item_fragment" >
+        <argument
+            android:name="shelterData"
+            app:argType="com.ort.altoqueperro.entities.Shelter" />
     </fragment>
 
 </navigation>

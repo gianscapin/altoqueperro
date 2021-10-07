@@ -51,7 +51,7 @@ class ShelterListFragment : Fragment() {
     fun onShelterClick(shelter : Shelter){
         //Snackbar.make(v, shelter.name.toString(),Snackbar.LENGTH_SHORT).show()
          val action =
-            ShelterListFragmentDirections.actionShelterListFragmentToShelterItemFragment(shelter)
+            ListModeDirections.actionListModeToShelterItemFragment(shelter)
          v.findNavController().navigate(action);
     }
 

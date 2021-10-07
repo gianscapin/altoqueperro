@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.Shelter
 import com.ort.altoqueperro.viewmodels.ShelterItemViewModel
 
 class ShelterItemFragment : Fragment() {

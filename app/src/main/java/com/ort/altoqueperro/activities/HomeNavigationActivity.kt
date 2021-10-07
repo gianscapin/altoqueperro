@@ -37,7 +37,7 @@ class HomeNavigationActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.newMapModeFragment,R.id.shelterListFragment, R.id.vetListFragment,R.id.newProfileUserFragment, R.id.settings, R.id.lostPetListFragment)
+            setOf(R.id.newMapModeFragment,R.id.newProfileUserFragment, R.id.settings, R.id.listMode)
         )
 
         val floatingButtonAction:View = findViewById(R.id.btnFloatingActions)
