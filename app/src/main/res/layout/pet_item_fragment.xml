@@ -39,34 +39,4 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagePetDetail" />
-
-    <Button
-        android:id="@+id/btnVets"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Vets"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnShelters"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-    <Button
-        android:id="@+id/btnShelters"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Shelters"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnVets"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
