@@ -12,7 +12,11 @@
         android:id="@+id/petLost"
         android:name="com.ort.altoqueperro.fragments.PetLost"
         android:label="pet_lost_fragment"
-        tools:layout="@layout/pet_lost_fragment" />
+        tools:layout="@layout/pet_lost_fragment" >
+        <action
+            android:id="@+id/action_petLost_to_petLostSearchSimilarities"
+            app:destination="@id/petLostSearchSimilarities" />
+    </fragment>
     <fragment
         android:id="@+id/petFragment2"
         android:name="com.ort.altoqueperro.fragments.PetFragment"
@@ -90,6 +94,24 @@
         <argument
             android:name="shelterData"
             app:argType="com.ort.altoqueperro.entities.Shelter" />
+    </fragment>
+    <fragment
+        android:id="@+id/petLostSearchSimilarities"
+        android:name="com.ort.altoqueperro.fragments.PetLostSearchSimilarities"
+        android:label="pet_lost_search_similarities_fragment"
+        tools:layout="@layout/pet_lost_search_similarities_fragment" >
+        <action
+            android:id="@+id/action_petLostSearchSimilarities_to_petLostFinalMessage"
+            app:destination="@id/petLostFinalMessage" />
+    </fragment>
+    <fragment
+        android:id="@+id/petLostFinalMessage"
+        android:name="com.ort.altoqueperro.fragments.PetLostFinalMessage"
+        android:label="pet_lost_final_message_fragment"
+        tools:layout="@layout/pet_lost_final_message_fragment" >
+        <action
+            android:id="@+id/action_petLostFinalMessage_to_newMapModeFragment"
+            app:destination="@id/newMapModeFragment" />
     </fragment>
 
 </navigation>
