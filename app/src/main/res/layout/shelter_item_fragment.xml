@@ -1,54 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/constraintLayout"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".fragments.ShelterItemFragment">
-
-<ImageView
-    android:id="@+id/imageShelterDetail"
-    android:layout_width="200dp"
-    android:layout_height="200dp"
-    android:adjustViewBounds="true"
-    android:scaleType="fitXY"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:src="@tools:sample/avatars" />
-
-<LinearLayout
-    android:layout_width="wrap_content"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardItem"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    app:layout_constraintBottom_toBottomOf="@+id/imageShelterDetail"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@+id/imageShelterDetail"
-    app:layout_constraintTop_toTopOf="parent">
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="#D1F8F3"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp">
 
-    <TextView
-        android:id="@+id/txtShelterName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/txtShelterAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtShelterName"
+            android:layout_width="277dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="4dp"
+            android:foregroundTint="@color/black"
+            android:text="Tus Huellas"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.196"
+            app:layout_constraintStart_toEndOf="@+id/imageShelterDetail"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtShelterPhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/txtShelterAddress"
+            android:layout_width="277dp"
+            android:layout_height="23dp"
+            android:text="Av. Olazabal 4341"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.196"
+            app:layout_constraintStart_toEndOf="@+id/imageShelterDetail"
+            app:layout_constraintTop_toBottomOf="@+id/txtShelterName"
+            app:layout_constraintVertical_bias="0.0" />
 
-<TextView
-    android:id="@+id/txtShelterDesc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/imageShelterDetail" />
+        <TextView
+            android:id="@+id/txtShelterPhoneNumber"
+            android:layout_width="131dp"
+            android:layout_height="22dp"
+            android:layout_marginBottom="4dp"
+            android:text="Tel: 4932-1234"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toEndOf="@+id/imageShelterDetail"
+            app:layout_constraintTop_toBottomOf="@+id/txtShelterAddress"
+            app:layout_constraintVertical_bias="0.333" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageShelterDetail"
+            android:layout_width="74dp"
+            android:layout_height="69dp"
+            android:layout_marginEnd="8dp"
+            android:background="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/atp_logo"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
