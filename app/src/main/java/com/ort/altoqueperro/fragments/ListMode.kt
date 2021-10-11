@@ -29,13 +29,9 @@ class ListMode : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         v = inflater.inflate(R.layout.list_mode_fragment, container, false)
-
         tabLayout = v.findViewById(R.id.tab_layout)
-
         viewPager = v.findViewById(R.id.view_pager)
-
         return v
     }
 
