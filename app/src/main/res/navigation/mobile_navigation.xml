@@ -26,7 +26,11 @@
         android:id="@+id/petFound"
         android:name="com.ort.altoqueperro.fragments.PetFound"
         android:label="pet_found_fragment"
-        tools:layout="@layout/pet_found_fragment" />
+        tools:layout="@layout/pet_found_fragment" >
+        <action
+            android:id="@+id/action_petFound_to_petFoundSearchSimilarities"
+            app:destination="@id/petFoundSearchSimilarities" />
+    </fragment>
     <fragment
         android:id="@+id/profileUser"
         android:name="com.ort.altoqueperro.fragments.Profile"
@@ -113,5 +117,48 @@
             android:id="@+id/action_petLostFinalMessage_to_newMapModeFragment"
             app:destination="@id/newMapModeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/petFoundSearchSimilarities"
+        android:name="com.ort.altoqueperro.fragments.PetFoundSearchSimilarities"
+        android:label="pet_found_search_similarities_fragment"
+        tools:layout="@layout/pet_found_search_similarities_fragment" >
+        <action
+            android:id="@+id/action_petFoundSearchSimilarities_to_petFoundHostQuestion"
+            app:destination="@id/petFoundHostQuestion" />
+    </fragment>
+    <fragment
+        android:id="@+id/petFoundHostQuestion"
+        android:name="com.ort.altoqueperro.fragments.PetFoundHostQuestion"
+        android:label="pet_found_host_question_fragment"
+        tools:layout="@layout/pet_found_host_question_fragment" >
+        <action
+            android:id="@+id/action_petFoundHostQuestion_to_petFoundHostYes"
+            app:destination="@id/petFoundHostYes" />
+        <action
+            android:id="@+id/action_petFoundHostQuestion_to_petFoundHostNo"
+            app:destination="@id/petFoundHostNo" />
+    </fragment>
+    <fragment
+        android:id="@+id/petFoundHostYes"
+        android:name="com.ort.altoqueperro.fragments.PetFoundHostYes"
+        android:label="pet_found_host_yes_fragment"
+        tools:layout="@layout/pet_found_host_yes_fragment" >
+        <action
+            android:id="@+id/action_petFoundHostYes_to_newMapModeFragment"
+            app:destination="@id/newMapModeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/petFoundHostNo"
+        android:name="com.ort.altoqueperro.fragments.PetFoundHostNo"
+        android:label="pet_found_host_no_fragment"
+        tools:layout="@layout/pet_found_host_no_fragment" >
+        <action
+            android:id="@+id/action_petFoundHostNo_to_shelterListFragment"
+            app:destination="@id/shelterListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shelterListFragment"
+        android:name="com.ort.altoqueperro.fragments.ShelterListFragment"
+        android:label="ShelterListFragment" />
 
 </navigation>
