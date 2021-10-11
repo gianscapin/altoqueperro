@@ -18,7 +18,6 @@ class ShelterItemFragment : Fragment() {
     lateinit var shelterName: TextView
     lateinit var shelterAddress: TextView
     lateinit var shelterPhoneNumber: TextView
-    lateinit var shelterDescription: TextView
     lateinit var shelterImage: ImageView
 
     companion object {
@@ -34,7 +33,6 @@ class ShelterItemFragment : Fragment() {
         v = inflater.inflate(R.layout.shelter_item_fragment, container, false)
         shelterName = v.findViewById(R.id.txtShelterName)
         shelterAddress = v.findViewById(R.id.txtShelterAddress)
-        shelterDescription = v.findViewById(R.id.txtShelterDesc)
         shelterPhoneNumber = v.findViewById(R.id.txtShelterPhoneNumber)
         shelterImage = v.findViewById(R.id.imageShelterDetail)
         return  v
@@ -53,7 +51,6 @@ class ShelterItemFragment : Fragment() {
         shelterName.text = shelterData.name
         shelterAddress.text = shelterData.address.getFormattedAddress()
         shelterPhoneNumber.text = shelterData.phoneNumber
-        shelterDescription.text = shelterData.description
         Glide.with(view.context).load(shelterData.logoUrl).into(shelterImage)
 
     }
