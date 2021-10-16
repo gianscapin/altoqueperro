@@ -11,5 +11,5 @@ class LostPetRequest(pet: Pet,
                       requestConsumer: User?,
                       pictureUrl: String,
                       rescueCenter: RescueCenter?)
-    : PetRequest(pet, state, creationDate, resolvedDate, coordinates, requestCreator, requestConsumer, pictureUrl) {
+    : PetRequest(pet, state, creationDate, resolvedDate, coordinates, requestCreator, requestConsumer) {
 }

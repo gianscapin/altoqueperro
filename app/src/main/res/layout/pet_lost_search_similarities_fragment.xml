@@ -24,4 +24,14 @@
         tools:layout_conversion_absoluteHeight="82dp"
         tools:layout_conversion_absoluteWidth="191dp" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recicler_view_search_for_similarities"
+        android:layout_width="409dp"
+        android:layout_height="565dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/noResults"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

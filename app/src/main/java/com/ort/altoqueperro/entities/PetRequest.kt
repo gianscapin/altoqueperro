@@ -5,6 +5,8 @@ import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
-open class PetRequest (var pet: Pet,var state: String, var creationDate: Date, var resolvedDate: Date?, var coordinates: String, var requestCreator: User, var requestConsumer: User?, var pictureUrl : String) : Parcelable{
+open class PetRequest (var pet: Pet,var state: String, var creationDate: Date,
+                       var resolvedDate: Date?, var coordinates: String, var requestCreator: User,
+                       var requestConsumer: User?) : Parcelable{
 
 }

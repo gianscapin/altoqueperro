@@ -14,9 +14,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
-import org.w3c.dom.Text
 
 class PetLost : Fragment() {
 
@@ -25,10 +23,13 @@ class PetLost : Fragment() {
     }
 
     lateinit var petName: TextView
-    lateinit var petBreed: TextView
-    lateinit var petColor: TextView
-    lateinit var petLat: TextView
-    lateinit var petLong:TextView
+    lateinit var petType: TextView
+    lateinit var petSize: TextView
+    lateinit var petSex: TextView
+    lateinit var petCoat: TextView
+    lateinit var petEyeColor: TextView
+    /*lateinit var petLat: TextView
+    lateinit var petLong:TextView*/
     lateinit var sendPet: Button
     lateinit var v: View
 
@@ -43,11 +44,14 @@ class PetLost : Fragment() {
     ): View? {
         v = inflater.inflate(R.layout.pet_lost_fragment, container, false)
         petName = v.findViewById(R.id.petLostName)
-        petBreed = v.findViewById(R.id.petLostBreed)
-        petColor = v.findViewById(R.id.petLostColor)
-        petLat = v.findViewById(R.id.petLostLat)
-        petLong = v.findViewById(R.id.petLostLong)
+        petType = v.findViewById(R.id.petLostType)
+        petSize = v.findViewById(R.id.petLostSize)
+        petSex = v.findViewById(R.id.petLostSex)
+        petCoat = v.findViewById(R.id.petLostCoat)
+        petEyeColor = v.findViewById(R.id.petLostEyeColor)
         sendPet = v.findViewById(R.id.btnSendLostPet)
+        /*petLat = v.findViewById(R.id.petLostLat)
+        petLong = v.findViewById(R.id.petLostLong)*/
 
         return v
     }
@@ -63,28 +67,34 @@ class PetLost : Fragment() {
 
         sendPet.setOnClickListener {
             var name = petName.text.toString()
-            var breed = petBreed.text.toString()
-            var color = petColor.text.toString()
-            var lat = petLat.text.toString()
-            var long = petLong.text.toString()
+            var type = petType.text.toString()
+            var size = petSize.text.toString()
+            var sex = petSex.text.toString()
+            var coat = petCoat.text.toString()
+            var eyeColor = petEyeColor.text.toString()
+            /*var lat = petLat.text.toString()
+            var long = petLong.text.toString()*/
 
             database = Firebase.database.reference
 
-            if(name.isNotEmpty() && breed.isNotEmpty() && color.isNotEmpty() && lat.isNotEmpty() && long.isNotEmpty()){
-                registerPet(name,breed,color,lat,long)
+            if(name.isNotEmpty() && type.isNotEmpty() && size.isNotEmpty() && sex.isNotEmpty() && coat.isNotEmpty() && eyeColor.isNotEmpty()){
+                registerPet(name, type, size, sex, coat, eyeColor)
                 lookForSimilarities()
             }
         }
     }
 
-    fun registerPet(name:String,breed:String,color:String,lat:String,long:String):Unit{
+    fun registerPet(name:String, type:String, size:String, sex:String, coat:String, eyeColor:String):Unit{
 
         val data = hashMapOf(
             "name" to name,
-            "breed" to breed,
-            "color" to color,
-            "lat" to lat,
-            "long" to long
+            "type" to type,
+            "size" to size,
+            "sex" to sex,
+            "coat" to coat,
+            "eyeColor" to eyeColor,
+            /*"lat" to lat,
+            "long" to long*/
         )
 
         db.collection("petsLost").document().set(data)
