@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.findNavController
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
 import org.w3c.dom.Text
 
@@ -70,6 +72,7 @@ class PetLost : Fragment() {
 
             if(name.isNotEmpty() && breed.isNotEmpty() && color.isNotEmpty() && lat.isNotEmpty() && long.isNotEmpty()){
                 registerPet(name,breed,color,lat,long)
+                lookForSimilarities()
             }
         }
     }
@@ -85,6 +88,11 @@ class PetLost : Fragment() {
         )
 
         db.collection("petsLost").document().set(data)
+    }
+
+    fun lookForSimilarities(){
+        var action = PetLostDirections.actionPetLostToPetLostSearchSimilarities()
+        v.findNavController().navigate(action);
     }
 
 }

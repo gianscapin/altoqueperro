@@ -19,8 +19,6 @@ class LostPetItemFragment : Fragment() {
     lateinit var lostPetName: TextView
     lateinit var lostPetState: TextView
     lateinit var lostPetImage: ImageView
-    lateinit var btnVets: Button
-    lateinit var btnShelters: Button
 
     companion object {
         fun newInstance() = LostPetItemFragment()
@@ -36,8 +34,6 @@ class LostPetItemFragment : Fragment() {
         lostPetName = v.findViewById(R.id.txtPetName)
         lostPetState = v.findViewById(R.id.txtPetState)
         lostPetImage = v.findViewById(R.id.imagePetDetail)
-        btnVets = v.findViewById(R.id.btnVets)
-        btnShelters = v.findViewById(R.id.btnShelters)
 
         return  v
     }
@@ -55,14 +51,6 @@ class LostPetItemFragment : Fragment() {
         lostPetName.text = lostPetData.name
         lostPetState.text = lostPetData.state
         Glide.with(view.context).load(lostPetData.pictureUrl).into(lostPetImage)
-
-        btnVets.setOnClickListener {
-
-        }
-
-        btnShelters.setOnClickListener {
-
-        }
 
     }
 

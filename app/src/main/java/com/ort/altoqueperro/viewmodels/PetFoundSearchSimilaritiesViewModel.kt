@@ -2,6 +2,6 @@ package com.ort.altoqueperro.viewmodels
 
 import androidx.lifecycle.ViewModel
 
-class NewListModeViewModel : ViewModel() {
+class PetFoundSearchSimilaritiesViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }

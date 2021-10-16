@@ -31,8 +31,10 @@ class LogFragment : Fragment() {
     lateinit var inputMail: TextView
     lateinit var inputPassword: TextView
     lateinit var login: Button
-    lateinit var signUp: Button
+    lateinit var signUp: TextView
     lateinit var testLogin: Button
+    lateinit var txtSignUp: TextView
+    lateinit var lostPass: TextView
     lateinit var rootLayout:ConstraintLayout
     lateinit var v:View
     val db = Firebase.firestore
@@ -52,6 +54,8 @@ class LogFragment : Fragment() {
         inputMail = v.findViewById(R.id.idUser)
         inputPassword = v.findViewById(R.id.idPassword)
         testLogin = v.findViewById(R.id.btnTestLogin)
+        txtSignUp = v.findViewById(R.id.textView5)
+        lostPass = v.findViewById(R.id.lostPassword)
 
         return v
     }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.findNavController
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
@@ -69,6 +70,7 @@ class PetFound : Fragment() {
 
             if (name.isNotEmpty() && breed.isNotEmpty() && color.isNotEmpty() && lat.isNotEmpty() && long.isNotEmpty()) {
                 registerPet(name, breed, color, lat, long)
+                lookForSimilarities()
             }
         }
     }
@@ -84,6 +86,11 @@ class PetFound : Fragment() {
         )
 
         db.collection("petsLost").document().set(data)
+    }
+
+    fun lookForSimilarities(){
+        var action = PetFoundDirections.actionPetFoundToPetFoundSearchSimilarities()
+        v.findNavController().navigate(action);
     }
 
 
