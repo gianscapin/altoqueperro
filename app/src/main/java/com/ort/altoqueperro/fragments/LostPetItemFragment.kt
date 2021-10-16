@@ -49,8 +49,8 @@ class LostPetItemFragment : Fragment() {
         val lostPetData = LostPetItemFragmentArgs.fromBundle(requireArguments()).petData
 
         lostPetName.text = lostPetData.name
-        lostPetState.text = lostPetData.state
-        Glide.with(view.context).load(lostPetData.pictureUrl).into(lostPetImage)
+        /*lostPetState.text = lostPetData.state
+        Glide.with(view.context).load(lostPetData.pictureUrl).into(lostPetImage)*/
 
     }
 

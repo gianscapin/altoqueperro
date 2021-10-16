@@ -14,6 +14,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
 
 class PetLost : Fragment() {
@@ -79,29 +80,26 @@ class PetLost : Fragment() {
 
             if(name.isNotEmpty() && type.isNotEmpty() && size.isNotEmpty() && sex.isNotEmpty() && coat.isNotEmpty() && eyeColor.isNotEmpty()){
                 registerPet(name, type, size, sex, coat, eyeColor)
-                lookForSimilarities()
             }
         }
     }
 
     fun registerPet(name:String, type:String, size:String, sex:String, coat:String, eyeColor:String):Unit{
 
-        val data = hashMapOf(
+        val pet = Pet(name, type, size, sex, coat, eyeColor)
+        /*val data = hashMapOf(
             "name" to name,
             "type" to type,
             "size" to size,
             "sex" to sex,
             "coat" to coat,
             "eyeColor" to eyeColor,
-            /*"lat" to lat,
-            "long" to long*/
-        )
+            *//*"lat" to lat,
+            "long" to long*//*
+        )*/
 
-        db.collection("petsLost").document().set(data)
-    }
-
-    fun lookForSimilarities(){
-        var action = PetLostDirections.actionPetLostToPetLostSearchSimilarities()
+        db.collection("petsLost").document().set(pet)
+        var action = PetLostDirections.actionPetLostToPetLostSearchSimilarities(pet)
         v.findNavController().navigate(action);
     }
 

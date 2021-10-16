@@ -107,6 +107,9 @@
         <action
             android:id="@+id/action_petLostSearchSimilarities_to_petLostFinalMessage"
             app:destination="@id/petLostFinalMessage" />
+        <argument
+            android:name="pet"
+            app:argType="com.ort.altoqueperro.entities.Pet" />
     </fragment>
     <fragment
         android:id="@+id/petLostFinalMessage"

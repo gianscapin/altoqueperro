@@ -22,15 +22,35 @@ class PetAdapter(private var petList : MutableList<Pet>,
             txt.text = title
         }
 
+        /*fun setType(type: String){
+            val txt: TextView = view.findViewById(R.id.txtPetItemState)
+            txt.text = state
+        }
+
         fun setState(state: String){
             val txt: TextView = view.findViewById(R.id.txtPetItemState)
             txt.text = state
         }
 
-        fun setPicture(url: String){
+        fun setState(state: String){
+            val txt: TextView = view.findViewById(R.id.txtPetItemState)
+            txt.text = state
+        }
+
+        fun setState(state: String){
+            val txt: TextView = view.findViewById(R.id.txtPetItemState)
+            txt.text = state
+        }
+
+        fun setState(state: String){
+            val txt: TextView = view.findViewById(R.id.txtPetItemState)
+            txt.text = state
+        }*/
+
+        /*fun setPicture(url: String){
             val image: ImageView = view.findViewById(R.id.imagePetItem)
             Glide.with(view.context).load(url).into(image)
-        }
+        }*/
 
         fun getCardLayout (): CardView {
             return view.findViewById(R.id.cardItem)
@@ -46,8 +66,8 @@ class PetAdapter(private var petList : MutableList<Pet>,
     override fun onBindViewHolder(holder: PetHolder, position: Int) {
         val pet = petList[position]
         holder.setName(pet.name)
-        holder.setPicture(pet.pictureUrl)
-        holder.setState(pet.state)
+        /*holder.setPicture(pet.pictureUrl)
+        holder.setState(pet.state)*/
         holder.getCardLayout().setOnClickListener {
             onPetClick(pet)
         }
