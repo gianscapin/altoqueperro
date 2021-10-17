@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.adapter.PetAdapter
-import com.ort.altoqueperro.entities.Pet
+import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.repos.PetRepository
+import com.ort.altoqueperro.repos.RequestRepository
 import com.ort.altoqueperro.viewmodels.LostPetListViewModel
 
 class LostPetListFragment : Fragment() {
@@ -45,13 +46,13 @@ class LostPetListFragment : Fragment() {
         super.onStart()
         recLostPets.setHasFixedSize(true)
         recLostPets.layoutManager = LinearLayoutManager(context)
-        recLostPets.adapter = PetAdapter(lostPetRepository.getLostPets()){ onLostPetClick(it)}
+        recLostPets.adapter = PetAdapter(RequestRepository().foundRequests){ onLostPetClick(it)}
     }
 
-    fun onLostPetClick(lostPet : Pet){
+    fun onLostPetClick(lostPet : PetRequest){
         //Snackbar.make(v, lostPet.name.toString(),Snackbar.LENGTH_SHORT).show()
         val action =
-            ListModeDirections.actionListModeToLostPetItemFragment(lostPet)
+            ListModeDirections.actionListModeToLostPetItemFragment(lostPet, null)
         v.findNavController().navigate(action);
     }
 

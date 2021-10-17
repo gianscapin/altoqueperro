@@ -16,8 +16,12 @@ import com.ort.altoqueperro.R
 import com.ort.altoqueperro.activities.MainActivity.Companion.score
 import com.ort.altoqueperro.activities.Score
 import com.ort.altoqueperro.adapter.SimilarPetsAdapter
+import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.Pet
+import com.ort.altoqueperro.entities.PetRequest
+import com.ort.altoqueperro.entities.PetScore
 import com.ort.altoqueperro.repos.PetRepository
+import com.ort.altoqueperro.repos.RequestRepository
 import com.ort.altoqueperro.repos.ShelterRepository
 import com.ort.altoqueperro.viewmodels.PetLostSearchSimilaritiesViewModel
 
@@ -28,7 +32,7 @@ class PetLostSearchSimilarities : Fragment() {
     }
 
     private lateinit var viewModel: PetLostSearchSimilaritiesViewModel
-    var petRepository : PetRepository = PetRepository()
+    var requestRepository : RequestRepository = RequestRepository()
     private lateinit var recSimilarPets: RecyclerView
     private lateinit var noResult: Button
     private lateinit var v: View
@@ -51,8 +55,8 @@ class PetLostSearchSimilarities : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val petData = PetLostSearchSimilaritiesArgs.fromBundle(requireArguments()).pet
-        recSimilarPets.adapter = SimilarPetsAdapter(lookForSimilarities(petData)){onSimilarPetsClick(it)}
+        val petRequestData = PetLostSearchSimilaritiesArgs.fromBundle(requireArguments()).petRequest
+        recSimilarPets.adapter = SimilarPetsAdapter(lookForSimilarities(petRequestData)){onSimilarPetsClick(it)}
     }
 
     override fun onStart() {
@@ -62,43 +66,44 @@ class PetLostSearchSimilarities : Fragment() {
         recSimilarPets.layoutManager = LinearLayoutManager(context)
     }
 
-    fun onSimilarPetsClick(pet: Pet) {
-        println("hola")
-    }
+    fun onSimilarPetsClick(pet: PetScore) {
+        val action =
+            PetLostSearchSimilaritiesDirections.actionPetLostSearchSimilaritiesToLostPetItemFragment(null, pet)
+        v.findNavController().navigate(action);    }
 
     fun noResult(){
         var action = PetLostSearchSimilaritiesDirections.actionPetLostSearchSimilaritiesToPetLostFinalMessage()
         v.findNavController().navigate(action);
     }
 
-    fun lookForSimilarities(petLost: Pet): MutableList<Pet> {
-        val similarPetsFound: MutableList<Pair<Pet, Int>> = mutableListOf()
-        val result: MutableList<Pet> = mutableListOf()
-        var minScoreValuePet: Pair<Pet?, Int> = Pair(null, 100)
+    fun lookForSimilarities(petRequest: PetRequest): MutableList<PetScore> {
+        val petLost = petRequest.pet //esto desp no va
+
+        val similarPetsFound: MutableList<PetScore> = mutableListOf()
+        var minScoreValue = 100
         var currentScore: Int
-        for (pet in petRepository.pets) {
-            println(pet.name)
-            if (pet.type == petLost.type) {
-                if (similarPetsFound.count() < 3) {
-                    currentScore = calculateScore(pet, petLost)
-                    similarPetsFound.add(Pair(pet, currentScore))
-                    if (currentScore < minScoreValuePet.second ) {
-                        minScoreValuePet = Pair(pet, currentScore)
+
+        for (request in requestRepository.foundRequests) {
+            println(request.pet.name)
+            if (request.pet.type == petLost.type) {
+                if (similarPetsFound.count() < 3) { //debería hacerse while
+                    /**        petRequest.comparePetTo(pet)  esta sería la función para comparar mascostas más adelante**/
+                    currentScore = calculateScore(request.pet, petLost)
+                    similarPetsFound.add(PetScore(request, currentScore)) //sacar el pet después. pongo request en null para hace más fácil
+                    if (currentScore < minScoreValue ) {
+                        minScoreValue = currentScore
                     }
                 } else {
-                    println(pet.name)
-                    currentScore = calculateScore(pet, petLost)
-                    if (currentScore > minScoreValuePet.second ) {
-                        similarPetsFound.add(Pair(pet, currentScore))
-                        similarPetsFound.remove(minScoreValuePet)
+                    println(request.pet.name)
+                    currentScore = calculateScore(request.pet, petLost)
+                    if (currentScore > minScoreValue ) {
+                        similarPetsFound.add(PetScore(request, currentScore))
+                        similarPetsFound.remove(similarPetsFound.first { unit -> unit.request!! == request })
                     }
                 }
             }
         }
-        for (pet in similarPetsFound) {
-            result.add(pet.first)
-        }
-        return result
+        return similarPetsFound
     }
 
     fun calculateScore(pet: Pet, petLost: Pet): Int {

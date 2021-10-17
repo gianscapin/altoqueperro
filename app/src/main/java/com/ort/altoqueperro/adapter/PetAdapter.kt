@@ -3,49 +3,23 @@ package com.ort.altoqueperro.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.entities.Pet
+import com.ort.altoqueperro.entities.FoundPetRequest
+import com.ort.altoqueperro.entities.PetRequest
 
-class PetAdapter(private var petList : MutableList<Pet>,
-                         val onPetClick: (Pet) -> Unit
+class PetAdapter(private var requestList: MutableList<FoundPetRequest>,
+                 val onPetClick: (PetRequest) -> Unit
 ) : RecyclerView.Adapter <PetAdapter.PetHolder>() {
     class PetHolder(v: View): RecyclerView.ViewHolder(v) {
         private var view: View = v
 
         fun setName(title: String){
-            val txt: TextView = view.findViewById(R.id.txtPetItemName)
+            val txt: TextView = view.findViewById(R.id.txtPetFoundItemScore)
             txt.text = title
         }
-
-        /*fun setType(type: String){
-            val txt: TextView = view.findViewById(R.id.txtPetItemState)
-            txt.text = state
-        }
-
-        fun setState(state: String){
-            val txt: TextView = view.findViewById(R.id.txtPetItemState)
-            txt.text = state
-        }
-
-        fun setState(state: String){
-            val txt: TextView = view.findViewById(R.id.txtPetItemState)
-            txt.text = state
-        }
-
-        fun setState(state: String){
-            val txt: TextView = view.findViewById(R.id.txtPetItemState)
-            txt.text = state
-        }
-
-        fun setState(state: String){
-            val txt: TextView = view.findViewById(R.id.txtPetItemState)
-            txt.text = state
-        }*/
 
         /*fun setPicture(url: String){
             val image: ImageView = view.findViewById(R.id.imagePetItem)
@@ -64,16 +38,17 @@ class PetAdapter(private var petList : MutableList<Pet>,
     }
 
     override fun onBindViewHolder(holder: PetHolder, position: Int) {
-        val pet = petList[position]
+        val petRequest = requestList[position]
+        val pet = petRequest.pet
         holder.setName(pet.name)
         /*holder.setPicture(pet.pictureUrl)
         holder.setState(pet.state)*/
         holder.getCardLayout().setOnClickListener {
-            onPetClick(pet)
+            onPetClick(petRequest)
         }
     }
 
     override fun getItemCount(): Int {
-        return petList.size
+        return requestList.size
     }
 }

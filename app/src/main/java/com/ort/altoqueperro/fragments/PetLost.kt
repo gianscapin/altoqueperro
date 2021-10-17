@@ -14,8 +14,14 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.Pet
+import com.ort.altoqueperro.entities.User
+import com.ort.altoqueperro.repos.UserRepository
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
+import java.time.LocalDate.now
+import java.util.*
+import java.util.concurrent.ThreadLocalRandom.current
 
 class PetLost : Fragment() {
 
@@ -85,7 +91,7 @@ class PetLost : Fragment() {
     }
 
     fun registerPet(name:String, type:String, size:String, sex:String, coat:String, eyeColor:String):Unit{
-
+        val user = UserRepository().getRandomUser()
         val pet = Pet(name, type, size, sex, coat, eyeColor)
         /*val data = hashMapOf(
             "name" to name,
@@ -97,10 +103,12 @@ class PetLost : Fragment() {
             *//*"lat" to lat,
             "long" to long*//*
         )*/
-
+        val petRequest = LostPetRequest(pet, "open", Calendar.getInstance().time,null,"coordinadas", user,null, null)
         db.collection("petsLost").document().set(pet)
-        var action = PetLostDirections.actionPetLostToPetLostSearchSimilarities(pet)
+        var action = PetLostDirections.actionPetLostToPetLostSearchSimilarities(petRequest)
         v.findNavController().navigate(action);
     }
+
+
 
 }

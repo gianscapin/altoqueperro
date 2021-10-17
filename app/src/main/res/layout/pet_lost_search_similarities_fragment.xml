@@ -19,19 +19,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83"
+        app:layout_constraintVertical_bias="0.882"
         tools:ignore="TextContrastCheck"
         tools:layout_conversion_absoluteHeight="82dp"
         tools:layout_conversion_absoluteWidth="191dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recicler_view_search_for_similarities"
-        android:layout_width="409dp"
-        android:layout_height="565dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/noResults"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/noResults"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

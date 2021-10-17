@@ -9,7 +9,6 @@ class LostPetRequest(pet: Pet,
                       coordinates: String,
                       requestCreator: User,
                       requestConsumer: User?,
-                      pictureUrl: String,
                       rescueCenter: RescueCenter?)
     : PetRequest(pet, state, creationDate, resolvedDate, coordinates, requestCreator, requestConsumer) {
 }

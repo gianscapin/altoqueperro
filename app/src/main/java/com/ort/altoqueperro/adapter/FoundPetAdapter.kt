@@ -8,40 +8,47 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.Pet
+import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.entities.PetScore
 
-class SimilarPetsAdapter(private var similarPetList : MutableList<PetScore>,
-                         val onSimilarPetsClick: (PetScore) -> Unit
-) : RecyclerView.Adapter <SimilarPetsAdapter.SimilarPetsHolder>() {
-    class SimilarPetsHolder(v: View): RecyclerView.ViewHolder(v) {
+class FoundPetAdapter(private var petScoreList : MutableList<PetScore>,
+                      val onPetClick: (PetScore) -> Unit
+) : RecyclerView.Adapter <FoundPetAdapter.PetHolder>() {
+    class PetHolder(v: View): RecyclerView.ViewHolder(v) {
         private var view: View = v
 
-        fun setScore(score: Int){
+        fun setScore(score: Int) {
             val txt: TextView = view.findViewById(R.id.txtPetFoundItemScore)
-            txt.text = "${score}% Match"
+            txt.setText(score)
         }
+
+        /*fun setPicture(url: String){
+            val image: ImageView = view.findViewById(R.id.imagePetItem)
+            Glide.with(view.context).load(url).into(image)
+        }*/
 
         fun getCardLayout (): CardView {
             return view.findViewById(R.id.cardItem)
         }
+
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimilarPetsHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.pet_item_found, parent, false)
-        return (SimilarPetsHolder(view))
+        return (PetHolder(view))
     }
 
-    override fun onBindViewHolder(holder: SimilarPetsHolder, position: Int) {
-        val petScore = similarPetList[position]
+    override fun onBindViewHolder(holder: PetHolder, position: Int) {
+        val petScore = petScoreList[position]
         holder.setScore(petScore.score)
         /*holder.setPicture(pet.pictureUrl)
         holder.setState(pet.state)*/
         holder.getCardLayout().setOnClickListener {
-            onSimilarPetsClick(petScore)
+            onPetClick(petScore)
         }
     }
 
     override fun getItemCount(): Int {
-        return similarPetList.size
+        return petScoreList.size
     }
 }
