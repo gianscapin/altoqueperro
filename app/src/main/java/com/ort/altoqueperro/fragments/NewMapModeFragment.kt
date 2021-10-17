@@ -20,6 +20,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.utils.PermissionUtils.isPermissionGranted
@@ -67,10 +68,11 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
         enableMyLocation()
         loadMarkers(viewModel.getPetRequests())
     }
-    fun loadMarkers(pets:MutableList<PetRequest>) {
-        //map.clear()
-        pets.forEach {
-            var marker: MarkerOptions = MarkerOptions().position(it.coordinates).title(it.pet.name)
+    fun loadMarkers(requests:MutableList<PetRequest>) {
+        map.clear()
+        requests.forEach {
+            var marker: MarkerOptions = MarkerOptions().position(it.coordinates).title(it.pet.name).icon(
+                BitmapDescriptorFactory.fromResource(R.drawable.dow_paw))
             map.addMarker(marker)
         }
     }
