@@ -22,7 +22,6 @@ class PetRepository {
         pets.add(Pet(name = "petLost4", type = "Gato", size= "Chico", sex= "Hembre", coat= "Rojo", eyeColor= "Amarillo"))
 
     }
-
     fun getLostPets() : MutableList<Pet> {
         val lostPets = mutableListOf<Pet>()
 /*        lostPets.addAll(pets.filter { it.state == "lost" })

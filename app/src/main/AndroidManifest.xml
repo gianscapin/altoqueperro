@@ -41,11 +41,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
-        <activity
-            android:name=".activities.GoogleMapsActivity"
-            android:exported="true"
-            android:label="@string/title_activity_google_maps" />
         <activity
             android:name=".activities.HomeNavigationActivity"
             android:exported="true"
