@@ -47,7 +47,7 @@
     <fragment
         android:id="@+id/newMapModeFragment"
         android:name="com.ort.altoqueperro.fragments.NewMapModeFragment"
-        android:label="new_map_mode_fragment"
+        android:label="@string/map_title"
         tools:layout="@layout/new_map_mode_fragment" />
     <fragment
         android:id="@+id/settings"

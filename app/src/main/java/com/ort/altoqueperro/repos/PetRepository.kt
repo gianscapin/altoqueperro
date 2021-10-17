@@ -20,11 +20,10 @@ class PetRepository {
         pets.add(Pet("valko", "found","https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg"));
 
     }
-
     fun getLostPets() : MutableList<Pet> {
         val lostPets = mutableListOf<Pet>()
         lostPets.addAll(pets.filter { it.state == "lost" })
-        lostPets.forEach { println(it.toString()) }
+        //lostPets.forEach { println(it.toString()) }
         return lostPets
     }
 
