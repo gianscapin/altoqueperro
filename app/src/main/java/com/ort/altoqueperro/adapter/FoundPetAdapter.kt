@@ -7,18 +7,19 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.entities.FoundPetRequest
+import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.entities.PetRequest
+import com.ort.altoqueperro.entities.PetScore
 
-class PetAdapter(private var requestList: MutableList<FoundPetRequest>,
-                 val onPetClick: (PetRequest) -> Unit
-) : RecyclerView.Adapter <PetAdapter.PetHolder>() {
+class FoundPetAdapter(private var petScoreList : MutableList<PetScore>,
+                      val onPetClick: (PetScore) -> Unit
+) : RecyclerView.Adapter <FoundPetAdapter.PetHolder>() {
     class PetHolder(v: View): RecyclerView.ViewHolder(v) {
         private var view: View = v
 
-        fun setName(title: String){
+        fun setScore(score: Int) {
             val txt: TextView = view.findViewById(R.id.txtPetFoundItemScore)
-            txt.text = title
+            txt.setText(score)
         }
 
         /*fun setPicture(url: String){
@@ -33,22 +34,21 @@ class PetAdapter(private var requestList: MutableList<FoundPetRequest>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.pet_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.pet_item_found, parent, false)
         return (PetHolder(view))
     }
 
     override fun onBindViewHolder(holder: PetHolder, position: Int) {
-        val petRequest = requestList[position]
-        val pet = petRequest.pet
-        holder.setName(pet.name)
+        val petScore = petScoreList[position]
+        holder.setScore(petScore.score)
         /*holder.setPicture(pet.pictureUrl)
         holder.setState(pet.state)*/
         holder.getCardLayout().setOnClickListener {
-            onPetClick(petRequest)
+            onPetClick(petScore)
         }
     }
 
     override fun getItemCount(): Int {
-        return requestList.size
+        return petScoreList.size
     }
 }
