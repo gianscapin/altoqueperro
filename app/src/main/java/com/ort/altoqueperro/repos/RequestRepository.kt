@@ -2,6 +2,7 @@ package com.ort.altoqueperro.repos
 
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.LostPetRequest
+import com.ort.altoqueperro.entities.State
 import java.util.*
 
 class RequestRepository {
@@ -18,10 +19,10 @@ class RequestRepository {
             foundRequests.add(
                 FoundPetRequest(
                     it,
-                    "open",
+                    State.OPEN,
                     Calendar.getInstance().time,
                     null,
-                    "coordinadas",
+                    null,
                     UserRepository().getRandomUser(),
                     null
                 )

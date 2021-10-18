@@ -16,12 +16,10 @@ import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.Pet
-import com.ort.altoqueperro.entities.User
+import com.ort.altoqueperro.entities.State
 import com.ort.altoqueperro.repos.UserRepository
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
-import java.time.LocalDate.now
 import java.util.*
-import java.util.concurrent.ThreadLocalRandom.current
 
 class PetLost : Fragment() {
 
@@ -103,7 +101,7 @@ class PetLost : Fragment() {
             *//*"lat" to lat,
             "long" to long*//*
         )*/
-        val petRequest = LostPetRequest(pet, "open", Calendar.getInstance().time,null,"coordinadas", user,null, null)
+        val petRequest = LostPetRequest(pet, State.OPEN, Calendar.getInstance().time,null,null, user,null, null)
         db.collection("petsLost").document().set(pet)
         var action = PetLostDirections.actionPetLostToPetLostSearchSimilarities(petRequest)
         v.findNavController().navigate(action);

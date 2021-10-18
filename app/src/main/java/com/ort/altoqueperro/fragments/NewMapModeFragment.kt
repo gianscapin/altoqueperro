@@ -22,7 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.entities.PetRequest
+import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.utils.PermissionUtils.isPermissionGranted
 import com.ort.altoqueperro.utils.PermissionUtils.requestPermission
 import com.ort.altoqueperro.viewmodels.NewMapModeViewModel
@@ -68,7 +68,7 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
         enableMyLocation()
         loadMarkers(viewModel.getPetRequests())
     }
-    fun loadMarkers(requests:MutableList<PetRequest>) {
+    fun loadMarkers(requests: MutableList<FoundPetRequest>) {
         map.clear()
         requests.forEach {
             var marker: MarkerOptions = MarkerOptions().position(it.coordinates).title(it.pet.name).icon(
