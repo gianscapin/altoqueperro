@@ -11,18 +11,19 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.activities.HomeNavigationActivity
+import com.ort.altoqueperro.activities.SplashWelcomeActivity
 import com.ort.altoqueperro.entities.User
 import com.ort.altoqueperro.viewmodels.LogViewModel
 
 
 class LogFragment : Fragment() {
-
-
 
     companion object {
         fun newInstance() = LogFragment()
@@ -56,6 +57,7 @@ class LogFragment : Fragment() {
         testLogin = v.findViewById(R.id.btnTestLogin)
         txtSignUp = v.findViewById(R.id.textView5)
         lostPass = v.findViewById(R.id.lostPassword)
+        rootLayout = v.findViewById(R.id.frameLayout)
 
         return v
     }
@@ -73,13 +75,18 @@ class LogFragment : Fragment() {
             println("ingresando")
             val action = LogFragmentDirections.actionLogFragmentToSignUpFragment2()
             v.findNavController().navigate(action)
+
+        }
+
+        lostPass.setOnClickListener {
+            println("recuperar contraseña")
+            val action = LogFragmentDirections.actionLogFragmentToRecoveryPasswordFragment()
+            v.findNavController().navigate(action)
         }
 
         login.setOnClickListener {
             var mail = inputMail.text.toString()
             var password = inputPassword.text.toString()
-
-
 
             /*
             val usersRef = db.collection("users")
@@ -106,15 +113,19 @@ class LogFragment : Fragment() {
                     if(it.isSuccessful){
                         //val action = LogFragmentDirections.actionLogFragmentToPetFragment2()
                         //v.findNavController().navigate(action)
-                        startActivity(Intent(context, HomeNavigationActivity::class.java))
+
+                        startActivity(Intent(context, SplashWelcomeActivity::class.java))
                         //v.findNavController().navigate(R.id.petFragment2)
                     }else{
                         println("credenciales no válidas")
+                        Snackbar.make(rootLayout, "Email o Contraseña incorrecta", Snackbar.LENGTH_LONG)
+                            .show()
                     }
                 }
+            }else{
+                Snackbar.make(rootLayout, "Email o Contraseña incorrecta", Snackbar.LENGTH_LONG)
+                    .show()
             }
-
-
         }
         testLogin.setOnClickListener {
         FirebaseAuth.getInstance().signInWithEmailAndPassword("testatp@atp.com","testatp123").addOnCompleteListener {
