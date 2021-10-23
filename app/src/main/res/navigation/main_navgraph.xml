@@ -13,10 +13,22 @@
         <action
             android:id="@+id/action_logFragment_to_signUpFragment2"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_logFragment_to_recoveryPasswordFragment"
+            app:destination="@id/recoveryPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.ort.altoqueperro.fragments.SignUpFragment"
         android:label="sign_up_fragment"
         tools:layout="@layout/sign_up_fragment" />
+    <fragment
+        android:id="@+id/recoveryPasswordFragment"
+        android:name="com.ort.altoqueperro.fragments.RecoveryPasswordFragment"
+        android:label="recovery_password_fragment"
+        tools:layout="@layout/recovery_password_fragment" >
+        <action
+            android:id="@+id/action_recoveryPasswordFragment_to_logFragment"
+            app:destination="@id/logFragment" />
+    </fragment>
 </navigation>
