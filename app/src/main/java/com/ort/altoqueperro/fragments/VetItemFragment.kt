@@ -9,9 +9,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.google.android.gms.maps.model.LatLng
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.Vet
+import com.ort.altoqueperro.utils.LocationService
 import com.ort.altoqueperro.viewmodels.ShelterItemViewModel
+import kotlin.math.roundToInt
 
 class VetItemFragment : Fragment() {
     lateinit var v: View
@@ -55,7 +58,10 @@ class VetItemFragment : Fragment() {
         val vetData:Vet = VetItemFragmentArgs.fromBundle(requireArguments()).vetData
 
         neighborhood.text = vetData.neighborhood
-        distancia.text = "100 mts."
+        var distance = LocationService.getDistance(LatLng(vetData.latitude,vetData.longitude)).roundToInt()
+        println("distancia: " + distance)
+        distancia.text = distance.toString()+" mts."
+
         txtname.text = vetData.name
         address.text = vetData.street + " " + vetData.streetNumber
         phone.text = vetData.phone

@@ -8,8 +8,11 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.gms.maps.model.LatLng
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.Vet
+import com.ort.altoqueperro.utils.LocationService
+import kotlin.math.roundToInt
 
 class VetListAdapter(private var vetList : MutableList<Vet>,
                      val onVetClick: (Vet) -> Unit
@@ -26,7 +29,10 @@ class VetListAdapter(private var vetList : MutableList<Vet>,
 
         fun setData (vet:Vet) {
             neighborhood.text = vet.neighborhood
-            distancia.text = "100 mts."
+            var distance =
+                LocationService.getDistance(LatLng(vet.latitude, vet.longitude)).roundToInt()
+            println("distancia: " + distance)
+            distancia.text = distance.toString()+" mts."
             txtname.text = vet.name
             address.text = vet.street + " " + vet.streetNumber
             phone.text = vet.phone

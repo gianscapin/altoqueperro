@@ -33,11 +33,11 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
     ActivityCompat.OnRequestPermissionsResultCallback {
 
     private lateinit var map:GoogleMap
-    private var permissionDenied = false
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     companion object {
-        public lateinit var currentLocation: Location
+        var currentLocation = Location("null")
+        var permissionDenied = false
         fun newInstance() = NewMapModeFragment()
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
@@ -94,7 +94,9 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
         task.addOnSuccessListener { location ->
             if (location != null) {
                 currentLocation = location
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(currentLocation.latitude,currentLocation.longitude), 17.0f))
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude,location.longitude), 17.0f))
+            } else {
+                currentLocation = Location("null")
             }
         }
     }

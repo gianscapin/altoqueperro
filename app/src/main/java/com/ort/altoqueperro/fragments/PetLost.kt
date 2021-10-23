@@ -20,6 +20,7 @@ import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.entities.State
 import com.ort.altoqueperro.repos.UserRepository
+import com.ort.altoqueperro.utils.LocationService
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
 import java.util.*
 
@@ -85,14 +86,12 @@ class PetLost : Fragment() {
             database = Firebase.database.reference
 
             if(name.isNotEmpty() && type.isNotEmpty() && size.isNotEmpty() && sex.isNotEmpty() && coat.isNotEmpty() && eyeColor.isNotEmpty()){
-                var loc: Location = NewMapModeFragment.currentLocation
-                println("Latitude: "+loc.latitude+"Longitude: "+loc.longitude)
-                registerPet(name, type, size, sex, coat, eyeColor, LatLng(loc.latitude,loc.longitude))
+                registerPet(name, type, size, sex, coat, eyeColor, LocationService.getLocation())
             }
         }
     }
 
-    fun registerPet(name:String, type:String, size:String, sex:String, coat:String, eyeColor:String, location: LatLng):Unit{
+    fun registerPet(name:String, type:String, size:String, sex:String, coat:String, eyeColor:String, location: LatLng?):Unit{
         val user = UserRepository().getRandomUser()
         val pet = Pet(name, type, size, sex, coat, eyeColor)
         /*val data = hashMapOf(
