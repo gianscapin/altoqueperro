@@ -84,7 +84,7 @@ class PetFound : Fragment() {
 
     fun registerPet(type:String, size:String, sex:String, coat:String, eyeColor:String):Unit{
         val user = UserRepository().getRandomUser()
-        val pet = Pet(type=type, size=size,sex=sex, coat=coat, eyeColor=eyeColor)
+        val pet = Pet(null, type, size, sex, coat, eyeColor)
         val petRequest = FoundPetRequest(pet, State.OPEN, Calendar.getInstance().time,null,null, user,null)
         db.collection("pets").document().set(pet)
         var action = PetFoundDirections.actionPetFoundToPetFoundSearchSimilarities(petRequest)
