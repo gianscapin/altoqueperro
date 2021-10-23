@@ -44,14 +44,14 @@ class PetFoundSearchSimilarities : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        petFoundNoResults.setOnClickListener { noResult() }
+        noResult.setOnClickListener { noResult() }
     }
 
-    fun onSimilarPetsClick(pet: PetScore) {
+    /*fun onSimilarPetsClick(pet: PetScore) {
         val action =
             PetFoundSearchSimilaritiesDirections.actionPetFoundSearchSimilaritiesToFoundPetItemFragment(null, pet)
         v.findNavController().navigate(action);
-    }
+    }*/
 
     fun noResult(){
         var action = PetFoundSearchSimilaritiesDirections.actionPetFoundSearchSimilaritiesToPetFoundHostQuestion()
