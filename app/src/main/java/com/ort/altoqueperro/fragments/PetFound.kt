@@ -87,8 +87,8 @@ class PetFound : Fragment() {
         val pet = Pet(type=type, size=size,sex=sex, coat=coat, eyeColor=eyeColor)
         val petRequest = FoundPetRequest(pet, State.OPEN, Calendar.getInstance().time,null,null, user,null)
         db.collection("pets").document().set(pet)
-        /*var action = PetLostDirections.actionPetFoundToPetFoundSearchSimilarities(petRequest)
-        v.findNavController().navigate(action);*/
+        var action = PetFoundDirections.actionPetFoundToPetFoundSearchSimilarities(petRequest)
+        v.findNavController().navigate(action);
     }
 
 
