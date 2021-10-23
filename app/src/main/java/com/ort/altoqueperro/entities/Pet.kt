@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class Pet(
-    var name: String,
+    var name: String?,
     var type: String,
     var size: String,
     var sex: String,

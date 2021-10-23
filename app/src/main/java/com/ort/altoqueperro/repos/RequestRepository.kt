@@ -6,9 +6,8 @@ import com.ort.altoqueperro.entities.State
 import java.util.*
 
 class RequestRepository {
-    var lostRequests: MutableList<LostPetRequest> = mutableListOf()
     var foundRequests: MutableList<FoundPetRequest> = mutableListOf()
-
+    var lostRequests: MutableList<LostPetRequest> = mutableListOf()
 
     init {
         createRequestsDatabase();
@@ -18,6 +17,17 @@ class RequestRepository {
         PetRepository().pets.forEach {
             foundRequests.add(
                 FoundPetRequest(
+                    it,
+                    State.OPEN,
+                    Calendar.getInstance().time,
+                    null,
+                    null,
+                    UserRepository().getRandomUser(),
+                    null
+                )
+            )
+            lostRequests.add(
+                LostPetRequest(
                     it,
                     State.OPEN,
                     Calendar.getInstance().time,

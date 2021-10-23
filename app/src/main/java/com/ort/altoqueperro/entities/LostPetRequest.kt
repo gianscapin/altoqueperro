@@ -10,7 +10,6 @@ class LostPetRequest(
     resolvedDate: Date?,
     coordinates: LatLng?,
     requestCreator: User,
-    requestConsumer: User?,
-    rescueCenter: RescueCenter?)
+    requestConsumer: User?)
     : PetRequest(pet, state, creationDate, resolvedDate, coordinates, requestCreator, requestConsumer) {
 }

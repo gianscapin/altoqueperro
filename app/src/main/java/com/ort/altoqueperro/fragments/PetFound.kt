@@ -14,7 +14,14 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.FoundPetRequest
+import com.ort.altoqueperro.entities.LostPetRequest
+import com.ort.altoqueperro.entities.Pet
+import com.ort.altoqueperro.entities.State
+import com.ort.altoqueperro.repos.UserRepository
 import com.ort.altoqueperro.viewmodels.PetFoundViewModel
+import com.ort.altoqueperro.viewmodels.PetLostViewModel
+import java.util.*
 
 class PetFound : Fragment() {
 
@@ -22,11 +29,11 @@ class PetFound : Fragment() {
         fun newInstance() = PetFound()
     }
 
-    lateinit var petName: TextView
-    lateinit var petBreed: TextView
-    lateinit var petColor: TextView
-    lateinit var petLat: TextView
-    lateinit var petLong: TextView
+    lateinit var petType: TextView
+    lateinit var petSize: TextView
+    lateinit var petSex: TextView
+    lateinit var petCoat: TextView
+    lateinit var petEyeColor: TextView
     lateinit var sendPet: Button
     lateinit var v: View
 
@@ -41,14 +48,15 @@ class PetFound : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         v = inflater.inflate(R.layout.pet_found_fragment, container, false)
-        petName = v.findViewById(R.id.petFoundName)
-        petBreed = v.findViewById(R.id.petFoundBreed)
-        petColor = v.findViewById(R.id.petFoundColor)
-        petLat = v.findViewById(R.id.petFoundLat)
-        petLong = v.findViewById(R.id.petFoundLong)
+        petType = v.findViewById(R.id.petFoundType)
+        petSize = v.findViewById(R.id.petFoundSize)
+        petSex = v.findViewById(R.id.petFoundSex)
+        petCoat = v.findViewById(R.id.petFoundCoat)
+        petEyeColor = v.findViewById(R.id.petFoundEyeColor)
         sendPet = v.findViewById(R.id.btnSendFoundPet)
 
-        return v    }
+        return v
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -60,36 +68,26 @@ class PetFound : Fragment() {
         super.onStart()
 
         sendPet.setOnClickListener {
-            var name = petName.text.toString()
-            var breed = petBreed.text.toString()
-            var color = petColor.text.toString()
-            var lat = petLat.text.toString()
-            var long = petLong.text.toString()
+            var type = petType.text.toString()
+            var size = petSize.text.toString()
+            var sex = petSex.text.toString()
+            var coat = petCoat.text.toString()
+            var eyeColor = petEyeColor.text.toString()
 
             database = Firebase.database.reference
 
-            if (name.isNotEmpty() && breed.isNotEmpty() && color.isNotEmpty() && lat.isNotEmpty() && long.isNotEmpty()) {
-                registerPet(name, breed, color, lat, long)
-                lookForSimilarities()
+            if (type.isNotEmpty() && size.isNotEmpty() && sex.isNotEmpty() && coat.isNotEmpty() && eyeColor.isNotEmpty()) {
+                registerPet(type, size, sex, coat, eyeColor)
             }
         }
     }
-    
-    fun registerPet(name:String,breed:String,color:String,lat:String,long:String):Unit{
 
-        val data = hashMapOf(
-            "name" to name,
-            "breed" to breed,
-            "color" to color,
-            "lat" to lat,
-            "long" to long
-        )
-
-        db.collection("petsLost").document().set(data)
-    }
-
-    fun lookForSimilarities(){
-        var action = PetFoundDirections.actionPetFoundToPetFoundSearchSimilarities()
+    fun registerPet(type:String, size:String, sex:String, coat:String, eyeColor:String):Unit{
+        val user = UserRepository().getRandomUser()
+        val pet = Pet(null, type, size, sex, coat, eyeColor)
+        val petRequest = FoundPetRequest(pet, State.OPEN, Calendar.getInstance().time,null,null, user,null)
+        db.collection("pets").document().set(pet)
+        var action = PetFoundDirections.actionPetFoundToPetFoundSearchSimilarities(petRequest)
         v.findNavController().navigate(action);
     }
 
