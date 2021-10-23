@@ -6,7 +6,6 @@ import com.ort.altoqueperro.entities.State
 import java.util.*
 
 class RequestRepository {
-    var lostRequests: MutableList<LostPetRequest> = mutableListOf()
     var foundRequests: MutableList<FoundPetRequest> = mutableListOf()
 
 
