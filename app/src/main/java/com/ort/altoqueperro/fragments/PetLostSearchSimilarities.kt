@@ -68,7 +68,7 @@ class PetLostSearchSimilarities : Fragment() {
 
     fun onSimilarPetsClick(pet: PetScore) {
         val action =
-            PetLostSearchSimilaritiesDirections.actionPetLostSearchSimilaritiesToLostPetItemFragment(null, pet)
+            PetLostSearchSimilaritiesDirections.actionPetLostSearchSimilaritiesToFoundPetItemFragment(null, pet)
         v.findNavController().navigate(action);
     }
 
