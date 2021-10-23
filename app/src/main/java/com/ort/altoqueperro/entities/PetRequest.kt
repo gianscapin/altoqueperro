@@ -7,8 +7,12 @@ import java.util.*
 
 @Parcelize
 open class PetRequest(
-    var pet: Pet, var state: State, var creationDate: Date,
-    var resolvedDate: Date?, var coordinates: LatLng?, var requestCreator: User,
+    var pet: Pet,
+    var state: State,
+    var creationDate: Date,
+    var resolvedDate: Date?,
+    var coordinates: LatLng?,
+    var requestCreator: User,
     var requestConsumer: User?
 ) : Parcelable {
 

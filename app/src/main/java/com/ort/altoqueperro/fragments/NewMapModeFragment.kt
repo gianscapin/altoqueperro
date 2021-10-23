@@ -35,9 +35,9 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
     private lateinit var map:GoogleMap
     private var permissionDenied = false
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private lateinit var currentLocation: Location
 
     companion object {
+        public lateinit var currentLocation: Location
         fun newInstance() = NewMapModeFragment()
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }

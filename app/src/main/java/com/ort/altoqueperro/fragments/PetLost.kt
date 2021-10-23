@@ -1,5 +1,6 @@
 package com.ort.altoqueperro.fragments
 
+import android.location.Location
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.findNavController
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
@@ -83,12 +85,14 @@ class PetLost : Fragment() {
             database = Firebase.database.reference
 
             if(name.isNotEmpty() && type.isNotEmpty() && size.isNotEmpty() && sex.isNotEmpty() && coat.isNotEmpty() && eyeColor.isNotEmpty()){
-                registerPet(name, type, size, sex, coat, eyeColor)
+                var loc: Location = NewMapModeFragment.currentLocation
+                println("Latitude: "+loc.latitude+"Longitude: "+loc.longitude)
+                registerPet(name, type, size, sex, coat, eyeColor, LatLng(loc.latitude,loc.longitude))
             }
         }
     }
 
-    fun registerPet(name:String, type:String, size:String, sex:String, coat:String, eyeColor:String):Unit{
+    fun registerPet(name:String, type:String, size:String, sex:String, coat:String, eyeColor:String, location: LatLng):Unit{
         val user = UserRepository().getRandomUser()
         val pet = Pet(name, type, size, sex, coat, eyeColor)
         /*val data = hashMapOf(
@@ -101,8 +105,8 @@ class PetLost : Fragment() {
             *//*"lat" to lat,
             "long" to long*//*
         )*/
-        val petRequest = LostPetRequest(pet, State.OPEN, Calendar.getInstance().time,null,null, user,null, null)
-        db.collection("petsLost").document().set(pet)
+        val petRequest = LostPetRequest(pet, State.OPEN, Calendar.getInstance().time,null,location, user,null, null)
+        db.collection("petsLost").document().set(petRequest)
         var action = PetLostDirections.actionPetLostToPetLostSearchSimilarities(petRequest)
         v.findNavController().navigate(action);
     }
