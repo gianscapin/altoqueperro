@@ -33,8 +33,6 @@ class PetLost : Fragment() {
     lateinit var petSex: TextView
     lateinit var petCoat: TextView
     lateinit var petEyeColor: TextView
-    /*lateinit var petLat: TextView
-    lateinit var petLong:TextView*/
     lateinit var sendPet: Button
     lateinit var v: View
 
@@ -55,8 +53,6 @@ class PetLost : Fragment() {
         petCoat = v.findViewById(R.id.petLostCoat)
         petEyeColor = v.findViewById(R.id.petLostEyeColor)
         sendPet = v.findViewById(R.id.btnSendLostPet)
-        /*petLat = v.findViewById(R.id.petLostLat)
-        petLong = v.findViewById(R.id.petLostLong)*/
 
         return v
     }
@@ -77,8 +73,6 @@ class PetLost : Fragment() {
             var sex = petSex.text.toString()
             var coat = petCoat.text.toString()
             var eyeColor = petEyeColor.text.toString()
-            /*var lat = petLat.text.toString()
-            var long = petLong.text.toString()*/
 
             database = Firebase.database.reference
 
@@ -91,18 +85,8 @@ class PetLost : Fragment() {
     fun registerPet(name:String, type:String, size:String, sex:String, coat:String, eyeColor:String):Unit{
         val user = UserRepository().getRandomUser()
         val pet = Pet(name, type, size, sex, coat, eyeColor)
-        /*val data = hashMapOf(
-            "name" to name,
-            "type" to type,
-            "size" to size,
-            "sex" to sex,
-            "coat" to coat,
-            "eyeColor" to eyeColor,
-            *//*"lat" to lat,
-            "long" to long*//*
-        )*/
-        val petRequest = LostPetRequest(pet, State.OPEN, Calendar.getInstance().time,null,null, user,null, null)
-        db.collection("petsLost").document().set(pet)
+        val petRequest = LostPetRequest(pet, State.OPEN, Calendar.getInstance().time,null,null, user,null)
+        db.collection("pets").document().set(pet)
         var action = PetLostDirections.actionPetLostToPetLostSearchSimilarities(petRequest)
         v.findNavController().navigate(action);
     }

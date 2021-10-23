@@ -40,7 +40,7 @@ class PetAdapter(private var requestList: MutableList<FoundPetRequest>,
     override fun onBindViewHolder(holder: PetHolder, position: Int) {
         val petRequest = requestList[position]
         val pet = petRequest.pet
-        holder.setName(pet.name)
+        pet.name?.let { holder.setName(it) }
         /*holder.setPicture(pet.pictureUrl)
         holder.setState(pet.state)*/
         holder.getCardLayout().setOnClickListener {
