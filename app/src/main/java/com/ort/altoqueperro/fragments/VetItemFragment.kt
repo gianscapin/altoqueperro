@@ -59,8 +59,8 @@ class VetItemFragment : Fragment() {
 
         println(vetData.coordinates?.latitude.toString()+" "+vetData.coordinates?.longitude.toString())
         var distance = 0
-        if(vetData.coordinates?.latitude != null){
-            distance = ServiceLocation.getDistance(LatLng(vetData.coordinates?.latitude!!,vetData.coordinates?.longitude!!)).roundToInt()
+        if(vetData.coordinates != null){
+            distance = ServiceLocation.getDistance(vetData.coordinates!!).roundToInt()
         }
         //neighborhood.text = vetData.neighborhood
         distancia.text = distance.toString()+" mts."

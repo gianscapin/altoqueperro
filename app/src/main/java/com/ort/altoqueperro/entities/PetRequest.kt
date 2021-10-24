@@ -5,8 +5,10 @@ import android.os.Parcelable
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
+import com.google.firebase.firestore.GeoPoint
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 import java.util.*
 
 @Parcelize
@@ -15,8 +17,7 @@ open class PetRequest(
     var state: Int,
     var creationDate: Date,
     var resolvedDate: Date?,
-    @get:Exclude
-    var coordinates: LatLng?,
+    var coordinates: Coordinates?,
     var requestCreator: String,
     var requestConsumer: String?
 ) : Parcelable {

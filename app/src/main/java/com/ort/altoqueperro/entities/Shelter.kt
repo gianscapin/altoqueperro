@@ -9,8 +9,7 @@ import kotlinx.parcelize.Parcelize
 class Shelter(
     var name: String,
     var phoneNumber: String,
-    @get:Exclude
-    var coordinates: LatLng?,
+    var coordinates: Coordinates?,
     var imageUrl: String,
     var hoster: String
 ) :

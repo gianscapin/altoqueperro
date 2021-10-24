@@ -8,7 +8,7 @@ class FoundPetRequest(pet: Pet,
                       state: Int,
                       creationDate: Date,
                       resolvedDate: Date?,
-                      coordinates: LatLng?,
+                      coordinates: Coordinates?,
                       requestCreator: String,
                       requestConsumer: String?,
                       rescueCenter: String?)

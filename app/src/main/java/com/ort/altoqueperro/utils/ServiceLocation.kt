@@ -1,22 +1,27 @@
 package com.ort.altoqueperro.utils
 
 import android.location.Location
-import com.google.android.gms.maps.model.LatLng
-import com.ort.altoqueperro.fragments.NewMapModeFragment
+import com.google.firebase.firestore.GeoPoint
+import com.ort.altoqueperro.entities.Coordinates
+
 object ServiceLocation {
+    var location:Location = Location("null")
     init {
         println("Singleton class invoked.")
     }
-    fun getLocation(): LatLng? {
-        if (!NewMapModeFragment.currentLocation.provider.equals("null")) {
-            return LatLng(
-                NewMapModeFragment.currentLocation.latitude,
-                NewMapModeFragment.currentLocation.longitude
+    fun getLocation(): Coordinates? {
+        if (!location.provider.equals("null")) {
+            return Coordinates(
+                location.latitude,
+                location.longitude
             )
         }
         return null
     }
-    fun getDistance(to:LatLng):Float{
+    fun getDistance(to:Coordinates?):Float{
+        if (to == null) {
+            return 0f
+        }
         //retorna distancia en metros
         val from = Location("")
         var latlng = getLocation()

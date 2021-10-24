@@ -8,6 +8,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.Vet
+import com.ort.altoqueperro.utils.ServiceLocation
+import kotlin.math.roundToInt
 
 class VetListAdapter(private var vetList : MutableList<Vet>,
                      val onVetClick: (Vet) -> Unit
@@ -24,7 +26,11 @@ class VetListAdapter(private var vetList : MutableList<Vet>,
 
         fun setData (vet:Vet) {
            // neighborhood.text = vet.neighborhood
-            distancia.text = "100 mts."
+            var distance = 0
+            if(vet.coordinates != null){
+                distance = ServiceLocation.getDistance(vet.coordinates!!).roundToInt()
+            }
+            distancia.text = distance.toString()+" mts."
             txtname.text = vet.name
             //address.text = vet.street + " " + vet.streetNumber
             phone.text = vet.phone
