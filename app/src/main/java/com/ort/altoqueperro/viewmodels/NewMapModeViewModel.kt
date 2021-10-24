@@ -71,16 +71,16 @@ class NewMapModeViewModel : ViewModel() {
             .addOnFailureListener { exception ->
                 println("Error getting documents: " + exception)
             }
+    }
 
-        fun getPetRequests(): MutableList<FoundPetRequest> {
-            var requests = RequestRepository().foundRequests
-            var i = 0
-            requests.forEach {
-                it.coordinates = LatLng(-34.609062, -58.427683 + (i * 0.001))
-                i++
-            }
-
-            return requests
+    fun getPetRequests(): MutableList<FoundPetRequest> {
+        var requests = RequestRepository().foundRequests
+        var i = 0
+        requests.forEach {
+            it.coordinates = LatLng(-34.609062, -58.427683 + (i * 0.001))
+            i++
         }
+
+        return requests
     }
 }
