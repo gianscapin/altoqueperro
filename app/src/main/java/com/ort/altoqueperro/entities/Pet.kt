@@ -13,7 +13,8 @@ class Pet(
     var coat: String,
     var eyeColor: String
 ) : Parcelable {
-    //ToDo cambiar el state a una clase? o usar los requests
+
+    constructor() : this("", "", "", "", "", "")
 
     fun compareTo(other: Pet): Int {
         var currentScore = 0
@@ -23,6 +24,6 @@ class Pet(
             if (coat == other.coat) currentScore += score.coat
             if (eyeColor == other.eyeColor) currentScore += score.eyeColor
         }
-        return currentScore;
+        return currentScore
     }
 }

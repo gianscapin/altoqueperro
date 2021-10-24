@@ -1,20 +1,26 @@
 package com.ort.altoqueperro.entities
 
-import java.io.Serializable
+import android.os.Parcelable
+import com.google.android.gms.maps.model.LatLng
+import com.google.firebase.firestore.Exclude
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 class Vet (
-    var id:String,
     var name:String,
-    var latitude:Double,
-    var longitude:Double,
-    var neighborhood:String,
+    @get:Exclude
+    var coordinates : LatLng?,
+    //var neighborhood:String,
     var phone:String,
-    var street:String,
-    var streetNumber:String,
+    //var street:String,
+    //var streetNumber:String,
     var description: String?,
     var businessHours:String,
-    var logoURL: String?,
-    var city:String,
-    var country:String
-) : Serializable {
+    var imageUrl: String?,
+    //var city:String,
+    //var country:String
+) : Parcelable {
+
+    constructor():this("",null,"", "", "", "")
+
 }

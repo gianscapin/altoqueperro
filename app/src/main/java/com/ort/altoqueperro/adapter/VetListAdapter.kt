@@ -3,11 +3,9 @@ package com.ort.altoqueperro.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.Vet
 
@@ -25,10 +23,10 @@ class VetListAdapter(private var vetList : MutableList<Vet>,
         //var logo: ImageView = view.findViewById(R.id.neighborhood)
 
         fun setData (vet:Vet) {
-            neighborhood.text = vet.neighborhood
+           // neighborhood.text = vet.neighborhood
             distancia.text = "100 mts."
             txtname.text = vet.name
-            address.text = vet.street + " " + vet.streetNumber
+            //address.text = vet.street + " " + vet.streetNumber
             phone.text = vet.phone
             businesshour.text = vet.businessHours
           //  Glide.with(view.context).load(vet.logoURL).into(logo)
