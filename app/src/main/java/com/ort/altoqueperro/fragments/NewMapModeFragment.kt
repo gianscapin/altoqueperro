@@ -33,11 +33,11 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
     ActivityCompat.OnRequestPermissionsResultCallback {
 
     private lateinit var map:GoogleMap
-    private var permissionDenied = false
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private lateinit var currentLocation: Location
 
     companion object {
+        var currentLocation = Location("null")
+        var permissionDenied = false
         fun newInstance() = NewMapModeFragment()
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }

@@ -9,7 +9,8 @@ import kotlinx.parcelize.Parcelize
 class Vet (
     var name:String,
     @get:Exclude
-    var coordinates : LatLng?,
+    var coordinates: LatLng?,
+
     //var neighborhood:String,
     var phone:String,
     //var street:String,
