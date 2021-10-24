@@ -8,9 +8,10 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.FoundPetRequest
+import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.PetRequest
 
-class PetAdapter(private var requestList: MutableList<FoundPetRequest>,
+class PetAdapter(private var requestList: MutableList<LostPetRequest>,
                  val onPetClick: (PetRequest) -> Unit
 ) : RecyclerView.Adapter <PetAdapter.PetHolder>() {
     class PetHolder(v: View): RecyclerView.ViewHolder(v) {
@@ -19,6 +20,11 @@ class PetAdapter(private var requestList: MutableList<FoundPetRequest>,
         fun setName(title: String){
             val txt: TextView = view.findViewById(R.id.txtPetFoundItemScore)
             txt.text = title
+        }
+
+        fun setDistance(distance: String){
+            val txt: TextView = view.findViewById(R.id.txtPetFoundItemDesc)
+            txt.text = distance
         }
 
         /*fun setPicture(url: String){
@@ -41,8 +47,8 @@ class PetAdapter(private var requestList: MutableList<FoundPetRequest>,
         val petRequest = requestList[position]
         val pet = petRequest.pet
         pet.name?.let { holder.setName(it) }
-        /*holder.setPicture(pet.pictureUrl)
-        holder.setState(pet.state)*/
+        holder.setDistance(petRequest.coordinates.toString())
+        //holder.setState(pet.state)*/
         holder.getCardLayout().setOnClickListener {
             onPetClick(petRequest)
         }

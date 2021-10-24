@@ -49,11 +49,11 @@ class LostPetItemFragment : Fragment() {
 
         if (lostPetData != null){
             lostPetName.text = lostPetData.pet.name
-            lostPetState.text = lostPetData.requestCreator.toString()
+           // lostPetState.text = lostPetData.requestCreator.toString()
 
         }else if (lostPetScore != null){
             lostPetName.text = lostPetScore.score.toString()
-            lostPetState.text = lostPetScore.request?.requestCreator.toString()
+            //lostPetState.text = lostPetScore.request?.requestCreator.toString()
 
         }
 

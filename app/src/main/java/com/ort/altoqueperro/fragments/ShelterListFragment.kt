@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,13 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.adapter.ShelterListAdapter
 import com.ort.altoqueperro.entities.Shelter
-import com.ort.altoqueperro.repos.ShelterRepository
 import com.ort.altoqueperro.viewmodels.ShelterListViewModel
 
 class ShelterListFragment : Fragment() {
     lateinit var v: View
     private lateinit var recShelters : RecyclerView
-    var shelterRepository : ShelterRepository = ShelterRepository()
 
     companion object {
         fun newInstance() = ShelterListFragment()
@@ -39,13 +38,18 @@ class ShelterListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         listViewModel = ViewModelProvider(this).get(ShelterListViewModel::class.java)
         // TODO: Use the ViewModel
+        listViewModel.sheltersRepository.observe(viewLifecycleOwner, Observer {
+
+            recShelters.adapter = ShelterListAdapter(listViewModel.sheltersRepository.value!!){ onShelterClick(it)}
+        })
     }
 
     override fun onStart() {
         super.onStart()
         recShelters.setHasFixedSize(true)
         recShelters.layoutManager = LinearLayoutManager(context)
-        recShelters.adapter = ShelterListAdapter(shelterRepository.shelters){ onShelterClick(it)}
+        listViewModel.getShelters()
+        //recShelters.adapter = ShelterListAdapter(shelterRepository.shelters){ onShelterClick(it)}
     }
 
     fun onShelterClick(shelter : Shelter){

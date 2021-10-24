@@ -1,12 +1,13 @@
 package com.ort.altoqueperro.fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +17,6 @@ import com.ort.altoqueperro.adapter.SimilarPetsAdapter
 import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.entities.PetScore
-import com.ort.altoqueperro.repos.RequestRepository
 import com.ort.altoqueperro.viewmodels.PetFoundSearchSimilaritiesViewModel
 
 class PetFoundSearchSimilarities : Fragment() {
@@ -26,7 +26,6 @@ class PetFoundSearchSimilarities : Fragment() {
     }
 
     private lateinit var viewModel: PetFoundSearchSimilaritiesViewModel
-    var requestRepository : RequestRepository = RequestRepository()
     private lateinit var recSimilarPets: RecyclerView
     private lateinit var noResult: Button
     private lateinit var v: View
@@ -45,12 +44,13 @@ class PetFoundSearchSimilarities : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(PetFoundSearchSimilaritiesViewModel::class.java)
         // TODO: Use the ViewModel
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         val petRequestData = PetFoundSearchSimilaritiesArgs.fromBundle(requireArguments()).petRequest
-        recSimilarPets.adapter = SimilarPetsAdapter(lookForSimilarities(petRequestData)){onSimilarPetsClick(it)}
+        viewModel.getPosibleMatches(petRequestData)
+        viewModel.petRepository.observe(viewLifecycleOwner, Observer {
+
+            recSimilarPets.adapter = SimilarPetsAdapter(viewModel.petRepository.value!!) { onSimilarPetsClick(it) }
+
+        })
     }
 
     override fun onStart() {
@@ -71,35 +71,36 @@ class PetFoundSearchSimilarities : Fragment() {
         v.findNavController().navigate(action);
     }
 
-    fun lookForSimilarities(petRequest: PetRequest): MutableList<PetScore> {
-        val petFound = petRequest.pet //esto desp no va
+    /** DEJO ESTO PORLAS PERO MOVÍ LA LÓGICA AL "compareTo" DE LOS REQUESTS Y PETS**/
+    /* fun lookForSimilarities(petRequest: PetRequest): MutableList<PetScore> {
+         val petFound = petRequest.pet //esto desp no va
 
-        val similarPetsLost: MutableList<PetScore> = mutableListOf()
-        var minScoreValue = 100
-        var currentScore: Int
+         val similarPetsLost: MutableList<PetScore> = mutableListOf()
+         var minScoreValue = 100
+         var currentScore: Int
 
-        for (request in requestRepository.lostRequests) {
-            println(request.pet.name)
-            if (request.pet.type == petFound.type) {
-                if (similarPetsLost.count() < 3) { //debería hacerse while
-                    /**        petRequest.comparePetTo(pet)  esta sería la función para comparar mascostas más adelante**/
-                    currentScore = calculateScore(request.pet, petFound)
-                    similarPetsLost.add(PetScore(request, currentScore)) //sacar el pet después. pongo request en null para hace más fácil
-                    if (currentScore < minScoreValue ) {
-                        minScoreValue = currentScore
-                    }
-                } else {
-                    println(request.pet.name)
-                    currentScore = calculateScore(request.pet, petFound)
-                    if (currentScore > minScoreValue ) {
-                        similarPetsLost.add(PetScore(request, currentScore))
-                        similarPetsLost.remove(similarPetsLost.first { unit -> unit.request!! == request })
-                    }
-                }
-            }
-        }
-        return similarPetsLost
-    }
+         for (request in requestRepository.lostRequests) {
+             println(request.pet.name)
+             if (request.pet.type == petFound.type) {
+                 if (similarPetsLost.count() < 3) { //debería hacerse while
+                     /**        petRequest.comparePetTo(pet)  esta sería la función para comparar mascostas más adelante**/
+                     currentScore = calculateScore(request.pet, petFound)
+                     similarPetsLost.add(PetScore(request, currentScore)) //sacar el pet después. pongo request en null para hace más fácil
+                     if (currentScore < minScoreValue ) {
+                         minScoreValue = currentScore
+                     }
+                 } else {
+                     println(request.pet.name)
+                     currentScore = calculateScore(request.pet, petFound)
+                     if (currentScore > minScoreValue ) {
+                         similarPetsLost.add(PetScore(request, currentScore))
+                         similarPetsLost.remove(similarPetsLost.first { unit -> unit.request!! == request })
+                     }
+                 }
+             }
+         }
+         return similarPetsLost
+     }
 
     fun calculateScore(pet: Pet, petLost: Pet): Int {
         var finalScore: Int = 0
@@ -116,6 +117,6 @@ class PetFoundSearchSimilarities : Fragment() {
             finalScore = finalScore + MainActivity.score.eyeColor
         }
         return finalScore
-    }
+    }*/
 
 }

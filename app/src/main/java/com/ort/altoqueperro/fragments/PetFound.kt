@@ -1,26 +1,24 @@
 package com.ort.altoqueperro.fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.FoundPetRequest
-import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.entities.State
-import com.ort.altoqueperro.repos.UserRepository
 import com.ort.altoqueperro.viewmodels.PetFoundViewModel
-import com.ort.altoqueperro.viewmodels.PetLostViewModel
 import java.util.*
 
 class PetFound : Fragment() {
@@ -40,7 +38,6 @@ class PetFound : Fragment() {
     private lateinit var viewModel: PetFoundViewModel
 
     val db = Firebase.firestore
-    private lateinit var database: DatabaseReference
 
 
     override fun onCreateView(
@@ -74,7 +71,6 @@ class PetFound : Fragment() {
             var coat = petCoat.text.toString()
             var eyeColor = petEyeColor.text.toString()
 
-            database = Firebase.database.reference
 
             if (type.isNotEmpty() && size.isNotEmpty() && sex.isNotEmpty() && coat.isNotEmpty() && eyeColor.isNotEmpty()) {
                 registerPet(type, size, sex, coat, eyeColor)
@@ -83,10 +79,10 @@ class PetFound : Fragment() {
     }
 
     fun registerPet(type:String, size:String, sex:String, coat:String, eyeColor:String):Unit{
-        val user = UserRepository().getRandomUser()
+        val user = Firebase.auth.currentUser
         val pet = Pet(null, type, size, sex, coat, eyeColor)
-        val petRequest = FoundPetRequest(pet, State.OPEN, Calendar.getInstance().time,null,null, user,null)
-        db.collection("pets").document().set(pet)
+        val petRequest = FoundPetRequest(pet, State.OPEN.ordinal, Calendar.getInstance().time,null,null, user!!.uid,null,null)
+        db.collection("foundPetRequests").document().set(petRequest)
         var action = PetFoundDirections.actionPetFoundToPetFoundSearchSimilarities(petRequest)
         v.findNavController().navigate(action);
     }

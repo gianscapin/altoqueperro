@@ -41,7 +41,7 @@ override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShelterHolder
 override fun onBindViewHolder(holder: ShelterHolder, position: Int) {
     val shelter = shelterList[position]
     holder.setName(shelter.name)
-    holder.setPicture(shelter.logoUrl)
+    holder.setPicture(shelter.imageUrl)
     holder.getCardLayout().setOnClickListener {
         onShelterClick(shelter)
     }

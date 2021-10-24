@@ -5,7 +5,7 @@ import com.ort.altoqueperro.entities.Vet
 class VetRepository {
     fun getAllVets(): MutableList<Vet> {
 
-        return mutableListOf(
+        return mutableListOf(/*
             Vet(
                 "v1",
                 "Hers Pet",
@@ -37,6 +37,6 @@ class VetRepository {
                 "Argentina"
             )
 
-        )
+        */)
     }
 }

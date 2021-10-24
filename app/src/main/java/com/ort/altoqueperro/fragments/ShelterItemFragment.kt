@@ -1,16 +1,15 @@
 package com.ort.altoqueperro.fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.entities.Shelter
 import com.ort.altoqueperro.viewmodels.ShelterItemViewModel
 
 class ShelterItemFragment : Fragment() {
@@ -49,9 +48,9 @@ class ShelterItemFragment : Fragment() {
         val shelterData = ShelterItemFragmentArgs.fromBundle(requireArguments()).shelterData
 
         shelterName.text = shelterData.name
-        shelterAddress.text = shelterData.address.getFormattedAddress()
+        //shelterAddress.text = shelterData.address.getFormattedAddress()
         shelterPhoneNumber.text = shelterData.phoneNumber
-        Glide.with(view.context).load(shelterData.logoUrl).into(shelterImage)
+        Glide.with(view.context).load(shelterData.imageUrl).into(shelterImage)
 
     }
 

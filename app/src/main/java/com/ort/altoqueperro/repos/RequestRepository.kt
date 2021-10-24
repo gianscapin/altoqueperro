@@ -18,22 +18,23 @@ class RequestRepository {
             foundRequests.add(
                 FoundPetRequest(
                     it,
-                    State.OPEN,
+                    State.OPEN.ordinal,
                     Calendar.getInstance().time,
                     null,
                     null,
-                    UserRepository().getRandomUser(),
+                    UserRepository().getRandomUser().toString(),
+                    null,
                     null
                 )
             )
             lostRequests.add(
                 LostPetRequest(
                     it,
-                    State.OPEN,
+                    State.OPEN.ordinal,
                     Calendar.getInstance().time,
                     null,
                     null,
-                    UserRepository().getRandomUser(),
+                    UserRepository().getRandomUser().toString(),
                     null
                 )
             )
