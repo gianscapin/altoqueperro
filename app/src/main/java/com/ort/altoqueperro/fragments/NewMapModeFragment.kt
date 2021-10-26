@@ -3,6 +3,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.map
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -22,9 +26,13 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.adapter.PetAdapter
 import com.ort.altoqueperro.entities.FoundPetRequest
+import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.utils.PermissionUtils.isPermissionGranted
 import com.ort.altoqueperro.utils.PermissionUtils.requestPermission
+import com.ort.altoqueperro.utils.ServiceLocation
+import com.ort.altoqueperro.utils.ServiceLocationGet
 import com.ort.altoqueperro.viewmodels.NewMapModeViewModel
 
 
@@ -34,8 +42,8 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
 
     private lateinit var map:GoogleMap
     private var permissionDenied = false
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private lateinit var currentLocation: Location
+    lateinit var serviceLocationGet: ServiceLocationGet
+    var firstRun = true
 
     companion object {
         fun newInstance() = NewMapModeFragment()
@@ -51,14 +59,27 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
         var v:View = inflater.inflate(R.layout.new_map_mode_fragment, container, false)
         var mapFragment: SupportMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
+        serviceLocationGet = ServiceLocationGet(requireActivity()) {
+            if (firstRun) {
+                firstRun = false
+                map.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        LatLng(
+                            ServiceLocation.location.latitude,
+                            ServiceLocation.location.longitude
+                        ), 17.0f
+                    )
+                )
+            } else {
+                println("Se actualiza la posicion")
+            }
+        }
         return v
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(NewMapModeViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -66,15 +87,19 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
         enableMyLocation()
-        loadMarkers(viewModel.getPetRequests())
-    }
-    fun loadMarkers(requests: MutableList<FoundPetRequest>) {
-        map.clear()
-        requests.forEach {
-            var marker: MarkerOptions = MarkerOptions().position(it.coordinates).title(it.pet.name).icon(
-                BitmapDescriptorFactory.fromResource(R.drawable.dow_paw))
-            map.addMarker(marker)
-        }
+        viewModel.getLostPets()
+        viewModel.petRepository.observe(this, Observer {
+            map.clear()
+            it.forEach {
+                if (it.coordinates!=null) {
+                    var marker: MarkerOptions =
+                        MarkerOptions().position(it.coordinates!!.getLatLng()).title(it.pet.name).icon(
+                            BitmapDescriptorFactory.fromResource(R.drawable.dow_paw)
+                        )
+                    map.addMarker(marker)
+                }
+            }
+        })
     }
 
     private fun gotoMyLocation() {
@@ -89,13 +114,6 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
             Toast.makeText(this.requireContext(),"Permiso de acceso denegado",Toast.LENGTH_LONG)
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(-34.6090638,-58.4289158), 17.0f))
             return
-        }
-        val task = fusedLocationProviderClient.lastLocation
-        task.addOnSuccessListener { location ->
-            if (location != null) {
-                currentLocation = location
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(currentLocation.latitude,currentLocation.longitude), 17.0f))
-            }
         }
     }
 
@@ -116,13 +134,6 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
             )
         }
         gotoMyLocation()
-    }
-    private fun createMarker() {
-        map.clear()
-        var coordinates = LatLng(-34.6209926,-58.426453)
-        var marker:MarkerOptions = MarkerOptions().position(coordinates).title("La casa de Maia")
-        map.addMarker(marker)
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 17.0f))
     }
 
     override fun onMyLocationButtonClick(): Boolean {

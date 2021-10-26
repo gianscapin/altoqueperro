@@ -1,6 +1,6 @@
 package com.ort.altoqueperro.entities
 
-import com.google.android.gms.maps.model.LatLng
+import com.google.firebase.firestore.GeoPoint
 import java.util.*
 
 class LostPetRequest(
@@ -8,7 +8,7 @@ class LostPetRequest(
     state: Int,
     creationDate: Date,
     resolvedDate: Date?,
-    coordinates: LatLng?,
+    coordinates: Coordinates?,
     requestCreator: String,
     requestConsumer: String?)
     : PetRequest(pet, state, creationDate, resolvedDate, coordinates, requestCreator, requestConsumer) {

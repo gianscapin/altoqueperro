@@ -6,18 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.Coordinates
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.entities.State
+import com.ort.altoqueperro.utils.ServiceLocation
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
 import java.util.*
 
@@ -75,18 +80,30 @@ class PetLost : Fragment() {
             var eyeColor = petEyeColor.text.toString()
 
             database = Firebase.database.reference
-
-            if(name.isNotEmpty() && type.isNotEmpty() && size.isNotEmpty() && sex.isNotEmpty() && coat.isNotEmpty() && eyeColor.isNotEmpty()){
-                registerPet(name, type, size, sex, coat, eyeColor)
+            if (ServiceLocation.location.provider.equals("null")) {
+                Toast.makeText(activity,"No hemos podido determinar su ubicación",Toast.LENGTH_LONG)
+            } else {
+                if (name.isNotEmpty() && type.isNotEmpty() && size.isNotEmpty() && sex.isNotEmpty() && coat.isNotEmpty() && eyeColor.isNotEmpty()) {
+                    registerPet(
+                        name,
+                        type,
+                        size,
+                        sex,
+                        coat,
+                        eyeColor,
+                        ServiceLocation.getLocation()
+                    )
+                }
             }
         }
     }
 
-    fun registerPet(name:String, type:String, size:String, sex:String, coat:String, eyeColor:String) {
+    fun registerPet(name:String, type:String, size:String, sex:String, coat:String, eyeColor:String, location:Coordinates?):Unit {
         val user = Firebase.auth.currentUser
         val pet = Pet(name, type, size, sex, coat, eyeColor)
 
-        val petRequest = LostPetRequest(pet,State.OPEN.ordinal, Calendar.getInstance().time,null,null, user!!.uid,null)
+        println(location)
+        val petRequest = LostPetRequest(pet,State.OPEN.ordinal, Calendar.getInstance().time,null,location, user!!.uid,null)
         db.collection("lostPetRequests").document().set(petRequest)
 
         var action = PetLostDirections.actionPetLostToPetLostSearchSimilarities(petRequest)
