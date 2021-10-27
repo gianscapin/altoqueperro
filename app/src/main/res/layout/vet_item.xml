@@ -22,7 +22,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="3dp"
             android:text="Villa Urquiza"
-            app:layout_constraintBottom_toTopOf="@+id/txtname"
+            app:layout_constraintBottom_toTopOf="@+id/txtVetName"
             app:layout_constraintEnd_toStartOf="@+id/distancia"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,13 +33,13 @@
             android:layout_height="25dp"
             android:layout_marginTop="8dp"
             android:gravity="end"
-            app:layout_constraintBottom_toTopOf="@+id/txtname"
+            app:layout_constraintBottom_toTopOf="@+id/txtVetName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/neighborhood"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtname"
+            android:id="@+id/txtVetName"
             android:layout_width="277dp"
             android:layout_height="35dp"
             android:layout_marginEnd="8dp"
@@ -48,7 +48,7 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/address"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/logo"
+            app:layout_constraintStart_toEndOf="@+id/txtVetLogo"
             app:layout_constraintTop_toBottomOf="@+id/distancia" />
 
         <TextView
@@ -56,25 +56,25 @@
             android:layout_width="277dp"
             android:layout_height="23dp"
             android:text="Av. Olazabal 4341"
-            app:layout_constraintBottom_toTopOf="@+id/phone"
+            app:layout_constraintBottom_toTopOf="@+id/txtVetPhoneNumber"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.23"
-            app:layout_constraintStart_toEndOf="@+id/logo"
-            app:layout_constraintTop_toBottomOf="@+id/txtname" />
+            app:layout_constraintStart_toEndOf="@+id/txtVetLogo"
+            app:layout_constraintTop_toBottomOf="@+id/txtVetName" />
 
         <TextView
-            android:id="@+id/phone"
+            android:id="@+id/txtVetPhoneNumber"
             android:layout_width="131dp"
             android:layout_height="22dp"
             android:layout_marginBottom="6dp"
             android:text="Tel: 4932-1234"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/businesshour"
-            app:layout_constraintStart_toEndOf="@+id/logo"
+            app:layout_constraintEnd_toStartOf="@+id/txtVetBusinessHours"
+            app:layout_constraintStart_toEndOf="@+id/txtVetLogo"
             app:layout_constraintTop_toBottomOf="@+id/address" />
 
         <TextView
-            android:id="@+id/businesshour"
+            android:id="@+id/txtVetBusinessHours"
             android:layout_width="141dp"
             android:layout_height="23dp"
             android:layout_marginEnd="15dp"
@@ -83,12 +83,12 @@
             android:text="Horarios: L a L 24 hs"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/phone"
+            app:layout_constraintStart_toEndOf="@+id/txtVetPhoneNumber"
             app:layout_constraintTop_toBottomOf="@+id/address"
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
-            android:id="@+id/logo"
+            android:id="@+id/txtVetLogo"
             android:layout_width="74dp"
             android:layout_height="69dp"
             android:layout_marginTop="6dp"
@@ -96,8 +96,8 @@
             android:layout_marginBottom="12dp"
             android:background="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/txtname"
-            app:layout_constraintStart_toEndOf="@+id/txtname"
+            app:layout_constraintEnd_toStartOf="@+id/txtVetName"
+            app:layout_constraintStart_toEndOf="@+id/txtVetName"
             app:layout_constraintTop_toBottomOf="@+id/neighborhood"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/atp_logo" />

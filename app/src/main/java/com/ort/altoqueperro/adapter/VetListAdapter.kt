@@ -18,10 +18,10 @@ class VetListAdapter(private var vetList : MutableList<Vet>,
         var view: View = v
         var neighborhood:TextView = view.findViewById(R.id.neighborhood)
         var distancia: TextView = view.findViewById(R.id.distancia)
-        var txtname: TextView = view.findViewById(R.id.txtname)
+        var txtname: TextView = view.findViewById(R.id.txtVetName)
         var address: TextView = view.findViewById(R.id.address)
-        var phone: TextView = view.findViewById(R.id.phone)
-        var businesshour: TextView = view.findViewById(R.id.businesshour)
+        var phone: TextView = view.findViewById(R.id.txtVetPhoneNumber)
+        var businesshour: TextView = view.findViewById(R.id.txtVetBusinessHours)
         //var logo: ImageView = view.findViewById(R.id.neighborhood)
 
         fun setData (vet:Vet) {
