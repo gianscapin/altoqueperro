@@ -18,8 +18,8 @@ class ShelterListAdapter(private var shelterList : MutableList<Shelter>,
     private var view: View = v
 
     fun setName(title: String){
-        val txt: TextView = view.findViewById(R.id.txtShelterItemName)
-        txt.text = title
+        val shelterName: TextView = view.findViewById(R.id.txtShelterItemName)
+        shelterName.text = title
     }
 
     fun setPicture(url: String){

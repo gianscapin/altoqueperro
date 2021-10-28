@@ -101,7 +101,7 @@
     <fragment
         android:id="@+id/shelterItemFragment"
         android:name="com.ort.altoqueperro.fragments.ShelterItemFragment"
-        android:label="vet_item_fragment"
+        android:label="shelter_item_fragment"
         tools:layout="@layout/vet_item_fragment" >
         <argument
             android:name="shelterData"

@@ -14,9 +14,13 @@ import com.ort.altoqueperro.viewmodels.LostPetItemViewModel
 
 class LostPetItemFragment : Fragment() {
     lateinit var v: View
-    lateinit var lostPetName: TextView
-    lateinit var lostPetState: TextView
     lateinit var lostPetImage: ImageView
+    lateinit var lostPetName: TextView
+    lateinit var lostPetType: TextView
+    lateinit var lostPetSize: TextView
+    lateinit var lostPetSex: TextView
+    lateinit var lostPetCoat: TextView
+    lateinit var lostPetEyeColor: TextView
 
     companion object {
         fun newInstance() = LostPetItemFragment()
@@ -29,9 +33,13 @@ class LostPetItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         v = inflater.inflate(R.layout.pet_item_fragment, container, false)
-        lostPetName = v.findViewById(R.id.txtPetName)
-        lostPetState = v.findViewById(R.id.txtPetState)
         lostPetImage = v.findViewById(R.id.imagePetDetail)
+        lostPetName = v.findViewById(R.id.txtPetName)
+        lostPetType = v.findViewById(R.id.txtPetType)
+        lostPetSize = v.findViewById(R.id.txtPetSize)
+        lostPetSex = v.findViewById(R.id.txtPetSex)
+        lostPetCoat = v.findViewById(R.id.txtPetCoat)
+        lostPetEyeColor = v.findViewById(R.id.txtPetEyeColor)
 
         return  v
     }
@@ -49,6 +57,11 @@ class LostPetItemFragment : Fragment() {
 
         if (lostPetData != null){
             lostPetName.text = lostPetData.pet.name
+            lostPetType.text = lostPetData.pet.type
+            lostPetSize.text = lostPetData.pet.size
+            lostPetSex.text = lostPetData.pet.sex
+            lostPetCoat.text = lostPetData.pet.coat
+            lostPetEyeColor.text = lostPetData.pet.eyeColor
            // lostPetState.text = lostPetData.requestCreator.toString()
 
         }else if (lostPetScore != null){
