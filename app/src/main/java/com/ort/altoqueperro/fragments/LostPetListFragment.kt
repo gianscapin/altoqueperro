@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.adapter.MyFoundPetAdapter
 import com.ort.altoqueperro.adapter.MyPetAdapter
 import com.ort.altoqueperro.adapter.PetAdapter
 import com.ort.altoqueperro.entities.PetRequest
@@ -46,9 +47,11 @@ class LostPetListFragment : Fragment() {
         listViewModel.petRepository.observe(viewLifecycleOwner, Observer {
             listViewModel.distribute()
             recLostPets.adapter = PetAdapter(listViewModel.othersLostPets!!) { onLostPetClick(it) }
-            recOwnFoundPets.adapter= MyPetAdapter(listViewModel.myFoundPets!!) { onLostPetClick(it) }
             recOwnLostPets.adapter= MyPetAdapter(listViewModel.myLostPets!!) { onLostPetClick(it) }
 
+        })
+        listViewModel.foundPetRepository.observe(viewLifecycleOwner, Observer {
+            recOwnFoundPets.adapter= MyFoundPetAdapter(listViewModel.foundPetRepository.value!!) { onLostPetClick(it) }
         })
     }
 
@@ -61,6 +64,7 @@ class LostPetListFragment : Fragment() {
         recOwnFoundPets.setHasFixedSize(false)
         recOwnFoundPets.layoutManager = LinearLayoutManager(context)
         listViewModel.getLostPets()
+        listViewModel.getOwnFoundPets()
     }
 
     fun onLostPetClick(lostPet: PetRequest) {
