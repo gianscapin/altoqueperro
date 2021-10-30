@@ -11,12 +11,15 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.adapter.MyPetAdapter
 import com.ort.altoqueperro.adapter.PetAdapter
 import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.viewmodels.LostPetListViewModel
 
 class LostPetListFragment : Fragment() {
     lateinit var v: View
+    private lateinit var recOwnLostPets: RecyclerView
+    private lateinit var recOwnFoundPets: RecyclerView
     private lateinit var recLostPets: RecyclerView
 
     companion object {
@@ -31,6 +34,8 @@ class LostPetListFragment : Fragment() {
     ): View {
         v = inflater.inflate(R.layout.pet_list_fragment, container, false)
         recLostPets = v.findViewById(R.id.recylcer_view_petList)
+        recOwnLostPets = v.findViewById(R.id.recylcer_view_ownLostPetList)
+        recOwnFoundPets = v.findViewById(R.id.recylcer_view_ownFoundPetList)
         return v
     }
 
@@ -39,16 +44,22 @@ class LostPetListFragment : Fragment() {
         listViewModel = ViewModelProvider(this).get(LostPetListViewModel::class.java)
         // TODO: Use the ViewModel
         listViewModel.petRepository.observe(viewLifecycleOwner, Observer {
-
-            recLostPets.adapter = PetAdapter(listViewModel.petRepository.value!!) { onLostPetClick(it) }
+            listViewModel.distribute()
+            recLostPets.adapter = PetAdapter(listViewModel.othersLostPets!!) { onLostPetClick(it) }
+            recOwnFoundPets.adapter= MyPetAdapter(listViewModel.myFoundPets!!) { onLostPetClick(it) }
+            recOwnLostPets.adapter= MyPetAdapter(listViewModel.myLostPets!!) { onLostPetClick(it) }
 
         })
     }
 
     override fun onStart() {
         super.onStart()
-        recLostPets.setHasFixedSize(true)
+        recLostPets.setHasFixedSize(false)
         recLostPets.layoutManager = LinearLayoutManager(context)
+        recOwnLostPets.setHasFixedSize(false)
+        recOwnLostPets.layoutManager = LinearLayoutManager(context)
+        recOwnFoundPets.setHasFixedSize(false)
+        recOwnFoundPets.layoutManager = LinearLayoutManager(context)
         listViewModel.getLostPets()
     }
 
