@@ -24,7 +24,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.firebase.auth.FirebaseAuth
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.adapter.PetAdapter
 import com.ort.altoqueperro.entities.FoundPetRequest
@@ -83,6 +85,7 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
+        var idUserLogged = FirebaseAuth.getInstance().currentUser?.uid.toString()
         map = googleMap ?: return
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
@@ -92,9 +95,15 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
             map.clear()
             it.forEach {
                 if (it.coordinates!=null) {
+                    var bmp: BitmapDescriptor
+                    if (it.requestCreator==idUserLogged) {
+                        bmp = BitmapDescriptorFactory.fromResource(R.drawable.ownpaw)
+                    } else {
+                        bmp = BitmapDescriptorFactory.fromResource(R.drawable.dow_paw)
+                    }
                     var marker: MarkerOptions =
                         MarkerOptions().position(it.coordinates!!.getLatLng()).title(it.pet.name).icon(
-                            BitmapDescriptorFactory.fromResource(R.drawable.dow_paw)
+                            bmp
                         )
                     map.addMarker(marker)
                 }
