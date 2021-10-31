@@ -43,7 +43,11 @@
         android:id="@+id/newProfileUserFragment"
         android:name="com.ort.altoqueperro.fragments.NewProfileUserFragment"
         android:label="new_profile_user_fragment"
-        tools:layout="@layout/new_profile_user_fragment" />
+        tools:layout="@layout/new_profile_user_fragment" >
+        <action
+            android:id="@+id/action_newProfileUserFragment_to_changePassword"
+            app:destination="@id/changePassword" />
+    </fragment>
     <fragment
         android:id="@+id/newMapModeFragment"
         android:name="com.ort.altoqueperro.fragments.NewMapModeFragment"
@@ -185,5 +189,13 @@
         android:name="com.ort.altoqueperro.fragments.FoundPetItemFragment"
         android:label="found_pet_item_fragment"
         tools:layout="@layout/found_pet_item_fragment" />
+    <fragment
+        android:id="@+id/changePassword"
+        android:name="com.ort.altoqueperro.fragments.ChangePassword"
+        android:label="change_password_fragment"
+        tools:layout="@layout/change_password_fragment" >
+        <argument android:name="user"
+            app:argType="com.google.firebase.auth.FirebaseUser" />
+    </fragment>
 
 </navigation>
