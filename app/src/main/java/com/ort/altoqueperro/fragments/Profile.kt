@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -20,19 +22,21 @@ class Profile : Fragment() {
     }
 
     lateinit var nameUser:TextView
-    lateinit var mailUser:TextView
     lateinit var phoneUser: TextView
     lateinit var birthUser: TextView
+    lateinit var btnPassword: Button
     lateinit var v:View
-
     val db = Firebase.firestore
+    val user = Firebase.auth.currentUser
+    private lateinit var passwordUser:String
 
     private lateinit var name: String
-    private lateinit var mail: String
     private lateinit var phone: String
     private lateinit var birth: String
 
     private lateinit var viewModel: ProfileViewModel
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +45,10 @@ class Profile : Fragment() {
         v =  inflater.inflate(R.layout.profile_fragment, container, false)
 
         nameUser = v.findViewById(R.id.nameUser)
-        mailUser = v.findViewById(R.id.mailUser)
         phoneUser = v.findViewById(R.id.phoneUser)
         birthUser = v.findViewById(R.id.birthUser)
+        btnPassword = v.findViewById(R.id.btnChangePassword)
+
 
         return v
     }
@@ -57,28 +62,30 @@ class Profile : Fragment() {
     override fun onStart() {
         super.onStart()
 
+
         loadInfo()
+
+        btnPassword.setOnClickListener {
+        }
     }
 
-    fun loadInfo():Unit{
-
-        val user = Firebase.auth.currentUser
+    fun loadInfo(): Unit {
 
 
         val docRef = db.collection("users").document(user?.uid.toString())
 
         docRef.get().addOnSuccessListener {
             name = it.get("name").toString()
-            mail = it.get("email").toString()
             phone = it.get("phone").toString()
             birth = it.get("birth").toString()
 
             nameUser.text = name
-            mailUser.text = mail
             phoneUser.text = phone
             birthUser.text = birth
-        }
 
+            passwordUser= it.get("password").toString()
+
+        }
     }
 
 
