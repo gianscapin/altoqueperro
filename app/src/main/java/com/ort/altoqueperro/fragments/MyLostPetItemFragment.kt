@@ -15,8 +15,6 @@ import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.LostPetRequest
-import com.ort.altoqueperro.repos.RequestRepository
-import com.ort.altoqueperro.viewmodels.LostPetItemViewModel
 import com.ort.altoqueperro.viewmodels.MyLostPetItemViewModel
 
 class MyLostPetItemFragment : Fragment() {
@@ -37,7 +35,7 @@ class MyLostPetItemFragment : Fragment() {
     private lateinit var similarPetEyeColor: TextView
     private lateinit var similarPetCardView: CardView
     private lateinit var lostPetData: LostPetRequest
-    private lateinit var similarPetData: FoundPetRequest
+    private var similarPetData: FoundPetRequest? = null
     private lateinit var foundButton: Button
     private lateinit var notFoundButton: Button
 
@@ -117,12 +115,12 @@ class MyLostPetItemFragment : Fragment() {
             foundButton.text = "Era esta"
 
             foundButton.setOnClickListener {
-                lostPetData.nextStateConfirm(similarPetData)
+                lostPetData.nextStateConfirm(similarPetData!!)
                 saveAndBackToMenu()
             }
 
             notFoundButton.setOnClickListener {
-                lostPetData.nextStateCancel(similarPetData)
+                lostPetData.nextStateCancel(similarPetData!!)
                 saveAndBackToMenu()
             }
         }
