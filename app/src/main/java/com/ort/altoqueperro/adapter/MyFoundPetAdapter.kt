@@ -51,7 +51,6 @@ class MyFoundPetAdapter(private var requestList: MutableList<FoundPetRequest>,
         val pet = petRequest.pet
         pet.name?.let { holder.setName(it) }
         holder.setDistance(ServiceLocation.getDistance(petRequest.coordinates).roundToInt().toString()+" mts.")
-        //holder.setState(pet.state)*/
         holder.getCardLayout().setOnClickListener {
             onPetClick(petRequest)
         }

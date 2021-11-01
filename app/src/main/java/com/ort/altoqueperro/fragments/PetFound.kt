@@ -10,16 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.Pet
-import com.ort.altoqueperro.entities.State
 import com.ort.altoqueperro.viewmodels.PetFoundViewModel
-import java.util.*
 
 class PetFound : Fragment() {
 
@@ -43,7 +39,7 @@ class PetFound : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         v = inflater.inflate(R.layout.pet_found_fragment, container, false)
         petType = v.findViewById(R.id.petFoundType)
         petSize = v.findViewById(R.id.petFoundSize)
@@ -78,10 +74,16 @@ class PetFound : Fragment() {
         }
     }
 
-    fun registerPet(type:String, size:String, sex:String, coat:String, eyeColor:String):Unit{
+    fun registerPet(
+        type: String,
+        size: String,
+        sex: String,
+        coat: String,
+        eyeColor: String
+    ) { //ToDo esto va en el repository
         val user = Firebase.auth.currentUser
         val pet = Pet(null, type, size, sex, coat, eyeColor)
-        val petRequest = FoundPetRequest(pet, State.OPEN.ordinal, Calendar.getInstance().time,null,null, user!!.uid,null,null)
+        val petRequest = FoundPetRequest(pet, null, user!!.uid)
         db.collection("foundPetRequests").document().set(petRequest)
         var action = PetFoundDirections.actionPetFoundToPetFoundSearchSimilarities(petRequest)
         v.findNavController().navigate(action);

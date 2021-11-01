@@ -7,11 +7,11 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.PetRequest
-import com.ort.altoqueperro.entities.PetScore
+import com.ort.altoqueperro.entities.RequestScore
 
 class PetLostSearchSimilaritiesViewModel : ViewModel() {
     // TODO: Implement the ViewModel
-    var petRepository: MutableLiveData<MutableList<PetScore>> = MutableLiveData(mutableListOf())
+    var requestRepository: MutableLiveData<MutableList<RequestScore>> = MutableLiveData(mutableListOf())
     val db = Firebase.firestore
     lateinit var foundRequests: MutableList<FoundPetRequest>
 
@@ -21,23 +21,25 @@ class PetLostSearchSimilaritiesViewModel : ViewModel() {
         db.collection("foundPetRequests").get()
             .addOnSuccessListener {
                 for (request in it) {
-                    foundRequests.add(request.toObject<FoundPetRequest>())
+                    val requestObject = request.toObject<FoundPetRequest>()
+                    requestObject.id = request.id
+                    foundRequests.add(requestObject)
                 }
-                petRepository.value = lookForSimilarities(petRequest)
+                requestRepository.value = lookForSimilarities(petRequest)
             }
             .addOnFailureListener { exception ->
                 println("Error getting documents: " + exception)
             }
     }
 
-    fun lookForSimilarities(petRequest: PetRequest): MutableList<PetScore> {
+    fun lookForSimilarities(petRequest: PetRequest): MutableList<RequestScore> {
 
-        val similarPetsFound: MutableList<PetScore> = mutableListOf()
-        var minScoreValue = 50
+        val similarPetsFound: MutableList<RequestScore> = mutableListOf()
+        var minScoreValue = 50 //ToDo que sea una variable modificable por el admin
 
         for (request in foundRequests) {
             val petScore = petRequest.comparePetTo(request)
-            if (petScore >= minScoreValue) similarPetsFound.add( PetScore(request,petScore))
+            if (petScore >= minScoreValue) similarPetsFound.add( RequestScore(request,petScore))
         }
         return similarPetsFound
     }

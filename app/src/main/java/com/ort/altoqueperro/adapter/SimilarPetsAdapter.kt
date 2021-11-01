@@ -7,11 +7,10 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.entities.Pet
-import com.ort.altoqueperro.entities.PetScore
+import com.ort.altoqueperro.entities.RequestScore
 
-class SimilarPetsAdapter(private var similarPetList : MutableList<PetScore>,
-                         val onSimilarPetsClick: (PetScore) -> Unit
+class SimilarPetsAdapter(private var similarRequestList : MutableList<RequestScore>,
+                         val onSimilarPetsClick: (RequestScore) -> Unit
 ) : RecyclerView.Adapter <SimilarPetsAdapter.SimilarPetsHolder>() {
     class SimilarPetsHolder(v: View): RecyclerView.ViewHolder(v) {
         private var view: View = v
@@ -32,16 +31,15 @@ class SimilarPetsAdapter(private var similarPetList : MutableList<PetScore>,
     }
 
     override fun onBindViewHolder(holder: SimilarPetsHolder, position: Int) {
-        val petScore = similarPetList[position]
+        val petScore = similarRequestList[position]
         holder.setScore(petScore.score)
-        /*holder.setPicture(pet.pictureUrl)
-        holder.setState(pet.state)*/
+        // holder.setPicture(pet.pictureUrl)
         holder.getCardLayout().setOnClickListener {
             onSimilarPetsClick(petScore)
         }
     }
 
     override fun getItemCount(): Int {
-        return similarPetList.size
+        return similarRequestList.size
     }
 }

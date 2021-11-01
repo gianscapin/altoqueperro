@@ -1,18 +1,13 @@
 package com.ort.altoqueperro.entities
 
-import android.net.wifi.rtt.CivicLocationKeys.STATE
 import android.os.Parcelable
-import com.google.android.gms.maps.model.LatLng
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Exclude
-import com.google.firebase.firestore.GeoPoint
-import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
 import java.util.*
 
 @Parcelize
 open class PetRequest(
+    var id: String,
     var pet: Pet,
     var state: Int,
     var creationDate: Date,
@@ -22,10 +17,61 @@ open class PetRequest(
     var requestConsumer: String?
 ) : Parcelable {
 
-    constructor():this(Pet(), 1,Calendar.getInstance().time, null,null, "", null )
+    constructor() : this(
+        "",
+        Pet(),
+        State.OPEN.ordinal,
+        Calendar.getInstance().time,
+        null,
+        null,
+        "",
+        null
+    )
 
     fun comparePetTo(other: PetRequest): Int {
         return pet.compareTo(other.pet)
     }
 
+    open fun closeRequest() {
+        this.changeRequestState(State.CLOSED)
+        this.resolvedDate = Calendar.getInstance().time
+    }
+
+    open fun openRequest() {
+        this.requestConsumer = null
+        this.changeRequestState(State.OPEN)
+    }
+
+    open fun setPending() {
+        this.changeRequestState(State.PENDING)
+    }
+
+    open fun findRequestState(): State {
+        return State.values()[this.state]
+    }
+
+    open fun changeRequestState(state: State) {
+        this.state = state.ordinal
+    }
+
+
+    open fun closeRequest(other: PetRequest) {}
+    open fun openRequest(other: PetRequest) {}
+
+    @Exclude
+    open fun isPending(): Boolean {
+        return this.findRequestState() == State.PENDING
+    }
+
+    @Exclude
+    open fun isClosed(): Boolean {
+        return this.findRequestState() == State.CLOSED
+
+    }
+
+    @Exclude
+    open fun isOpen(): Boolean {
+        return this.findRequestState() == State.OPEN
+
+    }
 }

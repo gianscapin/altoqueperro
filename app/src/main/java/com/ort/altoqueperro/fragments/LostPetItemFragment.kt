@@ -41,36 +41,26 @@ class LostPetItemFragment : Fragment() {
         lostPetCoat = v.findViewById(R.id.txtPetCoat)
         lostPetEyeColor = v.findViewById(R.id.txtPetEyeColor)
 
-        return  v
+        return v
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(LostPetItemViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(LostPetItemViewModel::class.java)
         val lostPetData = LostPetItemFragmentArgs.fromBundle(requireArguments()).petData
-        val lostPetScore = LostPetItemFragmentArgs.fromBundle(requireArguments()).petScore
-
-        if (lostPetData != null){
+        if (lostPetData != null) {
             lostPetName.text = lostPetData.pet.name
             lostPetType.text = lostPetData.pet.type
             lostPetSize.text = lostPetData.pet.size
             lostPetSex.text = lostPetData.pet.sex
             lostPetCoat.text = lostPetData.pet.coat
             lostPetEyeColor.text = lostPetData.pet.eyeColor
-           // lostPetState.text = lostPetData.requestCreator.toString()
+            // lostPetState.text = lostPetData.requestCreator.toString()
 
-        }else if (lostPetScore != null){
-            lostPetName.text = lostPetScore.score.toString()
-            //lostPetState.text = lostPetScore.request?.requestCreator.toString()
-
+            Glide.with(view.context).load(R.drawable.atp_logo).into(lostPetImage)
         }
 
-        Glide.with(view.context).load(R.drawable.atp_logo).into(lostPetImage)
 
     }
 

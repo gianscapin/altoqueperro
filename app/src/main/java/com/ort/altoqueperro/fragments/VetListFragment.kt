@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +16,7 @@ import com.ort.altoqueperro.viewmodels.VetListViewModel
 
 class VetListFragment : Fragment() {
     lateinit var v: View
-    private lateinit var recVet : RecyclerView
+    private lateinit var recVet: RecyclerView
 
     companion object {
         fun newInstance() = VetListFragment()
@@ -29,7 +28,7 @@ class VetListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        v =  inflater.inflate(R.layout.vet_list_fragment, container, false)
+        v = inflater.inflate(R.layout.vet_list_fragment, container, false)
         recVet = v.findViewById(R.id.recylcer_view_vetList)
         return v
     }
@@ -38,9 +37,9 @@ class VetListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         listViewModel = ViewModelProvider(this).get(VetListViewModel::class.java)
         // TODO: Use the ViewModel
-        listViewModel.vetsRepository.observe(viewLifecycleOwner, Observer {
+        listViewModel.vetsLiveData.observe(viewLifecycleOwner, {
 
-            recVet.adapter = VetListAdapter(listViewModel.vetsRepository.value!!){ onVetClick(it)}
+            recVet.adapter = VetListAdapter(listViewModel.vetsLiveData.value!!) { onVetClick(it) }
         })
     }
 
@@ -51,10 +50,10 @@ class VetListFragment : Fragment() {
         listViewModel.getVets()
     }
 
-    fun onVetClick(vet : Vet){
-         val action =
+    fun onVetClick(vet: Vet) {
+        val action =
             ListModeDirections.actionListModeToVetItemFragment(vet)
-         v.findNavController().navigate(action);
+        v.findNavController().navigate(action);
     }
 
 }
