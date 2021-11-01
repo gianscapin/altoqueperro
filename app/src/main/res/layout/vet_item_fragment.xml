@@ -6,66 +6,94 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    app:cardBackgroundColor="#D1F8F3"
-    app:cardCornerRadius="30dp"
+    app:cardBackgroundColor="@color/atp_yellow"
     app:cardElevation="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="562dp">
+        android:layout_height="710dp"
+        android:background="#F4E8C8">
 
 
         <TextView
             android:id="@+id/txtVetName"
             android:layout_width="277dp"
             android:layout_height="35dp"
-            android:layout_marginTop="108dp"
+            android:layout_marginStart="58dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="57dp"
+            android:layout_marginBottom="10dp"
             android:foregroundTint="@color/black"
             android:text="Tus Huellas"
-            android:textSize="24sp"
+            android:textAlignment="center"
+            android:textSize="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView13"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtVetLogo" />
 
         <TextView
             android:id="@+id/txtVetPhoneNumber"
             android:layout_width="131dp"
-            android:layout_height="22dp"
-            android:layout_marginBottom="6dp"
-            android:text="Tel: 4932-1234"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="131dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="130dp"
+            android:layout_marginBottom="2dp"
+            android:text="4932-1234"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toTopOf="@+id/txtVetBusinessHours"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtVetName"
-            app:layout_constraintVertical_bias="0.45" />
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
         <TextView
             android:id="@+id/txtVetBusinessHours"
             android:layout_width="141dp"
             android:layout_height="23dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginStart="126dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="125dp"
+            android:layout_marginBottom="243dp"
             android:gravity="end"
             android:text="Horarios: L a L 24 hs"
+            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtVetPhoneNumber"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/txtVetPhoneNumber" />
 
         <ImageView
             android:id="@+id/txtVetLogo"
             android:layout_width="281dp"
             android:layout_height="152dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginEnd="55dp"
+            android:layout_marginBottom="5dp"
             android:background="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/txtVetName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/atp_logo"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            tools:layout_constraintCircleRadius="50dp" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="125dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="125dp"
+            android:layout_marginBottom="45dp"
+            android:text="Av. Olazabal 4341"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/txtVetPhoneNumber"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtVetName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

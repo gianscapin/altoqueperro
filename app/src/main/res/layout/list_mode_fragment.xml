@@ -10,7 +10,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="84dp"
+        android:layout_height="65dp"
         android:background="@drawable/ic_tabselectordis"
         app:tabIndicator="@drawable/ic_tabselector"
         app:tabIndicatorColor="@color/atp_yellow"
