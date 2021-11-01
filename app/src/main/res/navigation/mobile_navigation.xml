@@ -28,8 +28,8 @@
         android:label="pet_found_fragment"
         tools:layout="@layout/pet_found_fragment" >
         <action
-            android:id="@+id/action_petFound_to_petFoundSearchSimilarities"
-            app:destination="@id/petFoundSearchSimilarities" />
+            android:id="@+id/action_petFound_to_petFound2"
+            app:destination="@id/petFound2" />
     </fragment>
     <fragment
         android:id="@+id/profileUser"
@@ -196,6 +196,30 @@
         tools:layout="@layout/change_password_fragment" >
         <argument android:name="user"
             app:argType="com.google.firebase.auth.FirebaseUser" />
+    </fragment>
+    <fragment
+        android:id="@+id/petFound2"
+        android:name="com.ort.altoqueperro.fragments.PetFound2"
+        android:label="pet_found_2_fragment">
+        <action
+            android:id="@+id/action_petFound2_to_petFound3"
+            app:destination="@id/petFound3" />
+    </fragment>
+    <fragment
+        android:id="@+id/petFound3"
+        android:name="com.ort.altoqueperro.fragments.PetFound3"
+        android:label="pet_found_3_fragment">
+        <action
+            android:id="@+id/action_petFound3_to_petFoundConfirmation"
+            app:destination="@id/petFoundConfirmation" />
+    </fragment>
+    <fragment
+        android:id="@+id/petFoundConfirmation"
+        android:name="com.ort.altoqueperro.fragments.PetFoundConfirmation"
+        android:label="PetFoundConfirmation">
+        <action
+            android:id="@+id/action_petFoundConfirmation_to_petFoundSearchSimilarities"
+            app:destination="@id/petFoundSearchSimilarities" />
     </fragment>
 
 </navigation>
