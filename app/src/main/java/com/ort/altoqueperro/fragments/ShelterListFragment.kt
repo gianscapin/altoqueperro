@@ -48,7 +48,7 @@ class ShelterListFragment : Fragment() {
         super.onStart()
         recShelters.setHasFixedSize(true)
         recShelters.layoutManager = LinearLayoutManager(context)
-        listViewModel.getShelters()
+        listViewModel.getShelters2()
         //recShelters.adapter = ShelterListAdapter(shelterRepository.shelters){ onShelterClick(it)}
     }
 

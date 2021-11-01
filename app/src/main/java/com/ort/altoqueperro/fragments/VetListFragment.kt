@@ -47,7 +47,7 @@ class VetListFragment : Fragment() {
         super.onStart()
         recVet.setHasFixedSize(true)
         recVet.layoutManager = LinearLayoutManager(context)
-        listViewModel.getVets()
+        listViewModel.getVets2()
     }
 
     fun onVetClick(vet: Vet) {
