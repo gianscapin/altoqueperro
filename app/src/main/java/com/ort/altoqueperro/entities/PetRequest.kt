@@ -39,6 +39,7 @@ open class PetRequest(
 
     open fun openRequest() {
         this.requestConsumer = null
+        this.resolvedDate = null
         this.changeRequestState(State.OPEN)
     }
 

@@ -79,7 +79,8 @@ class SimilarPetFragment : Fragment() {
 
         confirmButton.setOnClickListener {
             lostPetRequest.nextStateConfirm(foundPetRequest)
-            saveAndBackToMenu()
+            saveChanges()
+            goToUserData()
         }
 
         cancelButton.setOnClickListener {
@@ -98,10 +99,20 @@ class SimilarPetFragment : Fragment() {
         v.findNavController().popBackStack()
     }
 
-    private fun saveAndBackToMenu() {
+    /*private fun saveAndBackToMenu() {
         //if (lostPetData.requestConsumer != null)viewModel.updateRequests().saveFoundPetRequest(similarPetData)
-        viewModel.updateRequests(requestScore.request,lostPetRequest)
+        saveChanges()
         backToMenu()
+    }*/
+
+    private fun goToUserData(){
+        val action = SimilarPetFragmentDirections.actionSimilarPetFragmentToSimilarPetConfirm(
+            requestScore.request!!.requestCreator)
+        v.findNavController().navigate(action);
+    }
+
+    private fun saveChanges(){
+        viewModel.updateRequests(requestScore.request,lostPetRequest)
     }
 
 }

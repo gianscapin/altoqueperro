@@ -16,13 +16,13 @@ class UserRepository {
     }
 
     private fun createUsersDatabase() { //ToDo no va
-        users.add(User("user1", "asd", "asd"))
-        users.add(User("user2", "asd", "asd"))
-        users.add(User("user3", "asd", "asd"))
-        users.add(User("user4", "asd", "asd"))
-        users.add(User("user5", "asd", "asd"))
-        users.add(User("user6", "asd", "asd"))
-        users.add(User("user7", "asd", "asd"))
+        users.add(User("user1", "asd", "asd","","",""))
+        users.add(User("user2", "asd", "asd","","",""))
+        users.add(User("user3", "asd", "asd","","",""))
+        users.add(User("user4", "asd", "asd","","",""))
+        users.add(User("user5", "asd", "asd","","",""))
+        users.add(User("user6", "asd", "asd","","",""))
+        users.add(User("user7", "asd", "asd","","",""))
     }
 
     fun getRandomUser(): User { //ToDo no va

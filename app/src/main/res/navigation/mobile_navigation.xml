@@ -220,5 +220,16 @@
     <action
         android:id="@+id/action_similarPetFragment_to_newMapModeFragment"
         app:destination="@id/newMapModeFragment" />
+        <action
+            android:id="@+id/action_similarPetFragment_to_similarPetConfirm"
+            app:destination="@id/similarPetConfirm" />
+    </fragment>
+    <fragment
+        android:id="@+id/similarPetConfirm"
+        android:name="com.ort.altoqueperro.fragments.SimilarPetConfirmFragment"
+        android:label="SimilarPetConfirm" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
     </fragment>
 </navigation>
