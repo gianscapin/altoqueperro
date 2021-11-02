@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +16,7 @@ import com.ort.altoqueperro.viewmodels.ShelterListViewModel
 
 class ShelterListFragment : Fragment() {
     lateinit var v: View
-    private lateinit var recShelters : RecyclerView
+    private lateinit var recShelters: RecyclerView
 
     companion object {
         fun newInstance() = ShelterListFragment()
@@ -29,7 +28,7 @@ class ShelterListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        v =  inflater.inflate(R.layout.shelter_list_fragment, container, false)
+        v = inflater.inflate(R.layout.shelter_list_fragment, container, false)
         recShelters = v.findViewById(R.id.recylcer_view_shelterList)
         return v
     }
@@ -38,9 +37,10 @@ class ShelterListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         listViewModel = ViewModelProvider(this).get(ShelterListViewModel::class.java)
         // TODO: Use the ViewModel
-        listViewModel.sheltersRepository.observe(viewLifecycleOwner, Observer {
+        listViewModel.sheltersLiveData.observe(viewLifecycleOwner, {
 
-            recShelters.adapter = ShelterListAdapter(listViewModel.sheltersRepository.value!!){ onShelterClick(it)}
+            recShelters.adapter =
+                ShelterListAdapter(listViewModel.sheltersLiveData.value!!) { onShelterClick(it) }
         })
     }
 
@@ -48,15 +48,15 @@ class ShelterListFragment : Fragment() {
         super.onStart()
         recShelters.setHasFixedSize(true)
         recShelters.layoutManager = LinearLayoutManager(context)
-        listViewModel.getShelters()
+        listViewModel.getShelters2()
         //recShelters.adapter = ShelterListAdapter(shelterRepository.shelters){ onShelterClick(it)}
     }
 
-    fun onShelterClick(shelter : Shelter){
+    fun onShelterClick(shelter: Shelter) {
         //Snackbar.make(v, shelter.name.toString(),Snackbar.LENGTH_SHORT).show()
-         val action =
+        val action =
             ListModeDirections.actionListModeToShelterItemFragment(shelter)
-         v.findNavController().navigate(action);
+        v.findNavController().navigate(action);
     }
 
 }

@@ -12,11 +12,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.activities.MainActivity
 import com.ort.altoqueperro.adapter.SimilarPetsAdapter
-import com.ort.altoqueperro.entities.Pet
-import com.ort.altoqueperro.entities.PetRequest
-import com.ort.altoqueperro.entities.PetScore
+import com.ort.altoqueperro.entities.RequestScore
 import com.ort.altoqueperro.viewmodels.PetFoundSearchSimilaritiesViewModel
 
 class PetFoundSearchSimilarities : Fragment() {
@@ -46,9 +43,9 @@ class PetFoundSearchSimilarities : Fragment() {
         // TODO: Use the ViewModel
         val petRequestData = PetFoundSearchSimilaritiesArgs.fromBundle(requireArguments()).petRequest
         viewModel.getPosibleMatches(petRequestData)
-        viewModel.petRepository.observe(viewLifecycleOwner, Observer {
+        viewModel.requestRepository.observe(viewLifecycleOwner, Observer {
 
-            recSimilarPets.adapter = SimilarPetsAdapter(viewModel.petRepository.value!!) { onSimilarPetsClick(it) }
+            recSimilarPets.adapter = SimilarPetsAdapter(viewModel.requestRepository.value!!) { onSimilarPetsClick(it) }
 
         })
     }
@@ -60,10 +57,10 @@ class PetFoundSearchSimilarities : Fragment() {
         recSimilarPets.layoutManager = LinearLayoutManager(context)
     }
 
-    fun onSimilarPetsClick(pet: PetScore) {
-        val action =
+    fun onSimilarPetsClick(request: RequestScore) {
+        /*val action =
             PetFoundSearchSimilaritiesDirections.actionPetFoundSearchSimilaritiesToLostPetItemFragment(null, pet)
-        v.findNavController().navigate(action);
+        v.findNavController().navigate(action);*/
     }
 
     fun noResult(){

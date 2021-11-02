@@ -6,21 +6,26 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.entities.Vet
+import com.ort.altoqueperro.repos.RescueCenterRepository
 
 class VetListViewModel : ViewModel() {
     // TODO: Implement the ViewModel
-    var vetsRepository: MutableLiveData<MutableList<Vet>> = MutableLiveData(mutableListOf())
+    var vetsLiveData: MutableLiveData<MutableList<Vet>> = MutableLiveData(mutableListOf())
     val db = Firebase.firestore
 
 
-    fun getVets(){
+    fun getVets2() {
+        RescueCenterRepository().getVets(vetsLiveData)
+    }
+
+    fun getVets(){ //ToDo no va
         val vets: MutableList<Vet> = mutableListOf()
         db.collection("vets").get()
             .addOnSuccessListener {
                 for (vet in it) {
                     vets.add(vet.toObject<Vet>())
                 }
-                vetsRepository.value = vets
+                vetsLiveData.value = vets
             }
             .addOnFailureListener { exception ->
                 println("Error getting documents: " + exception)

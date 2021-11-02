@@ -7,12 +7,10 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.entities.Pet
-import com.ort.altoqueperro.entities.PetRequest
-import com.ort.altoqueperro.entities.PetScore
+import com.ort.altoqueperro.entities.RequestScore
 
-class FoundPetAdapter(private var petScoreList : MutableList<PetScore>,
-                      val onPetClick: (PetScore) -> Unit
+class FoundPetAdapter(private var requestScoreList : MutableList<RequestScore>,
+                      val onPetClick: (RequestScore) -> Unit
 ) : RecyclerView.Adapter <FoundPetAdapter.PetHolder>() {
     class PetHolder(v: View): RecyclerView.ViewHolder(v) {
         private var view: View = v
@@ -39,16 +37,15 @@ class FoundPetAdapter(private var petScoreList : MutableList<PetScore>,
     }
 
     override fun onBindViewHolder(holder: PetHolder, position: Int) {
-        val petScore = petScoreList[position]
+        val petScore = requestScoreList[position]
         holder.setScore(petScore.score)
-        /*holder.setPicture(pet.pictureUrl)
-        holder.setState(pet.state)*/
+        //holder.setPicture(pet.pictureUrl)
         holder.getCardLayout().setOnClickListener {
             onPetClick(petScore)
         }
     }
 
     override fun getItemCount(): Int {
-        return petScoreList.size
+        return requestScoreList.size
     }
 }

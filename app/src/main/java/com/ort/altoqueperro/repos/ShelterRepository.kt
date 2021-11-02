@@ -1,10 +1,12 @@
 package com.ort.altoqueperro.repos
 
-import com.ort.altoqueperro.entities.Address
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.entities.Shelter
 
 class ShelterRepository {
     var shelters: MutableList<Shelter> = mutableListOf()
+    val db = Firebase.firestore
 
 
     init {
