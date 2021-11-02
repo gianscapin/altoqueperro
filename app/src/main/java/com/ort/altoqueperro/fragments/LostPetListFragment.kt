@@ -57,8 +57,8 @@ class LostPetListFragment : Fragment() {
         })
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         recLostPets.setHasFixedSize(false)
         recLostPets.layoutManager = LinearLayoutManager(context)
         recOwnLostPets.setHasFixedSize(false)
