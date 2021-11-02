@@ -39,10 +39,11 @@ class LostPetListViewModel : ViewModel() {
     }
 
     fun getOwnFoundPets() {
-        var idUserLogged = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        val idUserLogged = FirebaseAuth.getInstance().currentUser?.uid.toString()
         val foundRequests: MutableList<FoundPetRequest> = mutableListOf()
-        db.collection("foundPetRequests")
-            .whereEqualTo("requestCreator", idUserLogged)
+        val collection = db.collection("foundPetRequests")
+        collection.whereEqualTo("requestCreator", idUserLogged)
+        collection
             .whereNotEqualTo("state", State.CLOSED.ordinal)
             .get()
             .addOnSuccessListener {
