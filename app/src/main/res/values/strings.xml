@@ -11,4 +11,6 @@
     <string name="permission_required_toast">Se necesita conocer su ubicacion si no es mucha molestia</string>
     <string name="permission_rationale_location">Necesitamos conocer su ubicación si no es mucha molestia</string>
     <string name="map_title">Mapa de mascotas</string>
+
+
 </resources>
