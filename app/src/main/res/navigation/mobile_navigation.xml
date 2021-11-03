@@ -12,7 +12,7 @@
         android:id="@+id/petLost"
         android:name="com.ort.altoqueperro.fragments.PetLost"
         android:label="pet_lost_fragment"
-        tools:layout="@layout/pet_lost_fragment" >
+        tools:layout="@layout/pet_lost_1_fragment" >
         <action
             android:id="@+id/action_petLost_to_petLostSearchSimilarities"
             app:destination="@id/petLostSearchSimilarities" />
