@@ -91,8 +91,8 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
         googleMap.setOnMyLocationClickListener(this)
         enableMyLocation()
         viewModel.getLostPets()
+        map.clear()
         viewModel.petRepository.observe(this, Observer {
-            map.clear()
             it.forEach {
                 if (it.coordinates!=null) {
                     var bmp: BitmapDescriptor
@@ -109,6 +109,38 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
                 }
             }
         })
+
+        viewModel.getShelters()
+        viewModel.sheltersRepository.observe(this, Observer {
+            it.forEach {
+                if (it.coordinates!=null) {
+                    var bmp: BitmapDescriptor
+                    bmp = BitmapDescriptorFactory.fromResource(R.drawable.home)
+                    var marker: MarkerOptions =
+                        MarkerOptions().position(it.coordinates!!.getLatLng()).title(it.name).icon(
+                            bmp
+                        )
+                    map.addMarker(marker)
+                }
+            }
+        })
+
+        viewModel.getVets()
+        viewModel.vetsRepository.observe(this, Observer {
+            it.forEach {
+                if (it.coordinates!=null) {
+                    var bmp: BitmapDescriptor
+                    bmp = BitmapDescriptorFactory.fromResource(R.drawable.vetmapa)
+                    var marker: MarkerOptions =
+                        MarkerOptions().position(it.coordinates!!.getLatLng()).title(it.name).icon(
+                            bmp
+                        )
+                    map.addMarker(marker)
+                }
+            }
+        })
+
+
     }
 
     private fun gotoMyLocation() {
