@@ -2,13 +2,20 @@ package com.ort.altoqueperro.fragments
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.util.Linkify
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
@@ -25,6 +32,8 @@ class NewProfileUserFragment : Fragment() {
     lateinit var phoneUser: TextView
     lateinit var birthUser: TextView
     lateinit var btnChangePassword:TextView
+    lateinit var btnEdit:Button
+    lateinit var userImage: ImageView
     lateinit var v:View
 
     val db = Firebase.firestore
@@ -45,6 +54,8 @@ class NewProfileUserFragment : Fragment() {
         nameUser = v.findViewById(R.id.nameUser)
         phoneUser = v.findViewById(R.id.phoneUser)
         birthUser = v.findViewById(R.id.birthUser)
+        btnEdit = v.findViewById(R.id.btnEdit)
+        userImage = v.findViewById(R.id.userImage)
         btnChangePassword = v.findViewById(R.id.btnChangePassword)
 
         return v
@@ -61,10 +72,56 @@ class NewProfileUserFragment : Fragment() {
 
         loadInfo()
 
+
+        nameUser.inputType = 0
+        phoneUser.inputType = 0
+        birthUser.inputType = 0
+
+        btnEdit.isEnabled = false
+
+        nameUser.setOnClickListener {
+            nameUser.inputType = 1
+            btnEdit.isEnabled = true
+            if(btnEdit.isEnabled){
+                btnEdit.text = "Confirmar"
+            }
+        }
+
+
+        phoneUser.setOnClickListener {
+            phoneUser.inputType = 1
+            btnEdit.isEnabled = true
+            if(btnEdit.isEnabled){
+                btnEdit.text = "Confirmar"
+            }
+        }
+        birthUser.setOnClickListener {
+            birthUser.inputType = 1
+            btnEdit.isEnabled = true
+            if(btnEdit.isEnabled){
+                btnEdit.text = "Confirmar"
+            }
+        }
+
         btnChangePassword.setOnClickListener {
             val action = NewProfileUserFragmentDirections.actionNewProfileUserFragmentToChangePassword(user!!)
             v.findNavController().navigate(action)
         }
+
+        btnEdit.setOnClickListener {
+
+            val docRef = db.collection("users").document(user?.uid.toString())
+
+            docRef.update("name",nameUser.text.toString())
+            docRef.update("phone",phoneUser.text.toString())
+            docRef.update("birth",birthUser.text.toString())
+
+            btnEdit.text = "Editar"
+            btnEdit.isEnabled = false
+
+            Snackbar.make(v,"Perfil actualizado!", Snackbar.LENGTH_SHORT).show()
+        }
+
     }
 
     fun loadInfo():Unit{
@@ -80,7 +137,16 @@ class NewProfileUserFragment : Fragment() {
             phoneUser.text = phone
             birthUser.text = birth
 
-            //passwordUser = it.get("password").toString()
+            if(it.get("image")!=null){
+                println(it.get("image"))
+                print("imagen usuario")
+                Glide.with(view?.context).load(it.get("image")).into(userImage)
+            }else{
+                print("imagen app")
+                Glide.with(view?.context).load(R.drawable.dog_loupe).into(userImage)
+            }
+
+
         }
 
     }
