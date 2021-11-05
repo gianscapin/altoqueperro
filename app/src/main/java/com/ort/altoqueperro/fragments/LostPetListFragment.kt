@@ -15,6 +15,7 @@ import com.ort.altoqueperro.adapter.MyPetAdapter
 import com.ort.altoqueperro.adapter.PetAdapter
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.PetRequest
+import com.ort.altoqueperro.utils.Notifications
 import com.ort.altoqueperro.viewmodels.LostPetListViewModel
 
 class LostPetListFragment : Fragment() {
@@ -59,6 +60,7 @@ class LostPetListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        println(Notifications.getNotificationPetLost())
         recLostPets.setHasFixedSize(false)
         recLostPets.layoutManager = LinearLayoutManager(context)
         recOwnLostPets.setHasFixedSize(false)
@@ -66,7 +68,9 @@ class LostPetListFragment : Fragment() {
         recOwnFoundPets.setHasFixedSize(false)
         recOwnFoundPets.layoutManager = LinearLayoutManager(context)
         listViewModel.getLostPets()
-        listViewModel.getOwnFoundPets()
+        if(!Notifications.getNotificationPetFound()){
+            listViewModel.getOwnFoundPets()
+        }
     }
 
     fun onLostPetClick(lostPet: PetRequest) {

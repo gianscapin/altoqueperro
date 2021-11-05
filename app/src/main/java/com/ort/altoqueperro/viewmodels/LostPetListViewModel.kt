@@ -3,12 +3,14 @@ package com.ort.altoqueperro.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.State
+import com.ort.altoqueperro.utils.Notifications
 
 class LostPetListViewModel : ViewModel() {
     // TODO: Implement the ViewModel
@@ -19,6 +21,7 @@ class LostPetListViewModel : ViewModel() {
     var myLostPets: MutableList<LostPetRequest> = mutableListOf()
     var othersLostPets: MutableList<LostPetRequest> = mutableListOf()
     val db = Firebase.firestore
+    val user = Firebase.auth.currentUser
 
     fun getLostPets() {
         val lostRequests: MutableList<LostPetRequest> = mutableListOf()
@@ -27,9 +30,20 @@ class LostPetListViewModel : ViewModel() {
             .get()
             .addOnSuccessListener {
                 for (request in it) {
-                    val petRequest = request.toObject<LostPetRequest>()
-                    petRequest.id = request.id
-                    lostRequests.add(petRequest)
+                    if(!Notifications.getNotificationPetLost()){
+                        val petRequest = request.toObject<LostPetRequest>()
+                        petRequest.id = request.id
+                        lostRequests.add(petRequest)
+                    }else{
+                        val petRequest = request.toObject<LostPetRequest>()
+                        petRequest.id = request.id
+                        val userId: String = user?.uid.toString()
+                        val petCreatorId: String = petRequest.requestCreator
+                        if(!petCreatorId.equals(userId)){
+                            lostRequests.add(petRequest)
+                        }
+                    }
+
                 }
                 petRepository.value = lostRequests
             }
