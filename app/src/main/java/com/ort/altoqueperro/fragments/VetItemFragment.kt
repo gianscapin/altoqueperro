@@ -41,7 +41,7 @@ class VetItemFragment : Fragment() {
         phoneNumber = v.findViewById(R.id.txtVetPhoneNumber)
         businessHours = v.findViewById(R.id.txtVetBusinessHours)
         imageLogo = v.findViewById(R.id.txtVetLogo)
-        neighborhood = v.findViewById(R.id.txtVetLocalidad)
+        neighborhood = v.findViewById(R.id.txtShelterLocalidad)
         distancia = v.findViewById(R.id.txtDistance)
         return  v
     }
@@ -66,7 +66,7 @@ class VetItemFragment : Fragment() {
         name.text = vetData.name
         neighborhood.text = vetData.localidad
         phoneNumber.text = vetData.phone
-        businessHours.text = "Horacio de Atención: " + vetData.businessHours
+        businessHours.text = "Horacio de Atención " + vetData.businessHours
         Glide.with(view.context).load(vetData.imageUrl).into(imageLogo)
 
     }

@@ -7,33 +7,47 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="267dp"
+        android:layout_height="145dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardItemSimilarPet">
+        app:layout_constraintTop_toBottomOf="@+id/cardItemSimilarPet">
 
         <Button
             android:id="@+id/btnMyPetConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="La Enconte!!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnMyPetCancel"
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="10dp"
+            android:text="La Encontre"
+            android:textColorLink="@color/atp_orange_variant"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnMyPetCancel"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnMyPetCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:text="NO ES"
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:text="Reiniciar busqueda"
+            android:textColorLink="@color/atp_red_variant"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnMyPetConfirm"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnMyPetConfirm" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -41,28 +55,32 @@
         android:id="@+id/cardItemSimilarPet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="50dp"
         app:cardBackgroundColor="#D1F8F3"
-        app:cardCornerRadius="30dp"
+        app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardItem"
-        android:layout_marginTop="100dp"
-        android:layout_margin="5dp">
+        app:layout_constraintTop_toBottomOf="@+id/cardItem">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="180dp"
             tools:context=".fragments.MyLostPetItemFragment">
 
             <ImageView
                 android:id="@+id/imageSimilarPetDetail"
-                android:layout_width="153dp"
-                android:layout_height="182dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_marginStart="1dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tableLayoutSimilarPet"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/avatars" />
@@ -72,19 +90,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Firulais"
-                android:textSize="38sp"
+                android:textSize="25sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/tableLayoutSimilarPet"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.547"
                 app:layout_constraintStart_toEndOf="@+id/imageSimilarPetDetail"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:textColor="@color/black" />
 
             <TableLayout
                 android:id="@+id/tableLayoutSimilarPet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="120dp"
-                android:layout_marginEnd="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imageSimilarPetDetail"
@@ -99,7 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Animal"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/txtSimilarPetType"
@@ -107,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
                         android:text="Perro"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
                 </TableRow>
 
                 <TableRow
@@ -119,7 +140,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tamaño"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/txtSimilarPetSize"
@@ -127,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
                         android:text="Mediano"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
                 </TableRow>
 
                 <TableRow
@@ -139,7 +160,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sexo"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/txtSimilarPetSex"
@@ -147,7 +168,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
                         android:text="Macho"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
                 </TableRow>
 
                 <TableRow
@@ -159,7 +180,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pelaje"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/txtSimilarPetCoat"
@@ -167,7 +188,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
                         android:text="Negro"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
                 </TableRow>
 
                 <TableRow
@@ -179,7 +200,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ojos"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/txtSimilarPetEyeColor"
@@ -187,7 +208,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
                         android:text="Azules"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
                 </TableRow>
 
             </TableLayout>
@@ -201,10 +222,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="4dp"
+        android:layout_marginBottom="5dp"
         app:cardBackgroundColor="#D1F8F3"
-        app:cardCornerRadius="30dp"
+        app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardItemSimilarPet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -212,17 +236,20 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="180dp"
             tools:context=".fragments.MyLostPetItemFragment"
 
             >
 
             <ImageView
                 android:id="@+id/imageMyPetDetail"
-                android:layout_width="153dp"
-                android:layout_height="182dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_marginStart="1dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tableLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/avatars" />
@@ -231,8 +258,12 @@
                 android:id="@+id/txtMyPetName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Firulais"
-                android:textSize="38sp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/tableLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.547"
@@ -243,8 +274,9 @@
                 android:id="@+id/tableLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="120dp"
-                android:layout_marginEnd="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imageMyPetDetail"
@@ -256,10 +288,10 @@
 
                     <TextView
                         android:id="@+id/txtMyPetTypeText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="61dp"
+                        android:layout_height="match_parent"
                         android:text="Animal"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/txtMyPetType"
@@ -267,7 +299,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
                         android:text="Perro"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
                 </TableRow>
 
                 <TableRow
@@ -279,7 +311,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tamaño"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/txtMyPetSize"
@@ -287,7 +319,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
                         android:text="Mediano"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
                 </TableRow>
 
                 <TableRow
@@ -299,7 +331,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sexo"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/txtMyPetSex"
@@ -307,7 +339,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
                         android:text="Macho"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
                 </TableRow>
 
                 <TableRow
@@ -319,7 +351,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pelaje"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/txtMyPetCoat"
@@ -327,7 +359,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
                         android:text="Negro"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
                 </TableRow>
 
                 <TableRow
@@ -339,7 +371,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ojos"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/txtMyPetEyeColor"
@@ -347,7 +379,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
                         android:text="Azules"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
                 </TableRow>
 
             </TableLayout>
