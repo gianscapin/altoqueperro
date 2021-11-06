@@ -57,6 +57,7 @@ class PetLostConfirmation : Fragment() {
 
         viewModel.comments.observe(viewLifecycleOwner, {
             txtCommentsValue.text = it
+
         })
 
         viewModel.petEyeColor.observe(viewLifecycleOwner, {
@@ -84,7 +85,7 @@ class PetLostConfirmation : Fragment() {
         })
 
         viewModel.petType.observe(viewLifecycleOwner, {
-            txtFoundTitle.text = "¡$it encontrado!"
+            txtFoundTitle.text = "¡$it perdido!"
             txtPetTypeValue.text = it
         })
 
