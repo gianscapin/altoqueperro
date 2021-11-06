@@ -121,12 +121,4 @@ class PetFoundConfirmation : Fragment() {
 //            viewModel.registerPet()
         }
     }
-
-//    fun lookForSimilarities(){
-//        var action = PetFoundDirections.actionPetFoundToPetFoundSearchSimilarities()
-//        v.findNavController().navigate(action);
-//    }
-
-
-
 }
