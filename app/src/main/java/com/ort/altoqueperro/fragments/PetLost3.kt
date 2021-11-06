@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
@@ -75,7 +76,7 @@ class PetLost3 : Fragment() {
 
         nextButton.setOnClickListener {
             if (viewModel.validateStep3()) {
-                val action = PetFound3Directions.actionPetFound3ToPetFoundConfirmation()
+                val action = PetLost3Directions.actionPetLost3ToPetLostConfirmation()
                 v.findNavController().navigate(action)
             }
             else {

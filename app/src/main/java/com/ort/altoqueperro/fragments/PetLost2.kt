@@ -71,7 +71,7 @@ class PetLost2 : Fragment(), AdapterView.OnItemSelectedListener {
 
         nextButton.setOnClickListener {
             if (viewModel.validateStep2()) {
-                val action = PetLost2Directions.actionPetFound2ToPetFound3()
+                val action = PetLost2Directions.actionPetLost2ToPetLost3()
                 v.findNavController().navigate(action)
             }
             else {
