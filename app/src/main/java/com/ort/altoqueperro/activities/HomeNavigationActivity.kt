@@ -50,6 +50,9 @@ class HomeNavigationActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.petFound -> setAppBarInvisible()
+                R.id.petFound2 -> setAppBarInvisible()
+                R.id.petFound3 -> setAppBarInvisible()
+                R.id.petFoundConfirmation -> setAppBarInvisible()
                 R.id.petLost -> setAppBarInvisible()
                 else -> setAppBarVisible()
             }
