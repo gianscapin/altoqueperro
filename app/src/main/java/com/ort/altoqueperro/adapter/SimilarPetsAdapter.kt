@@ -17,7 +17,7 @@ class SimilarPetsAdapter(private var similarRequestList : MutableList<RequestSco
 
         fun setScore(score: Int){
             val txt: TextView = view.findViewById(R.id.txtPetFoundItemScore)
-            txt.text = "${score}% Match"
+            txt.text = "${score}%"
         }
 
         fun getCardLayout (): CardView {
