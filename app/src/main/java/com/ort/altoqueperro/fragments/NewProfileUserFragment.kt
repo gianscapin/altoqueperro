@@ -1,5 +1,6 @@
 package com.ort.altoqueperro.fragments
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.util.Linkify
@@ -11,14 +12,18 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentFactory
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.activities.MainActivity
+import com.ort.altoqueperro.activities.SplashActivity
 import com.ort.altoqueperro.viewmodels.NewProfileUserViewModel
 import org.w3c.dom.Text
 
@@ -35,9 +40,12 @@ class NewProfileUserFragment : Fragment() {
     lateinit var btnEdit:Button
     lateinit var userImage: ImageView
     lateinit var v:View
+    lateinit var btnLogout : TextView
+    lateinit var auth : FirebaseAuth
 
     val db = Firebase.firestore
     val user = Firebase.auth.currentUser
+
 
     private lateinit var name: String
     private lateinit var phone: String
@@ -57,6 +65,8 @@ class NewProfileUserFragment : Fragment() {
         btnEdit = v.findViewById(R.id.btnEdit)
         userImage = v.findViewById(R.id.userImage)
         btnChangePassword = v.findViewById(R.id.btnChangePassword)
+        btnLogout = v.findViewById(R.id.btnLogout)
+        auth = Firebase.auth
 
         return v
     }
@@ -71,7 +81,6 @@ class NewProfileUserFragment : Fragment() {
         super.onStart()
 
         loadInfo()
-
 
         nameUser.inputType = 0
         phoneUser.inputType = 0
@@ -120,6 +129,15 @@ class NewProfileUserFragment : Fragment() {
             btnEdit.isEnabled = false
 
             Snackbar.make(v,"Perfil actualizado!", Snackbar.LENGTH_SHORT).show()
+        }
+
+        btnLogout.setOnClickListener {
+            auth.signOut()
+
+            val logoutIntent = Intent(v.context, MainActivity::class.java)
+            logoutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(logoutIntent)
+
         }
 
     }
