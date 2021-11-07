@@ -128,7 +128,16 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
     override fun onStart() {
         super.onStart()
 
-        sendPet.setOnClickListener {
+        nextButton.setOnClickListener {
+            if (viewModel.validateStep1()) {
+                val action = PetFoundDirections.actionPetFoundToPetFound2()
+                v.findNavController().navigate(action)
+            } else {
+                Snackbar.make(rootLayout, "* Campos obligatorios", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
+        /*sendPet.setOnClickListener {
             var type = petType.text.toString()
             var size = petSize.text.toString()
             var sex = petSex.text.toString()
@@ -139,10 +148,10 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
             if (type.isNotEmpty() && size.isNotEmpty() && sex.isNotEmpty() && coat.isNotEmpty() && eyeColor.isNotEmpty()) {
                 registerPet(type, size, sex, coat, eyeColor)
             }
-        }
+        }*/
     }
 
-    fun registerPet(
+    /*fun registerPet(
         type: String,
         size: String,
         sex: String,
@@ -164,7 +173,8 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
                 }
             }
         }
-    }
+    }*/
+
 
 
 }
