@@ -1,54 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardItem"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    app:cardBackgroundColor="#D1F8F3"
-    app:cardCornerRadius="0dp"
-    app:cardElevation="10dp">
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_marginEnd="4dp"
+        app:cardBackgroundColor="#D1F8F3"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="457dp"
+            tools:context=".fragments.SimilarPetFragment"
+
+            >
+
+            <ImageView
+                android:id="@+id/imageSimilarPetDetail"
+                android:layout_width="153dp"
+                android:layout_height="182dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toTopOf="@+id/txtSimilarPetName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.593"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/txtSimilarPetName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Firulais"
+                android:textSize="38sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.605" />
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:layout_marginEnd="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtSimilarPetName">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txtSimilarPetTypeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Animal"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/txtSimilarPetType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:text="Perro"
+                        android:textSize="20dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txtSimilarPetSizeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tamaño"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/txtSimilarPetSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:text="Mediano"
+                        android:textSize="20dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txtSimilarPetSexText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sexo"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/txtSimilarPetSex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:text="Macho"
+                        android:textSize="20dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txtSimilarPetCoatText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pelaje"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/txtSimilarPetCoat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:text="Negro"
+                        android:textSize="20dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txtSimilarPetEyeColorText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ojos"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/txtSimilarPetEyeColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:text="Azules"
+                        android:textSize="20dp" />
+                </TableRow>
+
+            </TableLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardItem">
 
-        <TextView
-            android:id="@+id/txtVetName"
-            android:layout_width="277dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="8dp"
-            android:foregroundTint="@color/black"
-            android:text="Firulais"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/address"
+        <Button
+            android:id="@+id/btnSimilarPetConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Es esta"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnSimilarPetCancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnSimilarPetCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="NO ES"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txtVetLogo" />
-
-        <TextView
-            android:id="@+id/txtVetPhoneNumber"
-            android:layout_width="131dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="12dp"
-            android:text="Tel: 4932-1234"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txtVetLogo" />
-
-        <ImageView
-            android:id="@+id/txtVetLogo"
-            android:layout_width="74dp"
-            android:layout_height="69dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="12dp"
-            android:background="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/txtVetName"
-            app:layout_constraintStart_toEndOf="@+id/txtVetName"
-            app:layout_constraintTop_toBottomOf="@+id/neighborhood"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/atp_logo" />
+            app:layout_constraintStart_toEndOf="@id/btnSimilarPetConfirm"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

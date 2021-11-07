@@ -4,10 +4,15 @@
         android:id="@+id/newProfileUserFragment"
         android:icon="@drawable/profile_icon"
         android:title="Perfil"/>
+
     <item
         android:id="@+id/newMapModeFragment"
         android:icon="@drawable/map_icon"
         android:title="Modo Mapa" />
+
+    <item android:id="@+id/textinput_placeholder"
+        android:title=" " />
+
     <item
         android:id="@+id/listMode"
         android:icon="@drawable/list_icon"
@@ -17,4 +22,5 @@
         android:id="@+id/settings"
         android:icon="@drawable/settings"
         android:title="Ajustes"/>
+
 </menu>

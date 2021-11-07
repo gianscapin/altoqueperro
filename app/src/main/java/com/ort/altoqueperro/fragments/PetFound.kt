@@ -24,9 +24,7 @@ import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.Pet
-import com.ort.altoqueperro.entities.State
 import com.ort.altoqueperro.viewmodels.PetFoundViewModel
-import java.util.*
 
 class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -127,9 +125,36 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
 
         override fun onNothingSelected(parent: AdapterView<*>) {}
 
-        override fun onStart() {
-            super.onStart()
+    override fun onStart() {
+        super.onStart()
 
+        sendPet.setOnClickListener {
+            var type = petType.text.toString()
+            var size = petSize.text.toString()
+            var sex = petSex.text.toString()
+            var coat = petCoat.text.toString()
+            var eyeColor = petEyeColor.text.toString()
+
+
+            if (type.isNotEmpty() && size.isNotEmpty() && sex.isNotEmpty() && coat.isNotEmpty() && eyeColor.isNotEmpty()) {
+                registerPet(type, size, sex, coat, eyeColor)
+            }
+        }
+    }
+
+    fun registerPet(
+        type: String,
+        size: String,
+        sex: String,
+        coat: String,
+        eyeColor: String
+    ) { //ToDo esto va en el repository
+        val user = Firebase.auth.currentUser
+        val pet = Pet(null, type, size, sex, coat, eyeColor)
+        val petRequest = FoundPetRequest(pet, null, user!!.uid)
+        db.collection("foundPetRequests").document().set(petRequest)
+        var action = PetFoundDirections.actionPetFoundToPetFoundSearchSimilarities(petRequest)
+        v.findNavController().navigate(action);
             nextButton.setOnClickListener {
                 if (viewModel.validateStep1()) {
                     val action = PetFoundDirections.actionPetFoundToPetFound2()
@@ -140,3 +165,6 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
             }
         }
     }
+
+
+}
