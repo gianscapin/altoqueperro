@@ -11,11 +11,10 @@
     <fragment
         android:id="@+id/petLost"
         android:name="com.ort.altoqueperro.fragments.PetLost"
-        android:label="pet_lost_fragment"
-        tools:layout="@layout/pet_lost_fragment" >
+        android:label="pet_lost_fragment">
         <action
-            android:id="@+id/action_petLost_to_petLostSearchSimilarities"
-            app:destination="@id/petLostSearchSimilarities" />
+            android:id="@+id/action_petLost_to_petLost2"
+            app:destination="@id/petLost2" />
     </fragment>
     <fragment
         android:id="@+id/petFragment2"
@@ -28,8 +27,8 @@
         android:label="pet_found_fragment"
         tools:layout="@layout/pet_found_fragment" >
         <action
-            android:id="@+id/action_petFound_to_petFoundSearchSimilarities"
-            app:destination="@id/petFoundSearchSimilarities" />
+            android:id="@+id/action_petFound_to_petFound2"
+            app:destination="@id/petFound2" />
     </fragment>
     <fragment
         android:id="@+id/profileUser"
@@ -232,4 +231,53 @@
             android:name="userId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/petLost2"
+        android:name="com.ort.altoqueperro.fragments.PetLost2"
+        android:label="PetLost2" >
+        <action
+            android:id="@+id/action_petLost2_to_petLost3"
+            app:destination="@id/petLost3" />
+    </fragment>
+    <fragment
+        android:id="@+id/petLost3"
+        android:name="com.ort.altoqueperro.fragments.PetLost3"
+        android:label="PetLost3" >
+        <action
+            android:id="@+id/action_petLost3_to_petLostConfirmation"
+            app:destination="@id/petLostConfirmation" />
+    </fragment>
+    <fragment
+        android:id="@+id/petLostConfirmation"
+        android:name="com.ort.altoqueperro.fragments.PetLostConfirmation"
+        android:label="PetLostConfirmation" >
+        <action
+            android:id="@+id/action_petLostConfirmation_to_petLostSearchSimilarities"
+            app:destination="@id/petLostSearchSimilarities" />
+    </fragment>
+    <fragment
+        android:id="@+id/petFound2"
+        android:name="com.ort.altoqueperro.fragments.PetFound2"
+        android:label="pet_found_2_fragment">
+        <action
+            android:id="@+id/action_petFound2_to_petFound3"
+            app:destination="@id/petFound3" />
+    </fragment>
+    <fragment
+        android:id="@+id/petFound3"
+        android:name="com.ort.altoqueperro.fragments.PetFound3"
+        android:label="pet_found_3_fragment">
+        <action
+            android:id="@+id/action_petFound3_to_petFoundConfirmation"
+            app:destination="@id/petFoundConfirmation" />
+    </fragment>
+    <fragment
+        android:id="@+id/petFoundConfirmation"
+        android:name="com.ort.altoqueperro.fragments.PetFoundConfirmation"
+        android:label="PetFoundConfirmation">
+        <action
+            android:id="@+id/action_petFoundConfirmation_to_petFoundSearchSimilarities"
+            app:destination="@id/petFoundSearchSimilarities" />
+    </fragment>
+
 </navigation>
