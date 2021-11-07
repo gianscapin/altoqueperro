@@ -18,7 +18,7 @@ import kotlin.math.roundToInt
 class VetItemFragment : Fragment() {
     lateinit var v: View
     lateinit var neighborhood: TextView
-    lateinit var distancia: TextView
+    lateinit var distance: TextView
     lateinit var name: TextView
     lateinit var phoneNumber: TextView
     lateinit var businessHours: TextView
@@ -42,7 +42,7 @@ class VetItemFragment : Fragment() {
         businessHours = v.findViewById(R.id.txtVetBusinessHours)
         imageLogo = v.findViewById(R.id.txtVetLogo)
         neighborhood = v.findViewById(R.id.txtShelterLocalidad)
-        distancia = v.findViewById(R.id.txtDistance)
+        distance = v.findViewById(R.id.txtDistance)
         return  v
     }
 
@@ -57,11 +57,11 @@ class VetItemFragment : Fragment() {
         val vetData:Vet = VetItemFragmentArgs.fromBundle(requireArguments()).vetData
 
         println(vetData.coordinates?.latitude.toString()+" "+vetData.coordinates?.longitude.toString())
-        var distance = 0
+        var distanceAct = 0
         if(vetData.coordinates != null){
-            distance = ServiceLocation.getDistance(vetData.coordinates!!).roundToInt()
+            distanceAct = ServiceLocation.getDistance(vetData.coordinates!!).roundToInt()
         }
-        distancia.text = "$distance mts."
+        distance.text = "$distanceAct mts."
         address.text = vetData.address
         name.text = vetData.name
         neighborhood.text = vetData.localidad

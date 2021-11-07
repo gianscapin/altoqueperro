@@ -21,8 +21,8 @@ class ShelterItemFragment : Fragment() {
     lateinit var shelterAddress: TextView
     lateinit var shelterPhoneNumber: TextView
     lateinit var shelterImage: ImageView
-    lateinit var shelterLocalidad: TextView
-    lateinit var distancia: TextView
+    lateinit var shelterLocation: TextView
+    lateinit var distance: TextView
 
     companion object {
         fun newInstance() = ShelterItemFragment()
@@ -39,8 +39,8 @@ class ShelterItemFragment : Fragment() {
         shelterName = v.findViewById(R.id.txtShelterName)
         shelterPhoneNumber = v.findViewById(R.id.txtShelterPhoneNumber)
         shelterImage = v.findViewById(R.id.imageShelterDetail)
-        shelterLocalidad = v.findViewById(R.id.txtShelterLocalidad)
-        distancia = v.findViewById(R.id.txtDistance)
+        shelterLocation = v.findViewById(R.id.txtShelterLocalidad)
+        distance = v.findViewById(R.id.txtDistance)
         return  v
     }
 
@@ -55,15 +55,15 @@ class ShelterItemFragment : Fragment() {
         val shelterData:Shelter = ShelterItemFragmentArgs.fromBundle(requireArguments()).shelterData
 
         println(shelterData.coordinates?.latitude.toString()+" "+shelterData.coordinates?.longitude.toString())
-        var distance = 0
+        var distanceAct = 0
         if(shelterData.coordinates != null){
-            distance = ServiceLocation.getDistance(shelterData.coordinates!!).roundToInt()
+            distanceAct = ServiceLocation.getDistance(shelterData.coordinates!!).roundToInt()
         }
 
-        distancia.text = "$distance mts."
+        distance.text = "$distanceAct mts."
         shelterAddress.text = shelterData.address
         shelterName.text = shelterData.name
-        shelterLocalidad.text = "Direccion Hogar"
+        shelterLocation.text = "Direccion Hogar"
         shelterPhoneNumber.text = shelterData.phoneNumber
         Glide.with(view.context).load(shelterData.imageUrl).into(shelterImage)
 
