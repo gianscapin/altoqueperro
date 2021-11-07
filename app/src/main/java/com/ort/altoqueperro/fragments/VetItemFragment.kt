@@ -17,12 +17,13 @@ import kotlin.math.roundToInt
 
 class VetItemFragment : Fragment() {
     lateinit var v: View
-    /*lateinit var neighborhood: TextView
-    lateinit var distancia: TextView*/
+    lateinit var neighborhood: TextView
+    lateinit var distance: TextView
     lateinit var name: TextView
     lateinit var phoneNumber: TextView
     lateinit var businessHours: TextView
     lateinit var imageLogo: ImageView
+    lateinit var address : TextView
 
     companion object {
         fun newInstance() = VetItemFragment()
@@ -35,13 +36,13 @@ class VetItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         v = inflater.inflate(R.layout.vet_item_fragment, container, false)
-        /*neighborhood = v.findViewById(R.id.neighborhood)
-        address = v.findViewById(R.id.txtVetPhoneNumber)
-        distancia = v.findViewById(R.id.distancia)*/
+        address = v.findViewById(R.id.textDirection)
         name = v.findViewById(R.id.txtVetName)
         phoneNumber = v.findViewById(R.id.txtVetPhoneNumber)
         businessHours = v.findViewById(R.id.txtVetBusinessHours)
         imageLogo = v.findViewById(R.id.txtVetLogo)
+        neighborhood = v.findViewById(R.id.txtShelterLocalidad)
+        distance = v.findViewById(R.id.txtDistance)
         return  v
     }
 
@@ -56,16 +57,16 @@ class VetItemFragment : Fragment() {
         val vetData:Vet = VetItemFragmentArgs.fromBundle(requireArguments()).vetData
 
         println(vetData.coordinates?.latitude.toString()+" "+vetData.coordinates?.longitude.toString())
-        var distance = 0
+        var distanceAct = 0
         if(vetData.coordinates != null){
-            distance = ServiceLocation.getDistance(vetData.coordinates!!).roundToInt()
+            distanceAct = ServiceLocation.getDistance(vetData.coordinates!!).roundToInt()
         }
-        // neighborhood.text = vetData.neighborhood
-        // distancia.text = distance.toString()+" mts."
-        // address.text = vetData.street + " " + vetData.streetNumber
+        distance.text = "$distanceAct mts."
+        address.text = vetData.address
         name.text = vetData.name
+        neighborhood.text = vetData.localidad
         phoneNumber.text = vetData.phone
-        businessHours.text = vetData.businessHours
+        businessHours.text = "Horacio de Atención " + vetData.businessHours
         Glide.with(view.context).load(vetData.imageUrl).into(imageLogo)
 
     }

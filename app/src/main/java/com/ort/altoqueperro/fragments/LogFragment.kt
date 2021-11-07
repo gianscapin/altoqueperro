@@ -73,7 +73,7 @@ class LogFragment : Fragment() {
 
         signUp.setOnClickListener {
             println("ingresando")
-            val action = LogFragmentDirections.actionLogFragmentToSignUpFragment2()
+            val action = LogFragmentDirections.actionLogFragmentToSignUpFragment()
             v.findNavController().navigate(action)
 
         }
