@@ -6,7 +6,7 @@ import com.ort.altoqueperro.R
 
 class MainActivity : AppCompatActivity() {
     companion object {
-        var score = Score(20, 30, 45, 5)
+        var score = Score(20, 30, 5, 20, 20, 5)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,5 +14,11 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class Score(val size: Int, val sex: Int, val coat: Int, val eyeColor: Int) {
+class Score(
+    val sex: Int,
+    val size: Int,
+    val nose: Int,
+    var furLength: Int,
+    var furColor: Int,
+    val eyeColor: Int) {
 }

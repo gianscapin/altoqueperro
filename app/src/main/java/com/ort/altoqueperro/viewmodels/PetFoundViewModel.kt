@@ -4,8 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.ort.altoqueperro.entities.FoundPetRequest
+import com.ort.altoqueperro.entities.Pet
+import com.ort.altoqueperro.entities.PetRequest
+import com.ort.altoqueperro.entities.State
 import com.ort.altoqueperro.fragments.PetFoundDirections
 import java.util.*
 
@@ -69,11 +74,11 @@ class PetFoundViewModel : ViewModel() {
         mutablePetType.value = value
     }
 
-    private val mutableDate = MutableLiveData<String>()
-    val date: LiveData<String> get() = mutableDate
+    private val mutableLostDate = MutableLiveData<String>()
+    val lostDate: LiveData<String> get() = mutableLostDate
 
-    fun setDate(value: String) {
-        mutableDate.value = value
+    fun setLostDate(value: String) {
+        mutableLostDate.value = value
     }
 
     private val mutableTime = MutableLiveData<String>()
@@ -83,26 +88,28 @@ class PetFoundViewModel : ViewModel() {
         mutableTime.value = value
     }
 
+    fun registerPet(): PetRequest {
+        val user = Firebase.auth.currentUser
+        val pet = Pet(null,
+            petType.toString(),
+            petSize.toString(),
+            petSex.toString(),
+            petNose.toString(),
+            petFurLength.toString(),
+            petFurColor.toString(),
+            petEyeColor.toString(),
+            comments.toString(),
+            lostDate.toString())
 
+        val petRequest = FoundPetRequest(
+            pet,
+            null,
+            user!!.uid,
+        )
+        db.collection("foundPetRequests").document().set(petRequest)
+        return petRequest
+      }
 
-//    fun registerPet(petType:String, petSex:String, petSize:String, petNose:String, petFurLength:String, petFurColor:String, petEyeColor:String, petDate: String, petTime: String, petComments: String):Unit{
-//
-//        val data = hashMapOf(
-//            "type" to name,
-//            "breed" to breed,
-//            "color" to color,
-//            "lat" to lat,
-//            "long" to long
-//        )
-//
-//        db.collection("petsLost").document().set(data)
-//    }
-
-
-//    fun lookForSimilarities(){
-//        var action = PetFoundDirections.actionPetFoundToPetFoundSearchSimilarities()
-//        v.findNavController().navigate(action);
-//    }
 
     fun validateStep1(): Boolean {
         return !mutablePetSex.value.isNullOrEmpty() && !mutablePetSize.value.isNullOrEmpty() && !mutablePetType.value.isNullOrEmpty()
@@ -113,7 +120,7 @@ class PetFoundViewModel : ViewModel() {
     }
 
     fun validateStep3(): Boolean {
-        return !mutableComments.value.isNullOrEmpty() && !mutableDate.value.isNullOrEmpty() && !mutableTime.value.isNullOrEmpty()
+        return !mutableTime.value.isNullOrEmpty()
     }
 
 }

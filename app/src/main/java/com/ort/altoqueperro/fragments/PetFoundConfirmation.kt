@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.viewmodels.PetFoundViewModel
 
 class PetFoundConfirmation : Fragment() {
@@ -55,7 +56,7 @@ class PetFoundConfirmation : Fragment() {
         txtPetTimeValue = v.findViewById(R.id.txtPetTimeValue)
 
         viewModel.comments.observe(viewLifecycleOwner, {
-            txtCommentsValue.text = it
+            txtCommentsValue.text  = if (it.isNullOrEmpty()) "Sin comentarios" else "no"
         })
 
         viewModel.petEyeColor.observe(viewLifecycleOwner, {
@@ -87,12 +88,8 @@ class PetFoundConfirmation : Fragment() {
             txtPetTypeValue.text = it
         })
 
-        viewModel.date.observe(viewLifecycleOwner, {
+        viewModel.lostDate.observe(viewLifecycleOwner, {
             txtDateValue.text = it
-        })
-
-        viewModel.time.observe(viewLifecycleOwner, {
-            txtPetTimeValue.text = it
         })
 
         return v
@@ -101,29 +98,16 @@ class PetFoundConfirmation : Fragment() {
     override fun onStart() {
         super.onStart()
 
-
-        /*sendPet.setOnClickListener {
-            var type = petType.labelFor.toString()
-            var color = petColor.text.toString()
-            var lat = petLat.text.toString()
-            var long = petLong.text.toString()
-
-            database = Firebase.database.reference
-
-            if (type.isNotEmpty() && breed.isNotEmpty() && color.isNotEmpty() && lat.isNotEmpty() && long.isNotEmpty()) {
-                registerPet(name, breed, color, lat, long)
-                lookForSimilarities()
-            }
-        }*/
-
         nextButton.setOnClickListener {
-          //  val action = PetFoundConfirmationDirections.actionPetFoundConfirmationToPetFoundSearchSimilarities()
-           // v.findNavController().navigate(action)
-            //viewModel.registerPet(name, breed, color, lat, long)
-            //viewModel.lookForSimilarities()
+            var petRequest = viewModel.registerPet()
+            lookForSimilarities(petRequest)
         }
     }
 
+    fun lookForSimilarities(petRequest : PetRequest ) {
+        var action = PetFoundConfirmationDirections.actionPetFoundConfirmationToPetFoundSearchSimilarities(petRequest)
+        v.findNavController().navigate(action);
+    }
 
 
 
