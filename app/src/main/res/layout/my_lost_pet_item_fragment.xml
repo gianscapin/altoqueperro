@@ -7,47 +7,44 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
-        android:layout_width="267dp"
-        android:layout_height="145dp"
+        android:layout_width="329dp"
+        android:layout_height="115dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="50dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.519"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardItemSimilarPet">
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/btnMyPetConfirm"
-            android:layout_width="220dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="10dp"
+            android:layout_width="131dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="15dp"
+            android:backgroundTint="#F0CD71"
             android:text="La Encontre"
             android:textColorLink="@color/atp_orange_variant"
             android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/btnMyPetCancel"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnMyPetCancel"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnMyPetCancel"
-            android:layout_width="220dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="25dp"
+            android:layout_width="131dp"
+            android:layout_height="65dp"
+            android:layout_marginEnd="28dp"
+            android:backgroundTint="#F0CD71"
             android:text="Reiniciar busqueda"
             android:textColorLink="@color/atp_red_variant"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnMyPetConfirm" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -119,8 +116,9 @@
                         android:id="@+id/txtSimilarPetTypeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Animal"
-                        android:textSize="15dp" />
+                        android:text="Animal:"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtSimilarPetType"
@@ -139,8 +137,9 @@
                         android:id="@+id/txtSimilarPetSizeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tamaño"
-                        android:textSize="15dp" />
+                        android:text="Tamaño:"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtSimilarPetSize"
@@ -159,8 +158,9 @@
                         android:id="@+id/txtSimilarPetSexText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sexo"
-                        android:textSize="15dp" />
+                        android:text="Sexo:"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtSimilarPetSex"
@@ -179,8 +179,9 @@
                         android:id="@+id/txtSimilarPetCoatText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pelaje"
-                        android:textSize="15dp" />
+                        android:text="Pelaje:"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtSimilarPetCoat"
@@ -199,8 +200,9 @@
                         android:id="@+id/txtSimilarPetEyeColorText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ojos"
-                        android:textSize="15dp" />
+                        android:text="Ojos:"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtSimilarPetEyeColor"
@@ -237,9 +239,9 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            tools:context=".fragments.MyLostPetItemFragment"
+            android:background="#F0CD71"
 
-            >
+            tools:context=".fragments.MyLostPetItemFragment">
 
             <ImageView
                 android:id="@+id/imageMyPetDetail"
@@ -290,8 +292,9 @@
                         android:id="@+id/txtMyPetTypeText"
                         android:layout_width="61dp"
                         android:layout_height="match_parent"
-                        android:text="Animal"
-                        android:textSize="15dp" />
+                        android:text="Animal:"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtMyPetType"
@@ -310,8 +313,9 @@
                         android:id="@+id/txtMyPetSizeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tamaño"
-                        android:textSize="15dp" />
+                        android:text="Tamaño:"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtMyPetSize"
@@ -330,8 +334,9 @@
                         android:id="@+id/txtMyPetSexText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sexo"
-                        android:textSize="15dp" />
+                        android:text="Sexo:"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtMyPetSex"
@@ -350,8 +355,9 @@
                         android:id="@+id/txtMyPetCoatText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pelaje"
-                        android:textSize="15dp" />
+                        android:text="Pelaje:"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtMyPetCoat"
@@ -370,8 +376,9 @@
                         android:id="@+id/txtMyPetEyeColorText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ojos"
-                        android:textSize="15dp" />
+                        android:text="Ojos:"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txtMyPetEyeColor"
