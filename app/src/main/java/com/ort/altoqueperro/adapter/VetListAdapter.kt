@@ -3,9 +3,11 @@ package com.ort.altoqueperro.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.Vet
 import com.ort.altoqueperro.utils.ServiceLocation
@@ -22,7 +24,7 @@ class VetListAdapter(private var vetList : MutableList<Vet>,
         var address: TextView = view.findViewById(R.id.address)
         var phone: TextView = view.findViewById(R.id.txtVetPhoneNumber)
         var businesshour: TextView = view.findViewById(R.id.txtVetBusinessHours)
-        //var logo: ImageView = view.findViewById(R.id.neighborhood)
+        var logo: ImageView = view.findViewById(R.id.txtVetLogo)
 
         fun setData (vet:Vet) {
            // neighborhood.text = vet.neighborhood
@@ -35,7 +37,7 @@ class VetListAdapter(private var vetList : MutableList<Vet>,
             //address.text = vet.street + " " + vet.streetNumber
             phone.text = vet.phone
             businesshour.text = vet.businessHours
-          //  Glide.with(view.context).load(vet.logoURL).into(logo)
+            Glide.with(view.context).load(vet.imageUrl).into(logo)
         }
     fun getCardLayout (): CardView {
         return view.findViewById(R.id.cardItem)
