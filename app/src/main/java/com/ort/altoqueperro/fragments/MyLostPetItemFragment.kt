@@ -84,16 +84,16 @@ class MyLostPetItemFragment : Fragment() {
             similarPetType.text = it.pet.type
             similarPetSize.text = it.pet.size
             similarPetSex.text = it.pet.sex
-            similarPetCoat.text = it.pet.coat
-            similarPetEyeColor.text = it.pet.eyeColor
+            similarPetCoat.text = it.pet.furColor
+            similarPetEyeColor.text = it.pet.eyes
         })
 
         myLostPetName.text = lostPetData.pet.name
         myLostPetType.text = lostPetData.pet.type
         myLostPetSize.text = lostPetData.pet.size
         myLostPetSex.text = lostPetData.pet.sex
-        myLostPetCoat.text = lostPetData.pet.coat
-        myLostPetEyeColor.text = lostPetData.pet.eyeColor
+        myLostPetCoat.text = lostPetData.pet.furColor
+        myLostPetEyeColor.text = lostPetData.pet.eyes
         // lostPetState.text = lostPetData.requestCreator.toString()
 
         Glide.with(view.context).load(R.drawable.atp_logo).into(myLostPetImage)

@@ -14,13 +14,18 @@ import com.ort.altoqueperro.viewmodels.LostPetItemViewModel
 
 class LostPetItemFragment : Fragment() {
     lateinit var v: View
-    lateinit var lostPetImage: ImageView
-    lateinit var lostPetName: TextView
-    lateinit var lostPetType: TextView
-    lateinit var lostPetSize: TextView
-    lateinit var lostPetSex: TextView
-    lateinit var lostPetCoat: TextView
-    lateinit var lostPetEyeColor: TextView
+    private lateinit var lostPetImage: ImageView
+    private lateinit var lostPetName: TextView
+    private lateinit var lostPetType: TextView
+    private lateinit var lostPetSize: TextView
+    private lateinit var lostPetSex: TextView
+    private lateinit var lostPetEyeColor: TextView
+    private lateinit var lostPetNose: TextView
+    private lateinit var lostPetFurLength: TextView
+    private lateinit var lostPetFurColor: TextView
+    private lateinit var lostPetComments: TextView
+    private lateinit var lostPetLostDate: TextView
+
 
     companion object {
         fun newInstance() = LostPetItemFragment()
@@ -38,8 +43,12 @@ class LostPetItemFragment : Fragment() {
         lostPetType = v.findViewById(R.id.txtPetType)
         lostPetSize = v.findViewById(R.id.txtPetSize)
         lostPetSex = v.findViewById(R.id.txtPetSex)
-        lostPetCoat = v.findViewById(R.id.txtPetCoat)
         lostPetEyeColor = v.findViewById(R.id.txtPetEyeColor)
+        lostPetFurLength = v.findViewById(R.id.txtPetFurLength)
+        lostPetNose = v.findViewById(R.id.txtPetNose)
+        lostPetFurColor = v.findViewById(R.id.txtPetFurColor)
+        lostPetComments = v.findViewById(R.id.txtPetComments)
+        lostPetLostDate = v.findViewById(R.id.txtPetLostDate)
 
         return v
     }
@@ -54,8 +63,12 @@ class LostPetItemFragment : Fragment() {
             lostPetType.text = lostPetData.pet.type
             lostPetSize.text = lostPetData.pet.size
             lostPetSex.text = lostPetData.pet.sex
-            lostPetCoat.text = lostPetData.pet.coat
-            lostPetEyeColor.text = lostPetData.pet.eyeColor
+            lostPetEyeColor.text = lostPetData.pet.eyes
+            lostPetFurLength.text = lostPetData.pet.furLength
+            lostPetFurColor.text = lostPetData.pet.furColor
+            lostPetComments.text = lostPetData.pet.comments
+            lostPetLostDate.text = lostPetData.pet.lostDate
+
             // lostPetState.text = lostPetData.requestCreator.toString()
 
             Glide.with(view.context).load(R.drawable.atp_logo).into(lostPetImage)

@@ -2,14 +2,16 @@ package com.ort.altoqueperro.fragments
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
 
 class PetLostConfirmation : Fragment() {
@@ -18,19 +20,19 @@ class PetLostConfirmation : Fragment() {
         fun newInstance() = PetLostConfirmation()
     }
 
-    lateinit var nextButton : Button
-    lateinit var txtCommentsValue : TextView
-    lateinit var txtDateValue : TextView
-    lateinit var txtFoundTitle : TextView
-    lateinit var txtPetEyeColorValue : TextView
-    lateinit var txtPetFurColorValue : TextView
-    lateinit var txtPetFurLengthValue : TextView
-    lateinit var txtPetNameValue : TextView
-    lateinit var txtPetNoseValue : TextView
-    lateinit var txtPetSexValue : TextView
-    lateinit var txtPetSizeValue : TextView
-    lateinit var txtPetTimeValue : TextView
-    lateinit var txtPetTypeValue : TextView
+    private lateinit var nextButton: Button
+    private lateinit var txtCommentsValue: TextView
+    private lateinit var txtDateValue: TextView
+    private lateinit var txtFoundTitle: TextView
+    private lateinit var txtPetEyeColorValue: TextView
+    private lateinit var txtPetFurColorValue: TextView
+    private lateinit var txtPetFurLengthValue: TextView
+
+    //lateinit var txtPetNameValue: TextView
+    private lateinit var txtPetNoseValue: TextView
+    private lateinit var txtPetSexValue: TextView
+    private lateinit var txtPetSizeValue: TextView
+    private lateinit var txtPetTypeValue: TextView
     lateinit var v: View
 
     private val viewModel: PetLostViewModel by activityViewModels()
@@ -38,7 +40,7 @@ class PetLostConfirmation : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         v = inflater.inflate(R.layout.pet_lost_confirmation_fragment, container, false)
 
         nextButton = v.findViewById(R.id.btnPublish)
@@ -53,11 +55,14 @@ class PetLostConfirmation : Fragment() {
         txtPetSexValue = v.findViewById(R.id.txtPetSexValue)
         txtPetSizeValue = v.findViewById(R.id.txtPetSizeValue)
         txtPetTypeValue = v.findViewById(R.id.txtPetTypeValue)
-        txtPetTimeValue = v.findViewById(R.id.txtPetTimeValue)
 
         viewModel.comments.observe(viewLifecycleOwner, {
-            txtCommentsValue.text = it
-
+            if (it.isEmpty()) {
+                txtCommentsValue.text = "Sin comentarios"
+            }
+            else {
+                txtCommentsValue.text = it
+            }
         })
 
         viewModel.petEyeColor.observe(viewLifecycleOwner, {
@@ -89,39 +94,29 @@ class PetLostConfirmation : Fragment() {
             txtPetTypeValue.text = it
         })
 
-        viewModel.date.observe(viewLifecycleOwner, {
+        viewModel.lostDate.observe(viewLifecycleOwner, {
             txtDateValue.text = it
         })
 
-        viewModel.time.observe(viewLifecycleOwner, {
-            txtPetTimeValue.text = it
-        })
+
 
         return v
     }
 
     override fun onStart() {
         super.onStart()
-
-
-        /*sendPet.setOnClickListener {
-            var type = petType.labelFor.toString()
-            var color = petColor.text.toString()
-            var lat = petLat.text.toString()
-            var long = petLong.text.toString()
-            database = Firebase.database.reference
-            if (type.isNotEmpty() && breed.isNotEmpty() && color.isNotEmpty() && lat.isNotEmpty() && long.isNotEmpty()) {
-                registerPet(name, breed, color, lat, long)
-                lookForSimilarities()
-            }
-        }*/
-
         nextButton.setOnClickListener {
-            //  val action = PetFoundConfirmationDirections.actionPetFoundConfirmationToPetFoundSearchSimilarities()
-            // v.findNavController().navigate(action)
-            //viewModel.registerPet(name, breed, color, lat, long)
-            //viewModel.lookForSimilarities()
+            val petRequest = viewModel.registerPet()
+            lookForSimilarities(petRequest)
         }
+    }
+
+    private fun lookForSimilarities(petRequest: PetRequest) {
+        val action =
+            PetLostConfirmationDirections.actionPetLostConfirmationToPetLostSearchSimilarities(
+                petRequest
+            )
+        v.findNavController().navigate(action);
     }
 
 

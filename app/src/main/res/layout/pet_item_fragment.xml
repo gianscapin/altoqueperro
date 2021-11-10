@@ -50,8 +50,8 @@
 
         <TableLayout
             android:id="@+id/tableLayout2"
-            android:layout_width="281dp"
-            android:layout_height="134dp"
+            android:layout_width="308dp"
+            android:layout_height="250dp"
             android:layout_marginStart="45dp"
             android:layout_marginEnd="45dp"
             android:layout_marginBottom="60dp"
@@ -131,15 +131,37 @@
                     android:id="@+id/txtPetCoatText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pelaje"
+                    android:text="Color de pelaje"
                     android:textSize="20dp" />
 
                 <TextView
-                    android:id="@+id/txtPetCoat"
+                    android:id="@+id/txtPetFurColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="Negro"
+                    android:textSize="20dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txtPetFurLengthText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Largo de pelaje"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/txtPetFurLength"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="right"
+                    android:text="Largo"
                     android:textSize="20dp" />
 
             </TableRow>
@@ -162,6 +184,72 @@
 
                     android:gravity="right"
                     android:text="Azules"
+                    android:textSize="20dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txtPetNoseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nariz"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/txtPetNose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="right"
+                    android:text="Puntiaguda"
+                    android:textSize="20dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txtPetLostDateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/txtPetLostDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="right"
+                    android:text="07/11"
+                    android:textSize="20dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txtPetCommentsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Comentarios"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/txtPetComments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:gravity="right"
+                    android:text="Sin comentarios"
                     android:textSize="20dp" />
 
             </TableRow>

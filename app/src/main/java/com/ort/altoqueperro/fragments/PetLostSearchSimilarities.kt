@@ -27,7 +27,7 @@ class PetLostSearchSimilarities : Fragment() {
     private lateinit var viewModel: PetLostSearchSimilaritiesViewModel
     private lateinit var recSimilarPets: RecyclerView
     private lateinit var noResult: Button
-    private lateinit var petRequestData : PetRequest
+    private lateinit var petRequestData: PetRequest
     private lateinit var v: View
 
     override fun onCreateView(
@@ -42,19 +42,24 @@ class PetLostSearchSimilarities : Fragment() {
 
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(PetLostSearchSimilaritiesViewModel::class.java)
-        // TODO: Use the ViewModel
         petRequestData = PetLostSearchSimilaritiesArgs.fromBundle(requireArguments()).petRequest
-        viewModel.getPosibleMatches(petRequestData)
-        viewModel.requestRepository.observe(viewLifecycleOwner, {
+        viewModel.getComparingScore()
+        viewModel.getFoundPetRequests()
+        viewModel.comparingScoreLiveData.observe(viewLifecycleOwner, {
+            viewModel.foundPetRequestRepository.observe(viewLifecycleOwner, {
 
-            recSimilarPets.adapter =
-                SimilarPetsAdapter(viewModel.requestRepository.value!!) { onSimilarPetsClick(it) }
+                recSimilarPets.adapter =
+                    SimilarPetsAdapter(viewModel.lookForSimilarities(petRequestData)) {
+                        onSimilarPetsClick(
+                            it
+                        )
+                    }
 
+            })
         })
-
     }
 
     override fun onStart() {
@@ -65,15 +70,18 @@ class PetLostSearchSimilarities : Fragment() {
         recSimilarPets.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
-    fun onSimilarPetsClick(requestScore: RequestScore) {
+    private fun onSimilarPetsClick(requestScore: RequestScore) {
         val action =
-            PetLostSearchSimilaritiesDirections.actionPetLostSearchSimilaritiesToSimilarPetFragment(requestScore,petRequestData)
-        v.findNavController().navigate(action);
+            PetLostSearchSimilaritiesDirections.actionPetLostSearchSimilaritiesToSimilarPetFragment(
+                requestScore,
+                petRequestData
+            )
+        v.findNavController().navigate(action)
     }
 
-    fun noResult() {
-        var action =
+    private fun noResult() {
+        val action =
             PetLostSearchSimilaritiesDirections.actionPetLostSearchSimilaritiesToPetLostFinalMessage()
-        v.findNavController().navigate(action);
+        v.findNavController().navigate(action)
     }
 }

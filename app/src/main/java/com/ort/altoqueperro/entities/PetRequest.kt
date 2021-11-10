@@ -28,8 +28,8 @@ open class PetRequest(
         null
     )
 
-    fun comparePetTo(other: PetRequest): Int {
-        return pet.compareTo(other.pet)
+    fun comparePetTo(other: PetRequest, comparingScore: ComparingScore): Int {
+        return pet.compareTo(other.pet, comparingScore)
     }
 
     open fun closeRequest() {

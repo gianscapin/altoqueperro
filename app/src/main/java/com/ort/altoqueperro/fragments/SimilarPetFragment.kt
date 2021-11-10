@@ -66,8 +66,8 @@ class SimilarPetFragment : Fragment() {
         petType.text = foundPetRequest.pet.type
         petSize.text = foundPetRequest.pet.size
         petSex.text = foundPetRequest.pet.sex
-        petCoat.text = foundPetRequest.pet.coat
-        petEyeColor.text = foundPetRequest.pet.eyeColor
+        petCoat.text = foundPetRequest.pet.furColor
+        petEyeColor.text = foundPetRequest.pet.eyes
 
 
         Glide.with(view.context).load(R.drawable.atp_logo).into(petImage)

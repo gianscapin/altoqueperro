@@ -12,8 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
 
@@ -25,24 +23,23 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
 
     lateinit var petName: TextView
     lateinit var petType: Spinner
-    lateinit var petTypeValue: String
-    lateinit var petSex: RadioButton
-    lateinit var petSize: RadioButton
+    //lateinit var petTypeValue: String
+    //lateinit var petSex: RadioButton
+    //lateinit var petSize: RadioButton
 
     lateinit var nextButton: Button
 
     lateinit var v: View
-    lateinit var rootLayout: ConstraintLayout
+    private lateinit var rootLayout: ConstraintLayout
 
     private val viewModel: PetLostViewModel by activityViewModels()
 
-    val db = Firebase.firestore
-   //private lateinit var database: DatabaseReference
+    //private lateinit var database: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         v = inflater.inflate(R.layout.pet_lost_1_fragment, container, false)
         nextButton = v.findViewById(R.id.btnNext)
         rootLayout = v.findViewById(R.id.pet_lost_root_layout_1)
@@ -53,6 +50,7 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.setPetName(s.toString())
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -105,7 +103,6 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
 
-
     override fun onStart() {
         super.onStart()
 
@@ -118,58 +115,6 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
             }
         }
     }
-
-
-//        nextButton.setOnClickListener {
-//            var name = petName.text.toString()
-//            var type = petType.text.toString()
-//            var size = petSize.text.toString()
-//            var sex = petSex.text.toString()
-//            var coat = petCoat.text.toString()
-//            var eyeColor = petEyeColor.text.toString()
-//
-//            database = Firebase.database.reference
-//            if (ServiceLocation.location.provider.equals("null")) {
-//                Toast.makeText(
-//                    activity,
-//                    "No hemos podido determinar su ubicación",
-//                    Toast.LENGTH_LONG
-//                )
-//            } else {
-//                if (name.isNotEmpty() && type.isNotEmpty() && size.isNotEmpty() && sex.isNotEmpty() && coat.isNotEmpty() && eyeColor.isNotEmpty()) {
-//                    registerPet(
-//                        name,
-//                        type,
-//                        size,
-//                        sex,
-//                        coat,
-//                        eyeColor,
-//                        ServiceLocation.getLocation()
-//                    )
-//                }
-//            }
-//        }
-//    }
-//
-//    fun registerPet( //ToDo va en el repository
-//        name: String,
-//        type: String,
-//        size: String,
-//        sex: String,
-//        coat: String,
-//        eyeColor: String,
-//        location: Coordinates?
-//    ): Unit {
-//        val user = Firebase.auth.currentUser
-//        val pet = Pet(name, type, size, sex, coat, eyeColor)
-//
-//        println(location)
-//        val petRequest = LostPetRequest(pet, location, user!!.uid)
-//        db.collection("lostPetRequests").document().set(petRequest)
-//
-//        var action = PetLostDirections.actionPetLostToPetLostSearchSimilarities(petRequest)
-//        v.findNavController().navigate(action);
-//    }
 
 
 }
