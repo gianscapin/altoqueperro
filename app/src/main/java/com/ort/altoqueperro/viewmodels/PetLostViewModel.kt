@@ -81,12 +81,6 @@ class PetLostViewModel : ViewModel() {
         mutableLostDate.value = value
     }
 
-    private val mutableTime = MutableLiveData<String>()
-    val time: LiveData<String> get() = mutableTime
-
-    fun setTime(value: String) {
-        mutableTime.value = value
-    }
 
     fun validateStep1(): Boolean {
         return !mutablePetName.value.isNullOrEmpty() && !mutablePetSex.value.isNullOrEmpty() && !mutablePetSize.value.isNullOrEmpty() && !mutablePetType.value.isNullOrEmpty()
@@ -97,7 +91,7 @@ class PetLostViewModel : ViewModel() {
     }
 
     fun validateStep3(): Boolean {
-        return !mutableLostDate.value.isNullOrEmpty() && !mutableTime.value.isNullOrEmpty()
+        return !mutableLostDate.value.isNullOrEmpty()
     }
 
     fun saveRequest(petRequest: LostPetRequest) {

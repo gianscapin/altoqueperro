@@ -32,7 +32,6 @@ class PetLostConfirmation : Fragment() {
     private lateinit var txtPetNoseValue: TextView
     private lateinit var txtPetSexValue: TextView
     private lateinit var txtPetSizeValue: TextView
-    private lateinit var txtPetTimeValue: TextView
     private lateinit var txtPetTypeValue: TextView
     lateinit var v: View
 
@@ -56,11 +55,14 @@ class PetLostConfirmation : Fragment() {
         txtPetSexValue = v.findViewById(R.id.txtPetSexValue)
         txtPetSizeValue = v.findViewById(R.id.txtPetSizeValue)
         txtPetTypeValue = v.findViewById(R.id.txtPetTypeValue)
-        txtPetTimeValue = v.findViewById(R.id.txtPetTimeValue)
 
         viewModel.comments.observe(viewLifecycleOwner, {
-            txtCommentsValue.text = it
-
+            if (it.isEmpty()) {
+                txtCommentsValue.text = "Sin comentarios"
+            }
+            else {
+                txtCommentsValue.text = it
+            }
         })
 
         viewModel.petEyeColor.observe(viewLifecycleOwner, {
@@ -96,9 +98,7 @@ class PetLostConfirmation : Fragment() {
             txtDateValue.text = it
         })
 
-        viewModel.time.observe(viewLifecycleOwner, {
-            txtPetTimeValue.text = it
-        })
+
 
         return v
     }

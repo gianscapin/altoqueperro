@@ -16,9 +16,10 @@
             android:id="@+id/textView20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:paddingHorizontal="32dp"
-            android:textAlignment="center"
             android:text="¡Ultimo paso!"
+            android:textAlignment="center"
             android:textColor="#151515"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,15 +45,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
-        <EditText
-            android:id="@+id/txtTime"
-            android:layout_width="330dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="8dp"
-            android:inputType="textPersonName"
-            android:hint="Hora"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtDate" />
+
 
         <TextView
             android:id="@+id/textView28"
@@ -61,16 +54,9 @@
             android:layout_marginTop="48dp"
             android:text="Se registrará tu ubicación actual en el anuncio"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtTime" />
+            app:layout_constraintTop_toBottomOf="@+id/txtDate" />
 
-        <TextView
-            android:id="@+id/txtLat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Ubicacion:"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
 
         <TextView
             android:id="@+id/textView29"
@@ -79,7 +65,7 @@
             android:layout_marginTop="48dp"
             android:text="Comentarios"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtLat" />
+            app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
         <EditText
             android:id="@+id/txtComments"

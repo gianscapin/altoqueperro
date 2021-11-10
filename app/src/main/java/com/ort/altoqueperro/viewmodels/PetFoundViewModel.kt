@@ -15,7 +15,12 @@ class PetFoundViewModel : ViewModel() {
     val comments: LiveData<String> get() = mutableComments
 
     fun setComments(value: String) {
-        mutableComments.value = value
+        if (value.isEmpty()) {
+            mutableComments.value = "Sin comentarios"
+        }
+        else {
+            mutableComments.value = value
+        }
     }
 
     private val mutablePetEyeColor = MutableLiveData<String>()
@@ -74,12 +79,7 @@ class PetFoundViewModel : ViewModel() {
         mutableLostDate.value = value
     }
 
-    private val mutableTime = MutableLiveData<String>()
-    val time: LiveData<String> get() = mutableTime
 
-    fun setTime(value: String) {
-        mutableTime.value = value
-    }
 
     fun registerPet() {
         val user = Firebase.auth.currentUser
@@ -114,7 +114,7 @@ class PetFoundViewModel : ViewModel() {
     }
 
     fun validateStep3(): Boolean {
-        return !mutableTime.value.isNullOrEmpty()
+        return !mutableLostDate.value.isNullOrEmpty()
     }
 
     private fun saveRequest(petRequest: FoundPetRequest) {
