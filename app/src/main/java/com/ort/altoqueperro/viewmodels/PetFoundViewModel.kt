@@ -3,20 +3,13 @@ package com.ort.altoqueperro.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.findNavController
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.Pet
-import com.ort.altoqueperro.entities.PetRequest
-import com.ort.altoqueperro.entities.State
-import com.ort.altoqueperro.fragments.PetFoundDirections
-import java.util.*
+import com.ort.altoqueperro.repos.RequestRepository
 
 class PetFoundViewModel : ViewModel() {
-
-    val db = Firebase.firestore
 
     private val mutableComments = MutableLiveData<String>()
     val comments: LiveData<String> get() = mutableComments
@@ -88,27 +81,28 @@ class PetFoundViewModel : ViewModel() {
         mutableTime.value = value
     }
 
-    fun registerPet(): PetRequest {
+    fun registerPet() {
         val user = Firebase.auth.currentUser
-        val pet = Pet(null,
-            petType.toString(),
-            petSize.toString(),
-            petSex.toString(),
-            petNose.toString(),
-            petFurLength.toString(),
-            petFurColor.toString(),
-            petEyeColor.toString(),
-            comments.toString(),
-            lostDate.toString())
+        val pet = Pet(
+            null,
+            petType.value.toString(),
+            petSize.value.toString(),
+            petSex.value.toString(),
+            petNose.value.toString(),
+            petFurLength.value.toString(),
+            petFurColor.value.toString(),
+            petEyeColor.value.toString(),
+            comments.value.toString(),
+            lostDate.value.toString()
+        )
 
         val petRequest = FoundPetRequest(
             pet,
             null,
             user!!.uid,
         )
-        db.collection("foundPetRequests").document().set(petRequest)
-        return petRequest
-      }
+        saveRequest(petRequest)
+    }
 
 
     fun validateStep1(): Boolean {
@@ -121,6 +115,10 @@ class PetFoundViewModel : ViewModel() {
 
     fun validateStep3(): Boolean {
         return !mutableTime.value.isNullOrEmpty()
+    }
+
+    private fun saveRequest(petRequest: FoundPetRequest) {
+        RequestRepository().saveFoundPetRequest(petRequest)
     }
 
 }

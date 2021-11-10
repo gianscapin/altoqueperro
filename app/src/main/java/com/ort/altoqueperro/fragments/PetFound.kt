@@ -5,25 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import com.google.firebase.auth.ktx.auth
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.entities.FoundPetRequest
-import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.viewmodels.PetFoundViewModel
 
 class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -32,13 +20,14 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
         fun newInstance() = PetFound()
     }
 
-    lateinit var petTypesSpinner: Spinner
+    private lateinit var petTypesSpinner: Spinner
+
     //lateinit var petPhoto: ImageView
     //lateinit var photoUploadButton: Button
-    lateinit var nextButton: Button
+    private lateinit var nextButton: Button
     lateinit var v: View
 
-    lateinit var rootLayout: ConstraintLayout
+    private lateinit var rootLayout: ConstraintLayout
 
     private val viewModel: PetFoundViewModel by activityViewModels()
 

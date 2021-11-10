@@ -14,17 +14,17 @@ import com.ort.altoqueperro.viewmodels.LostPetItemViewModel
 
 class LostPetItemFragment : Fragment() {
     lateinit var v: View
-    lateinit var lostPetImage: ImageView
-    lateinit var lostPetName: TextView
-    lateinit var lostPetType: TextView
-    lateinit var lostPetSize: TextView
-    lateinit var lostPetSex: TextView
-    lateinit var lostPetEyeColor: TextView
-    lateinit var lostPetNose: TextView
-    lateinit var lostPetFurLength: TextView
-    lateinit var lostPetFurColor: TextView
-    lateinit var lostPetComments: TextView
-    lateinit var lostPetLostDate: TextView
+    private lateinit var lostPetImage: ImageView
+    private lateinit var lostPetName: TextView
+    private lateinit var lostPetType: TextView
+    private lateinit var lostPetSize: TextView
+    private lateinit var lostPetSex: TextView
+    private lateinit var lostPetEyeColor: TextView
+    private lateinit var lostPetNose: TextView
+    private lateinit var lostPetFurLength: TextView
+    private lateinit var lostPetFurColor: TextView
+    private lateinit var lostPetComments: TextView
+    private lateinit var lostPetLostDate: TextView
 
 
     companion object {

@@ -7,18 +7,11 @@ import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.State
-import java.util.*
 
 class RequestRepository {
-    var foundRequests: MutableList<FoundPetRequest> = mutableListOf() //ToDo no va
-    private var lostRequests: MutableList<LostPetRequest> = mutableListOf() //ToDo no va
     val db = Firebase.firestore
 
-    init {
-        createRequestsDatabase() //ToDo no va
-    }
-
-    fun getLostPetRequests(liveData: MutableLiveData<MutableList<LostPetRequest>>) {
+    fun getAllLostPetRequests(liveData: MutableLiveData<MutableList<LostPetRequest>>) {
         val lostRequests: MutableList<LostPetRequest> = mutableListOf()
         db.collection("lostPetRequests")
             .whereNotEqualTo("state", State.CLOSED.ordinal)
@@ -26,7 +19,7 @@ class RequestRepository {
             .addOnSuccessListener {
                 for (request in it) {
                     val requestObject = request.toObject<LostPetRequest>()
-                    requestObject.id = request.id
+                    requestObject.id = request.id //ToDo sacar
                     lostRequests.add(requestObject)
                 }
                 liveData.postValue(lostRequests)
@@ -36,7 +29,7 @@ class RequestRepository {
             }
     }
 
-    fun getFoundPetRequests(liveData: MutableLiveData<MutableList<FoundPetRequest>>) {
+    fun getAllFoundPetRequests(liveData: MutableLiveData<MutableList<FoundPetRequest>>) {
         val foundPetRequests: MutableList<FoundPetRequest> = mutableListOf()
         db.collection("foundPetRequests")
             .whereNotEqualTo("state", State.CLOSED.ordinal)
@@ -44,7 +37,7 @@ class RequestRepository {
             .addOnSuccessListener {
                 for (request in it) {
                     val requestObject = request.toObject<FoundPetRequest>()
-                    requestObject.id = request.id
+                    requestObject.id = request.id //ToDo sacar cuando se guarde ya con el id
                     foundPetRequests.add(requestObject)
                 }
                 liveData.postValue(foundPetRequests)
@@ -75,41 +68,20 @@ class RequestRepository {
     }
 
     fun saveLostPetRequest(petRequest: LostPetRequest) {
-        db.collection("lostPetRequests").document(petRequest.id).set(petRequest)
+        if (petRequest.id.isEmpty()) {
+            val document = db.collection("lostPetRequests").document()
+            petRequest.id = document.id
+            document.set(petRequest)
+        } else db.collection("lostPetRequests").document(petRequest.id).set(petRequest)
     }
 
     fun saveFoundPetRequest(petRequest: FoundPetRequest) {
-        db.collection("foundPetRequests").document(petRequest.id).set(petRequest)
+        if (petRequest.id.isEmpty()) {
+            val document = db.collection("foundPetRequests").document()
+            petRequest.id = document.id
+            document.set(petRequest)
+        } else db.collection("foundPetRequests").document(petRequest.id).set(petRequest)
     }
 
-    private fun createRequestsDatabase() { //ToDo no va
-        PetRepository().pets.forEach {
-            foundRequests.add(
-                FoundPetRequest(
-                    "",
-                    it,
-                    State.OPEN.ordinal,
-                    Calendar.getInstance().time,
-                    null,
-                    null,
-                    UserRepository().getRandomUser().toString(),
-                    null,
-                    null
-                )
-            )
-            lostRequests.add(
-                LostPetRequest(
-                    "",
-                    it,
-                    State.OPEN.ordinal,
-                    Calendar.getInstance().time,
-                    null,
-                    null,
-                    UserRepository().getRandomUser().toString(),
-                    null
-                )
-            )
-        }
-    }
 
 }

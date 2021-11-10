@@ -1,16 +1,15 @@
 package com.ort.altoqueperro.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.viewmodels.PetFoundViewModel
 
 class PetFoundConfirmation : Fragment() {
@@ -19,18 +18,18 @@ class PetFoundConfirmation : Fragment() {
         fun newInstance() = PetFoundConfirmation()
     }
 
-    lateinit var nextButton : Button
-    lateinit var txtCommentsValue : TextView
-    lateinit var txtDateValue : TextView
-    lateinit var txtFoundTitle : TextView
-    lateinit var txtPetEyeColorValue : TextView
-    lateinit var txtPetFurColorValue : TextView
-    lateinit var txtPetFurLengthValue : TextView
-    lateinit var txtPetNoseValue : TextView
-    lateinit var txtPetSexValue : TextView
-    lateinit var txtPetSizeValue : TextView
-    lateinit var txtPetTimeValue : TextView
-    lateinit var txtPetTypeValue : TextView
+    private lateinit var nextButton: Button
+    private lateinit var txtCommentsValue: TextView
+    private lateinit var txtDateValue: TextView
+    private lateinit var txtFoundTitle: TextView
+    private lateinit var txtPetEyeColorValue: TextView
+    private lateinit var txtPetFurColorValue: TextView
+    private lateinit var txtPetFurLengthValue: TextView
+    private lateinit var txtPetNoseValue: TextView
+    private lateinit var txtPetSexValue: TextView
+    private lateinit var txtPetSizeValue: TextView
+    private lateinit var txtPetTimeValue: TextView
+    private lateinit var txtPetTypeValue: TextView
     lateinit var v: View
 
     private val viewModel: PetFoundViewModel by activityViewModels()
@@ -56,7 +55,7 @@ class PetFoundConfirmation : Fragment() {
         txtPetTimeValue = v.findViewById(R.id.txtPetTimeValue)
 
         viewModel.comments.observe(viewLifecycleOwner, {
-            txtCommentsValue.text  = if (it.isNullOrEmpty()) "Sin comentarios" else "no"
+            txtCommentsValue.text = if (it.isNullOrEmpty()) "Sin comentarios" else "no"
         })
 
         viewModel.petEyeColor.observe(viewLifecycleOwner, {
@@ -99,17 +98,16 @@ class PetFoundConfirmation : Fragment() {
         super.onStart()
 
         nextButton.setOnClickListener {
-            var petRequest = viewModel.registerPet()
-            lookForSimilarities(petRequest)
+            viewModel.registerPet()
+            navigateNext()
         }
     }
 
-    fun lookForSimilarities(petRequest : PetRequest ) {
-        var action = PetFoundConfirmationDirections.actionPetFoundConfirmationToPetFoundSearchSimilarities(petRequest)
-        v.findNavController().navigate(action);
+    private fun navigateNext() {
+        val action =
+            PetFoundConfirmationDirections.actionPetFoundConfirmationToPetFoundHostQuestion()
+        v.findNavController().navigate(action)
     }
-
-
 
 
 }

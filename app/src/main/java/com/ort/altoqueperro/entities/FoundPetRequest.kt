@@ -10,7 +10,7 @@ class FoundPetRequest(
     creationDate: Date,
     resolvedDate: Date?,
     coordinates: Coordinates?,
-    requestCreator: String, // user o string?
+    requestCreator: String,
     requestConsumer: String?,
     rescueCenter: String?
 ) : PetRequest(
