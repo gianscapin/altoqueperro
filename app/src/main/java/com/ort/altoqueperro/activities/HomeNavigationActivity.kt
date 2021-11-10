@@ -19,7 +19,7 @@ class HomeNavigationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        supportActionBar?.hide()
 
         binding = ActivityHomeNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
