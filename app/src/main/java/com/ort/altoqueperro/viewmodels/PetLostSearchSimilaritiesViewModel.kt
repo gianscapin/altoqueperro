@@ -21,9 +21,7 @@ class PetLostSearchSimilaritiesViewModel : ViewModel() {
     fun lookForSimilarities(petRequest: PetRequest): MutableList<RequestScore> {
 
         val similarPetsFound: MutableList<RequestScore> = mutableListOf()
-        val minScoreValue = 50
-        //ToDo que sea una variable modificable por el admin
-        //val minScoreValue = comparingScoreLiveData.value.minScore
+        val minScoreValue = comparingScoreLiveData.value!!.minScoreValue
 
         foundPetRequestRepository.value!!.forEach {
             val petScore = petRequest.comparePetTo(it, comparingScoreLiveData.value!!)
