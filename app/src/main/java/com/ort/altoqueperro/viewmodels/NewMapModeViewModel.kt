@@ -8,6 +8,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.Shelter
+import com.ort.altoqueperro.entities.State
 import com.ort.altoqueperro.entities.Vet
 import com.ort.altoqueperro.repos.RescueCenterRepository
 import com.ort.altoqueperro.utils.Notifications
@@ -25,7 +26,7 @@ class NewMapModeViewModel : ViewModel() {
 
     fun getLostPets() { //ToDo mover a repository
         val lostRequests: MutableList<LostPetRequest> = mutableListOf()
-        db.collection("lostPetRequests").get()
+        db.collection("lostPetRequests").whereNotEqualTo("state", State.CLOSED.ordinal).get()
             .addOnSuccessListener {
                 for (request in it) {
                     //lostRequests.add(request.toObject<LostPetRequest>())

@@ -51,7 +51,20 @@
         android:id="@+id/newMapModeFragment"
         android:name="com.ort.altoqueperro.fragments.NewMapModeFragment"
         android:label="@string/map_title"
-        tools:layout="@layout/new_map_mode_fragment" />
+        tools:layout="@layout/new_map_mode_fragment" >
+        <action
+            android:id="@+id/action_newMapModeFragment_to_lostPetItemFragment"
+            app:destination="@id/lostPetItemFragment" />
+        <action
+            android:id="@+id/action_newMapModeFragment_to_myLostPetItemFragment"
+            app:destination="@id/myLostPetItemFragment" />
+        <action
+            android:id="@+id/action_newMapModeFragment_to_shelterItemFragment"
+            app:destination="@id/shelterItemFragment" />
+        <action
+            android:id="@+id/action_newMapModeFragment_to_vetItemFragment"
+            app:destination="@id/vetItemFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settings"
         android:name="com.ort.altoqueperro.fragments.SettingsFragment"

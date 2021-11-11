@@ -1,13 +1,18 @@
 package com.ort.altoqueperro.fragments
 import android.Manifest
+import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.location.Location
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -16,26 +21,32 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.map
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.adapter.PetAdapter
-import com.ort.altoqueperro.entities.FoundPetRequest
-import com.ort.altoqueperro.entities.LostPetRequest
+import com.ort.altoqueperro.entities.*
 import com.ort.altoqueperro.utils.PermissionUtils.isPermissionGranted
 import com.ort.altoqueperro.utils.PermissionUtils.requestPermission
 import com.ort.altoqueperro.utils.ServiceLocation
 import com.ort.altoqueperro.utils.ServiceLocationGet
 import com.ort.altoqueperro.viewmodels.NewMapModeViewModel
+import org.w3c.dom.Text
+import java.util.*
+import kotlin.math.roundToInt
+import kotlin.reflect.typeOf
 
 
 class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
@@ -46,7 +57,8 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
     private var permissionDenied = false
     lateinit var serviceLocationGet: ServiceLocationGet
     var firstRun = true
-
+    var inst:Fragment = this
+    var idUserLogged = FirebaseAuth.getInstance().currentUser?.uid.toString()
     companion object {
         fun newInstance() = NewMapModeFragment()
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -89,6 +101,7 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
         map = googleMap ?: return
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
+        map.setInfoWindowAdapter(CustomInfoWindowAdapter())
         enableMyLocation()
         viewModel.getLostPets()
         map.clear()
@@ -105,7 +118,7 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
                         MarkerOptions().position(it.coordinates!!.getLatLng()).title(it.pet.name).icon(
                             bmp
                         )
-                    map.addMarker(marker)
+                    map.addMarker(marker).tag=it
                 }
             }
         })
@@ -120,7 +133,7 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
                         MarkerOptions().position(it.coordinates!!.getLatLng()).title(it.name).icon(
                             bmp
                         )
-                    map.addMarker(marker)
+                    map.addMarker(marker).tag=it
                 }
             }
         })
@@ -135,12 +148,28 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
                         MarkerOptions().position(it.coordinates!!.getLatLng()).title(it.name).icon(
                             bmp
                         )
-                    map.addMarker(marker)
+                    map.addMarker(marker).tag=it
                 }
             }
         })
-
-
+        map.setOnInfoWindowClickListener {
+            if (it.tag is LostPetRequest) {
+                val pet: LostPetRequest = it.tag as LostPetRequest
+                if (pet.requestCreator == idUserLogged) {
+                    onMyLostPetClick(pet)
+                } else {
+                    onLostPetClick(pet)
+                }
+            }
+            if (it.tag is Vet) {
+                val vet: Vet = it.tag as Vet
+                onVetClick(vet)
+            }
+            if (it.tag is Shelter) {
+                val shelter: Shelter = it.tag as Shelter
+                onShelterClick(shelter)
+            }
+        }
     }
 
     private fun gotoMyLocation() {
@@ -201,5 +230,74 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
             permissionDenied = true
             // [END_EXCLUDE]
         }
+    }
+    internal inner class CustomInfoWindowAdapter : GoogleMap.InfoWindowAdapter {
+        /** These can be lateinit as they are set in onCreate */
+
+        // These are both view groups containing an ImageView with id "badge" and two
+        // TextViews with id "title" and "snippet".
+        private val window: View = layoutInflater.inflate(R.layout.custom_info_window, null)
+        private val contents: View = layoutInflater.inflate(R.layout.custom_info_contents, null)
+
+        override fun getInfoWindow(marker: Marker): View? {
+                // This means that getInfoContents will be called.
+            marker.setInfoWindowAnchor(-1.1f,0f)
+            render(marker, window)
+            return window
+        }
+        override fun getInfoContents(marker: Marker): View? {
+            render(marker, contents)
+            return contents
+        }
+        private fun render(marker: Marker, view: View) {
+            val badge = R.drawable.dog // Passing 0 to setImageResource will clear the image view.
+            val distance = window.findViewById<TextView>(R.id.distance)
+            val size = window.findViewById<TextView>(R.id.size)
+            val coatColor = window.findViewById<TextView>(R.id.coatColor)
+            val more = window.findViewById<TextView>(R.id.more)
+            val imagen = window.findViewById<ImageView>(R.id.badge)
+            if (marker.tag is LostPetRequest) {
+                val pet: LostPetRequest = marker.tag as LostPetRequest
+                size.text = "Tamaño: " + pet.pet.size
+                coatColor.text = "Color: " + pet.pet.furColor
+                distance.text = ServiceLocation.getDistance(pet.coordinates!!).roundToInt().toString() + " mts."
+                imagen.setImageResource(badge)
+            }
+            if (marker.tag is Vet) {
+                val vet: Vet = marker.tag as Vet
+                size.text = "Nombre: " + vet.name
+                coatColor.text = "Horario: " + vet.businessHours
+                distance.text = ServiceLocation.getDistance(vet.coordinates!!).roundToInt().toString() + " mts."
+                imagen.setImageResource(R.drawable.vetmapa)
+            }
+            if (marker.tag is Shelter) {
+                val shelter: Shelter = marker.tag as Shelter
+                size.text = "Nombre: " + shelter.name
+                coatColor.text = "Telefono: " + shelter.phoneNumber
+                distance.text = ServiceLocation.getDistance(shelter.coordinates!!).roundToInt().toString() + " mts."
+                imagen.setImageResource(R.drawable.home)
+            }
+        }
+    }
+    fun onLostPetClick(lostPet: PetRequest) {
+        val action =
+            NewMapModeFragmentDirections.actionNewMapModeFragmentToLostPetItemFragment(lostPet)
+        this.parentFragment?.findNavController()?.navigate(action)
+    }
+
+    fun onMyLostPetClick(lostPet: LostPetRequest) {
+        val action =
+            NewMapModeFragmentDirections.actionNewMapModeFragmentToMyLostPetItemFragment(lostPet)
+        this.parentFragment?.findNavController()?.navigate(action)
+    }
+    fun onVetClick(vet: Vet) {
+        val action =
+            NewMapModeFragmentDirections.actionNewMapModeFragmentToVetItemFragment(vet)
+        this.parentFragment?.findNavController()?.navigate(action)
+    }
+    fun onShelterClick(shelter: Shelter) {
+        val action =
+            NewMapModeFragmentDirections.actionNewMapModeFragmentToShelterItemFragment(shelter)
+        this.parentFragment?.findNavController()?.navigate(action)
     }
 }
