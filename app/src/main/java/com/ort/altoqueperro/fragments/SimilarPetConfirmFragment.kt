@@ -19,8 +19,7 @@ import kotlin.String as String
 
 
 class SimilarPetConfirmFragment : Fragment() {
-    private lateinit var whatsappButton: ImageView
-    private lateinit var backToMenuButton: Button
+    private lateinit var btnMessage : Button
     lateinit var v: View
     private lateinit var userId: String
     lateinit var user: User
@@ -36,8 +35,7 @@ class SimilarPetConfirmFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         v =  inflater.inflate(R.layout.similar_pet_confirm_fragment, container, false)
-        whatsappButton = v.findViewById(R.id.whatsappImageView)
-        backToMenuButton = v.findViewById(R.id.backToMenuSimilarPet)
+        btnMessage = v.findViewById(R.id.btnMensagge)
         return v
     }
 
@@ -52,9 +50,10 @@ class SimilarPetConfirmFragment : Fragment() {
             user = it
         })
 
-        whatsappButton.setOnClickListener {
+        btnMessage.setOnClickListener {
             sendWhatsApp()
         }
+
     }
 
     fun sendWhatsApp() {
@@ -67,11 +66,6 @@ class SimilarPetConfirmFragment : Fragment() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
-
-    fun backToMenu(){
-        val action = SimilarPetFragmentDirections.actionSimilarPetFragmentToNewMapModeFragment()
-        v.findNavController().navigate(action);
     }
 
 }
