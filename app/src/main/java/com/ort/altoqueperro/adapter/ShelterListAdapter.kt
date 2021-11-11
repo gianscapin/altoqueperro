@@ -21,6 +21,15 @@ class ShelterListAdapter(private var shelterList : MutableList<Shelter>,
         val shelterName: TextView = view.findViewById(R.id.txtShelterItemName)
         shelterName.text = title
     }
+        fun setAddress(title: String){
+            val shelterAdress: TextView = view.findViewById(R.id.txtShelterAddress)
+            shelterAdress.text = title
+        }
+
+        fun setPhone(title: String){
+            val shelterPhone: TextView = view.findViewById(R.id.txtShelterPhoneNumber)
+            shelterPhone.text = title
+        }
 
     fun setPicture(url: String){
         val image: ImageView = view.findViewById(R.id.imageShelterItem)
@@ -41,6 +50,8 @@ override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShelterHolder
 override fun onBindViewHolder(holder: ShelterHolder, position: Int) {
     val shelter = shelterList[position]
     holder.setName(shelter.name)
+    shelter.address?.let { holder.setAddress(it) }
+    shelter.phoneNumber?.let { holder.setPhone(it) }
     shelter.imageUrl?.let { holder.setPicture(it) }
     holder.getCardLayout().setOnClickListener {
         onShelterClick(shelter)
