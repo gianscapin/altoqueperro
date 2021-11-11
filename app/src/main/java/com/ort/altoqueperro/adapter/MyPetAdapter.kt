@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.location.LocationServices
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.utils.ServiceLocation
@@ -20,8 +18,40 @@ class MyPetAdapter(private var requestList: MutableList<LostPetRequest>,
     class PetHolder(v: View): RecyclerView.ViewHolder(v) {
         private var view: View = v
 
+
         fun setName(title: String){
-            val txt: TextView = view.findViewById(R.id.txtPetFoundItemScore)
+            val txt: TextView = view.findViewById(R.id.namePetItem)
+            txt.text = title
+        }
+
+
+        fun setSize(title: String){
+            val txt: TextView = view.findViewById(R.id.sizePetItem)
+            txt.text = title
+        }
+
+        fun setSex(title: String){
+            val txt: TextView = view.findViewById(R.id.sexPetItem)
+            txt.text = title
+        }
+
+        fun setEyes(title: String){
+            val txt: TextView = view.findViewById(R.id.eyesPetItem)
+            txt.text = title
+        }
+
+        fun setNose(title: String){
+            val txt: TextView = view.findViewById(R.id.nosePetItem)
+            txt.text = title
+        }
+
+        fun setColor(title: String){
+            val txt: TextView = view.findViewById(R.id.colorPetItem)
+            txt.text = title
+        }
+
+        fun setDateLost(title: String){
+            val txt: TextView = view.findViewById(R.id.dateLostPetItem)
             txt.text = title
         }
 
@@ -39,6 +69,7 @@ class MyPetAdapter(private var requestList: MutableList<LostPetRequest>,
             return view.findViewById(R.id.cardItem)
         }
 
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetHolder {
@@ -49,7 +80,42 @@ class MyPetAdapter(private var requestList: MutableList<LostPetRequest>,
     override fun onBindViewHolder(holder: PetHolder, position: Int) {
         val petRequest = requestList[position]
         val pet = petRequest.pet
+        println(pet)
         pet.name?.let { holder.setName(it) }
+
+        pet.size?.let { holder.setSize(it) }
+        pet.sex?.let { holder.setSex(it) }
+        pet.eyes?.let {
+            if(it.equals("")){
+                holder.setEyes("-")
+            }else{
+                holder.setEyes(it)
+            }
+        }
+        pet.nose?.let {
+            if(it.equals("")){
+                holder.setNose("-")
+            }else{
+                holder.setNose(it)
+            }
+        }
+
+        pet.furLength?.let {
+            if(it.equals("")){
+                holder.setColor("-")
+            }else{
+                holder.setColor(it)
+            }
+        }
+
+        pet.lostDate?.let {
+            if(it.equals("")){
+                holder.setDateLost("-")
+            }else{
+                holder.setDateLost(it)
+            }
+        }
+
         holder.setDistance(ServiceLocation.getDistance(petRequest.coordinates).roundToInt().toString()+" mts.")
         holder.getCardLayout().setOnClickListener {
             onPetClick(petRequest)

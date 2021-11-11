@@ -46,13 +46,13 @@
             android:foregroundTint="@color/black"
             android:text="Tus Huellas"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/address"
+            app:layout_constraintBottom_toTopOf="@+id/txtVetAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtVetLogo"
             app:layout_constraintTop_toBottomOf="@+id/distancia" />
 
         <TextView
-            android:id="@+id/address"
+            android:id="@+id/txtVetAddress"
             android:layout_width="277dp"
             android:layout_height="23dp"
             android:text="Av. Olazabal 4341"
@@ -71,7 +71,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/txtVetBusinessHours"
             app:layout_constraintStart_toEndOf="@+id/txtVetLogo"
-            app:layout_constraintTop_toBottomOf="@+id/address" />
+            app:layout_constraintTop_toBottomOf="@+id/txtVetAddress" />
 
         <TextView
             android:id="@+id/txtVetBusinessHours"
@@ -84,7 +84,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtVetPhoneNumber"
-            app:layout_constraintTop_toBottomOf="@+id/address"
+            app:layout_constraintTop_toBottomOf="@+id/txtVetAddress"
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageView

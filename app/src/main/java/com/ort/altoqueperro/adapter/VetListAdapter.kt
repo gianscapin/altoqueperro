@@ -21,7 +21,7 @@ class VetListAdapter(private var vetList : MutableList<Vet>,
         var neighborhood:TextView = view.findViewById(R.id.neighborhood)
         var distancia: TextView = view.findViewById(R.id.distancia)
         var txtname: TextView = view.findViewById(R.id.txtVetName)
-        var address: TextView = view.findViewById(R.id.address)
+        var address: TextView = view.findViewById(R.id.txtVetAddress)
         var phone: TextView = view.findViewById(R.id.txtVetPhoneNumber)
         var businesshour: TextView = view.findViewById(R.id.txtVetBusinessHours)
         var logo: ImageView = view.findViewById(R.id.txtVetLogo)
@@ -34,7 +34,7 @@ class VetListAdapter(private var vetList : MutableList<Vet>,
             }
             distancia.text = distance.toString()+" mts."
             txtname.text = vet.name
-            //address.text = vet.street + " " + vet.streetNumber
+            address.text = vet.address
             phone.text = vet.phone
             businesshour.text = vet.businessHours
             Glide.with(view.context).load(vet.imageUrl).into(logo)

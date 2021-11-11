@@ -20,6 +20,7 @@ class FoundPetAdapter(private var requestScoreList : MutableList<RequestScore>,
             txt.setText(score)
         }
 
+
         /*fun setPicture(url: String){
             val image: ImageView = view.findViewById(R.id.imagePetItem)
             Glide.with(view.context).load(url).into(image)
