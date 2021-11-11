@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="329dp"
-        android:layout_height="115dp"
+        android:layout_height="114dp"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="130dp"
@@ -53,15 +53,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         app:cardBackgroundColor="#D1F8F3"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardItem">
+        app:layout_constraintTop_toBottomOf="@+id/textView10">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
@@ -82,31 +82,17 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/avatars" />
 
-            <TextView
-                android:id="@+id/txtSimilarPetName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Firulais"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/tableLayoutSimilarPet"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.547"
-                app:layout_constraintStart_toEndOf="@+id/imageSimilarPetDetail"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:textColor="@color/black" />
-
             <TableLayout
                 android:id="@+id/tableLayoutSimilarPet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="-40dp"
                 android:layout_marginEnd="5dp"
-                android:layout_marginBottom="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imageSimilarPetDetail"
-                app:layout_constraintTop_toBottomOf="@id/txtSimilarPetName">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -215,6 +201,35 @@
 
             </TableLayout>
 
+            <Button
+                android:id="@+id/btnMatch"
+                android:layout_width="50dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="175dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="-10dp"
+                android:layout_marginBottom="13dp"
+                android:backgroundTint="#4CAF50"
+                android:drawableTop="@drawable/ic_check"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnNoMatch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tableLayoutSimilarPet" />
+
+            <Button
+                android:id="@+id/btnNoMatch"
+                android:layout_width="50dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="-10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="13dp"
+                android:backgroundTint="#F44336"
+                android:drawableTop="@drawable/ic_cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnMatch"
+                app:layout_constraintTop_toBottomOf="@+id/tableLayoutSimilarPet" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -224,13 +239,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
         app:cardBackgroundColor="#D1F8F3"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/cardItemSimilarPet"
+        app:layout_constraintBottom_toTopOf="@+id/textView10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -238,7 +252,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="match_parent"
             android:background="#F0CD71"
 
             tools:context=".fragments.MyLostPetItemFragment">
@@ -394,5 +408,23 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="250dp"
+        android:layout_marginBottom="5dp"
+        android:text="- Es esta tu mascota?"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/cardItemSimilarPet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardItem"
+        app:layout_constraintVertical_bias="0.452" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
