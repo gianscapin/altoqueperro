@@ -27,7 +27,6 @@ class MyLostPetItemFragment : Fragment() {
     private lateinit var myLostPetCoat: TextView
     private lateinit var myLostPetEyeColor: TextView
     private lateinit var similarPetImage: ImageView
-    private lateinit var similarPetName: TextView
     private lateinit var similarPetType: TextView
     private lateinit var similarPetSize: TextView
     private lateinit var similarPetSex: TextView
@@ -38,6 +37,9 @@ class MyLostPetItemFragment : Fragment() {
     private var similarPetData: FoundPetRequest? = null
     private lateinit var foundButton: Button
     private lateinit var notFoundButton: Button
+    private lateinit var txtConsulta : TextView
+    private lateinit var btnMatch : Button
+    private lateinit var btnNoMatch : Button
 
     companion object {
         fun newInstance() = MyLostPetItemFragment()
@@ -58,7 +60,6 @@ class MyLostPetItemFragment : Fragment() {
         myLostPetCoat = v.findViewById(R.id.txtMyPetCoat)
         myLostPetEyeColor = v.findViewById(R.id.txtMyPetEyeColor)
         similarPetImage = v.findViewById(R.id.imageSimilarPetDetail)
-        similarPetName = v.findViewById(R.id.txtSimilarPetName)
         similarPetType = v.findViewById(R.id.txtSimilarPetType)
         similarPetSize = v.findViewById(R.id.txtSimilarPetSize)
         similarPetSex = v.findViewById(R.id.txtSimilarPetSex)
@@ -67,6 +68,9 @@ class MyLostPetItemFragment : Fragment() {
         similarPetCardView = v.findViewById(R.id.cardItemSimilarPet)
         foundButton = v.findViewById(R.id.btnMyPetConfirm)
         notFoundButton = v.findViewById(R.id.btnMyPetCancel)
+        txtConsulta = v.findViewById(R.id.textView10)
+        btnMatch = v.findViewById(R.id.btnMatch)
+        btnNoMatch = v.findViewById(R.id.btnNoMatch)
 
         return v
     }
@@ -76,18 +80,20 @@ class MyLostPetItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         lostPetData = MyLostPetItemFragmentArgs.fromBundle(requireArguments()).petData
         viewModel = ViewModelProvider(this).get(MyLostPetItemViewModel::class.java)
-        if (lostPetData.requestConsumer == null) similarPetCardView.visibility = View.GONE
+        if (lostPetData.requestConsumer == null) {
+            similarPetCardView.visibility = View.GONE
+            txtConsulta.visibility = View.GONE
+        }
 
         viewModel.requestConsumerLiveData.observe(viewLifecycleOwner, {
             similarPetData = it
-            similarPetName.text = it.pet.name
             similarPetType.text = it.pet.type
             similarPetSize.text = it.pet.size
             similarPetSex.text = it.pet.sex
             similarPetCoat.text = it.pet.furColor
             similarPetEyeColor.text = it.pet.eyes
-        })
 
+        })
         myLostPetName.text = lostPetData.pet.name
         myLostPetType.text = lostPetData.pet.type
         myLostPetSize.text = lostPetData.pet.size
@@ -111,8 +117,26 @@ class MyLostPetItemFragment : Fragment() {
                 goToNewSimilaritySearch()
             }
         } else if (lostPetData.isPending()) {
-            notFoundButton.text = "No era esta"
+
+            notFoundButton.visibility = View.GONE
+            foundButton.visibility = View.GONE
+
+            btnMatch.setOnClickListener{
+                lostPetData.nextStateConfirm(similarPetData!!)
+                saveAndBackToMenu()
+            }
+
+            btnNoMatch.setOnClickListener {
+                lostPetData.nextStateCancel(similarPetData!!)
+                saveAndBackToMenu()
+            }
+
+
+
+            /*notFoundButton.text = "No era esta"
             foundButton.text = "Era esta"
+
+
 
             foundButton.setOnClickListener {
                 lostPetData.nextStateConfirm(similarPetData!!)
@@ -122,7 +146,7 @@ class MyLostPetItemFragment : Fragment() {
             notFoundButton.setOnClickListener {
                 lostPetData.nextStateCancel(similarPetData!!)
                 saveAndBackToMenu()
-            }
+            }*/
         }
 
 
