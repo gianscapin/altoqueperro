@@ -174,9 +174,13 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
             }
         }
 
-        sharedPref?.getBoolean("petLost",false)?.let { Notifications.setNotificationPetLost(it) }
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val booleanListPetLost = sharedPref.getBoolean("petLost", false)
+        val booleanListPetFound = sharedPref.getBoolean("petFound", false)
 
-        sharedPref?.getBoolean("petFound",false)?.let { Notifications.setNotificationPetFound(it) }
+        Notifications.setNotificationPetLost(booleanListPetLost)
+
+        Notifications.setNotificationPetFound(booleanListPetFound)
     }
 
     private fun gotoMyLocation() {
@@ -308,3 +312,4 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
         this.parentFragment?.findNavController()?.navigate(action)
     }
 }
+
