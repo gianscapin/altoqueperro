@@ -1,6 +1,7 @@
 package com.ort.altoqueperro.fragments
 import android.Manifest
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -38,6 +39,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.adapter.PetAdapter
 import com.ort.altoqueperro.entities.*
+import com.ort.altoqueperro.utils.Notifications
 import com.ort.altoqueperro.utils.PermissionUtils.isPermissionGranted
 import com.ort.altoqueperro.utils.PermissionUtils.requestPermission
 import com.ort.altoqueperro.utils.ServiceLocation
@@ -59,6 +61,7 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
     var firstRun = true
     var inst:Fragment = this
     var idUserLogged = FirebaseAuth.getInstance().currentUser?.uid.toString()
+    val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
     companion object {
         fun newInstance() = NewMapModeFragment()
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -170,6 +173,10 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
                 onShelterClick(shelter)
             }
         }
+
+        sharedPref?.getBoolean("petLost",false)?.let { Notifications.setNotificationPetLost(it) }
+
+        sharedPref?.getBoolean("petFound",false)?.let { Notifications.setNotificationPetFound(it) }
     }
 
     private fun gotoMyLocation() {

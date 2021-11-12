@@ -86,11 +86,11 @@ class NewProfileUserFragment : Fragment() {
         phoneUser.inputType = 0
         birthUser.inputType = 0
 
-        btnEdit.isEnabled = false
+        btnEdit.isVisible = false
 
         nameUser.setOnClickListener {
             nameUser.inputType = 1
-            btnEdit.isEnabled = true
+            btnEdit.isVisible = true
             if(btnEdit.isEnabled){
                 btnEdit.text = "Confirmar"
             }
@@ -99,14 +99,14 @@ class NewProfileUserFragment : Fragment() {
 
         phoneUser.setOnClickListener {
             phoneUser.inputType = 1
-            btnEdit.isEnabled = true
+            btnEdit.isVisible = true
             if(btnEdit.isEnabled){
                 btnEdit.text = "Confirmar"
             }
         }
         birthUser.setOnClickListener {
             birthUser.inputType = 1
-            btnEdit.isEnabled = true
+            btnEdit.isVisible = true
             if(btnEdit.isEnabled){
                 btnEdit.text = "Confirmar"
             }
@@ -126,7 +126,11 @@ class NewProfileUserFragment : Fragment() {
             docRef.update("birth",birthUser.text.toString())
 
             btnEdit.text = "Editar"
-            btnEdit.isEnabled = false
+            btnEdit.isVisible = false
+
+            nameUser.inputType = 0
+            phoneUser.inputType = 0
+            birthUser.inputType = 0
 
             Snackbar.make(v,"Perfil actualizado!", Snackbar.LENGTH_SHORT).show()
         }
