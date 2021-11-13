@@ -14,7 +14,8 @@ open class PetRequest(
     var resolvedDate: Date?,
     var coordinates: Coordinates?,
     var requestCreator: String,
-    var requestConsumer: String?
+    var requestConsumer: String?,
+    var imageURL: String?
 ) : Parcelable {
 
     constructor() : this(
@@ -25,6 +26,7 @@ open class PetRequest(
         null,
         null,
         "",
+        null,
         null
     )
 

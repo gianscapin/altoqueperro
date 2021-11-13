@@ -70,7 +70,7 @@ class SimilarPetFragment : Fragment() {
         petEyeColor.text = foundPetRequest.pet.eyes
 
 
-        Glide.with(view.context).load(R.drawable.atp_logo).into(petImage)
+        Glide.with(view.context).load(foundPetRequest.imageURL).into(petImage)
 
         if (!lostPetRequest.isOpen()) {
             cancelButton.visibility = View.GONE

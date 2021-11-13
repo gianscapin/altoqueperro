@@ -16,6 +16,7 @@ class MyLostPetItemViewModel : ViewModel() {
     }
 
     fun updateRequests(foundRequest: FoundPetRequest?, lostRequest: LostPetRequest){
+
         RequestRepository().saveLostPetRequest(lostRequest)
         if (foundRequest!= null)RequestRepository().saveFoundPetRequest(foundRequest)
     }
