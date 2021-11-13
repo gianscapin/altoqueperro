@@ -29,6 +29,11 @@
             android:name="android.support.FILE_PROVIDER_PATHS"
             android:resource="@xml/file_paths"></meta-data>
         >
+        android:theme="@style/Theme.AlToquePerro">
+        <activity
+            android:name=".activities.CongratulationMessage"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="true" />
         <activity
             android:name=".activities.SplashWelcomeActivity"
             android:exported="true" />
