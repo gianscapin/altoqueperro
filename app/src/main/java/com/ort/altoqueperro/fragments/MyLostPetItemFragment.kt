@@ -1,5 +1,6 @@
 package com.ort.altoqueperro.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.activities.CongratulationMessage
+import com.ort.altoqueperro.activities.SplashWelcomeActivity
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.viewmodels.MyLostPetItemViewModel
@@ -110,7 +113,7 @@ class MyLostPetItemFragment : Fragment() {
 
             foundButton.setOnClickListener {
                 lostPetData.nextStateConfirm()
-                saveAndBackToMenu()
+                matchSaveAndBackToMenu()
             }
 
             notFoundButton.setOnClickListener {
@@ -123,7 +126,7 @@ class MyLostPetItemFragment : Fragment() {
 
             btnMatch.setOnClickListener{
                 lostPetData.nextStateConfirm(similarPetData!!)
-                saveAndBackToMenu()
+                matchSaveAndBackToMenu()
             }
 
             btnNoMatch.setOnClickListener {
@@ -174,5 +177,11 @@ class MyLostPetItemFragment : Fragment() {
         val action =
             MyLostPetItemFragmentDirections.actionMyLostPetItemFragmentToNewMapModeFragment()
         v.findNavController().navigate(action);
+   }
+
+    fun matchSaveAndBackToMenu(){
+        viewModel.updateRequests(similarPetData, lostPetData)
+        startActivity(Intent(context, CongratulationMessage::class.java))
     }
+
 }
