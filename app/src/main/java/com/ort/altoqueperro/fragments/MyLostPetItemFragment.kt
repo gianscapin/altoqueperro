@@ -20,6 +20,7 @@ import com.ort.altoqueperro.viewmodels.MyLostPetItemViewModel
 class MyLostPetItemFragment : Fragment() {
     lateinit var v: View
     private lateinit var myLostPetImage: ImageView
+    private lateinit var myLostPetEdit: ImageView
     private lateinit var myLostPetName: TextView
     private lateinit var myLostPetType: TextView
     private lateinit var myLostPetSize: TextView
@@ -53,6 +54,7 @@ class MyLostPetItemFragment : Fragment() {
     ): View {
         v = inflater.inflate(R.layout.my_lost_pet_item_fragment, container, false)
         myLostPetImage = v.findViewById(R.id.imageMyPetDetail)
+        myLostPetEdit = v.findViewById(R.id.imageMyPetEdit)
         myLostPetName = v.findViewById(R.id.txtMyPetName)
         myLostPetType = v.findViewById(R.id.txtMyPetType)
         myLostPetSize = v.findViewById(R.id.txtMyPetSize)
@@ -83,6 +85,10 @@ class MyLostPetItemFragment : Fragment() {
         if (lostPetData.requestConsumer == null) {
             similarPetCardView.visibility = View.GONE
             txtConsulta.visibility = View.GONE
+        }
+
+        myLostPetEdit.setOnClickListener{
+            goToEdit()
         }
 
         viewModel.requestConsumerLiveData.observe(viewLifecycleOwner, {
@@ -174,5 +180,11 @@ class MyLostPetItemFragment : Fragment() {
         val action =
             MyLostPetItemFragmentDirections.actionMyLostPetItemFragmentToNewMapModeFragment()
         v.findNavController().navigate(action);
+    }
+
+    fun goToEdit(){
+        val action = MyLostPetItemFragmentDirections.actionMyLostPetItemFragmentToPetLost()
+        action.petRequest = lostPetData
+        v.findNavController().navigate(action)
     }
 }

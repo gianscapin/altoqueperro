@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.entities.FoundPetRequest
+import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.repos.RequestRepository
 
@@ -21,6 +22,19 @@ class PetFoundViewModel : ViewModel() {
         else {
             mutableComments.value = value
         }
+    }
+
+    fun setRequest(request: FoundPetRequest){
+        val pet: Pet = request.pet
+        pet.comments?.let { setComments(it) }
+        setLostDate(pet.lostDate)
+        setPetEyeColor(pet.eyes)
+        setPetFurColor(pet.furColor)
+        setPetFurLength(pet.furLength)
+        setPetNose(pet.nose)
+        setPetSex(pet.sex)
+        setPetSize(pet.size)
+        setPetType(pet.type)
     }
 
     private val mutablePetEyeColor = MutableLiveData<String>()

@@ -1,10 +1,19 @@
 package com.ort.altoqueperro.viewmodels
 
+import android.content.Context
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Spinner
+import androidx.core.view.children
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.protobuf.LazyStringArrayList
+import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.repos.RequestRepository
@@ -12,10 +21,24 @@ import com.ort.altoqueperro.repos.RequestRepository
 class PetLostViewModel : ViewModel() {
 
     private val mutableComments = MutableLiveData<String>()
-    val comments: LiveData<String> get() = mutableComments
+    val comments: LiveData<String>? get() = mutableComments
 
     fun setComments(value: String) {
         mutableComments.value = value
+    }
+
+    fun setRequest(request: LostPetRequest){
+        val pet: Pet = request.pet
+        pet.comments?.let { setComments(it) }
+        setLostDate(pet.lostDate)
+        setPetEyeColor(pet.eyes)
+        setPetFurColor(pet.furColor)
+        setPetFurLength(pet.furLength)
+        pet.name?.let { setPetName(it) }
+        setPetNose(pet.nose)
+        setPetSex(pet.sex)
+        setPetSize(pet.size)
+        setPetType(pet.type)
     }
 
     private val mutablePetEyeColor = MutableLiveData<String>()
@@ -109,7 +132,7 @@ class PetLostViewModel : ViewModel() {
             petFurLength.value.toString(),
             petFurColor.value.toString(),
             petEyeColor.value.toString(),
-            comments.value.toString(),
+            comments?.value.toString(),
             lostDate.value.toString()
         )
 
@@ -120,6 +143,33 @@ class PetLostViewModel : ViewModel() {
         )
         saveRequest(petRequest)
         return petRequest
+    }
+
+    fun setRadioButton(radioGroup: RadioGroup, liveData:  LiveData<String>){
+        val selectedValue: String? = liveData.value
+        radioGroup.children.forEach {
+            val radioButton = it as RadioButton
+            if (selectedValue!= null && radioButton.text == selectedValue){
+                radioButton.isChecked = true
+            }
+        }
+    }
+
+    fun setSpinner(liveData: LiveData<String>, array: Int, context: Context, spinner: Spinner){
+
+        val selectedValue: String? = liveData.value
+
+        var adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
+            context,
+            array,
+            android.R.layout.simple_spinner_item
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        if (selectedValue != null) {
+            val spinnerPosition: Int = adapter.getPosition(selectedValue)
+            spinner.setSelection(spinnerPosition)
+        }
     }
 
 }

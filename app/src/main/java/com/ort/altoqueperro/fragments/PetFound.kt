@@ -93,9 +93,8 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun onResume() {
+        super.onResume()
         nextButton.setOnClickListener {
             if (viewModel.validateStep1()) {
                 val action = PetFoundDirections.actionPetFoundToPetFound2()
@@ -108,6 +107,12 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
 //        photoUploadButton.setOnClickListener {
 //            //do something
 //        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val foundPetRequest = PetFoundArgs.fromBundle(requireArguments()).petRequest
+        if (foundPetRequest!= null) viewModel.setRequest(foundPetRequest)
     }
 
 }

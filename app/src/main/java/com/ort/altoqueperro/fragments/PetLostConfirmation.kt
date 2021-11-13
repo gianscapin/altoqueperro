@@ -56,11 +56,10 @@ class PetLostConfirmation : Fragment() {
         txtPetSizeValue = v.findViewById(R.id.txtPetSizeValue)
         txtPetTypeValue = v.findViewById(R.id.txtPetTypeValue)
 
-        viewModel.comments.observe(viewLifecycleOwner, {
+        viewModel.comments?.observe(viewLifecycleOwner, {
             if (it.isEmpty()) {
                 txtCommentsValue.text = "Sin comentarios"
-            }
-            else {
+            } else {
                 txtCommentsValue.text = it
             }
         })

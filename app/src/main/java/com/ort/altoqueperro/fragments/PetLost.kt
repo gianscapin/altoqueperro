@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
 
 class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -23,9 +25,10 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
 
     lateinit var petName: TextView
     lateinit var petType: Spinner
+
     //lateinit var petTypeValue: String
-    //lateinit var petSex: RadioButton
-    //lateinit var petSize: RadioButton
+    lateinit var petSex: RadioGroup
+    lateinit var petSize: RadioGroup
 
     lateinit var nextButton: Button
 
@@ -43,7 +46,8 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
         v = inflater.inflate(R.layout.pet_lost_1_fragment, container, false)
         nextButton = v.findViewById(R.id.btnNext)
         rootLayout = v.findViewById(R.id.pet_lost_root_layout_1)
-
+        petSex = v.findViewById(R.id.sex_radio)
+        petSize = v.findViewById(R.id.size_radio)
         petName = v.findViewById(R.id.petName)
         petName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -75,6 +79,12 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
         return v
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var lostPetRequest: LostPetRequest? = PetLostArgs.fromBundle(requireArguments()).petRequest
+        if (lostPetRequest != null) fillData(lostPetRequest)
+    }
+
     override fun onClick(view: View) {
         if (view is RadioButton) {
             val checked = view.isChecked
@@ -103,8 +113,8 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
 
         nextButton.setOnClickListener {
             if (viewModel.validateStep1()) {
@@ -114,6 +124,17 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
                 Snackbar.make(rootLayout, "* Campos obligatorios", Snackbar.LENGTH_SHORT).show()
             }
         }
+    }
+
+    fun fillData(request: LostPetRequest) {
+        viewModel.setRequest(request)
+
+        petName.text = viewModel.petName.value
+        viewModel.setRadioButton(petSize,viewModel.petSize)
+        viewModel.setRadioButton(petSex,viewModel.petSex)
+        viewModel.setSpinner(viewModel.petType, R.array.pet_types, v.context, petType)
+
+
     }
 
 
