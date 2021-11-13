@@ -17,7 +17,7 @@ class CongratulationMessage : AppCompatActivity() {
         setContentView(R.layout.activity_congratulation_message)
         txtCongrat = findViewById(R.id.txtCongratulation)
 
-        txtCongrat.text = "Nos alegra que hayas encontrado a {nombre mascota}"
+        txtCongrat.text = "Nos alegra que hayas encontrado a {nombre mascota} "
 
         Handler().postDelayed(
             {
