@@ -15,8 +15,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AlToquePerro"
-        >
+        android:theme="@style/Theme.AlToquePerro">
+        <activity
+            android:name=".activities.CongratulationMessage"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="true" />
         <activity
             android:name=".activities.SplashWelcomeActivity"
             android:exported="true" />
