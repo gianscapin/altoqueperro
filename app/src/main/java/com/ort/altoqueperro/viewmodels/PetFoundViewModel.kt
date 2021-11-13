@@ -1,13 +1,20 @@
 package com.ort.altoqueperro.viewmodels
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.repos.RequestRepository
+import com.ort.altoqueperro.utils.ImageHelper
+import com.ort.altoqueperro.utils.ServiceLocation
+import kotlinx.coroutines.*
 
 class PetFoundViewModel : ViewModel() {
 
@@ -79,7 +86,11 @@ class PetFoundViewModel : ViewModel() {
         mutableLostDate.value = value
     }
 
-
+    private val mutablePhoto = MutableLiveData<Uri>()
+    val photo: LiveData<Uri> get() = mutablePhoto
+    fun setPhoto(value: Uri) {
+        mutablePhoto.value = value
+    }
 
     fun registerPet() {
         val user = Firebase.auth.currentUser
@@ -95,13 +106,19 @@ class PetFoundViewModel : ViewModel() {
             comments.value.toString(),
             lostDate.value.toString()
         )
-
         val petRequest = FoundPetRequest(
             pet,
             null,
             user!!.uid,
         )
-        saveRequest(petRequest)
+        //upload image
+        petRequest.coordinates = ServiceLocation.getLocation()
+        viewModelScope.launch(Dispatchers.IO){
+            if(photo.value!=null) {
+                petRequest.imageURL = ImageHelper().storeImage(photo.value!!)
+            }
+            saveRequest(petRequest)
+        }
     }
 
 

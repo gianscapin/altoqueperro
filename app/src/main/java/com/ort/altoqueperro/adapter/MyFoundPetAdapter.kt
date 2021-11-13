@@ -3,9 +3,11 @@ package com.ort.altoqueperro.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.gms.location.LocationServices
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.FoundPetRequest
@@ -70,10 +72,10 @@ class MyFoundPetAdapter(private var requestList: MutableList<FoundPetRequest>,
             txt.text = distance
         }
 
-        /*fun setPicture(url: String){
+        fun setPicture(url: String){
             val image: ImageView = view.findViewById(R.id.imagePetItem)
             Glide.with(view.context).load(url).into(image)
-        }*/
+        }
 
         fun getCardLayout (): CardView {
             return view.findViewById(R.id.cardItem)
@@ -89,6 +91,7 @@ class MyFoundPetAdapter(private var requestList: MutableList<FoundPetRequest>,
     override fun onBindViewHolder(holder: PetHolder, position: Int) {
         val petRequest = requestList[position]
         val pet = petRequest.pet
+        petRequest.imageURL?.let { holder.setPicture(it) }
         pet.name?.let { holder.setName(it) }
 
         pet.size?.let { holder.setSize(it) }

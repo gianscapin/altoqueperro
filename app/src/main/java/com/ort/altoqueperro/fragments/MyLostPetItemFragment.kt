@@ -92,6 +92,7 @@ class MyLostPetItemFragment : Fragment() {
             similarPetSex.text = it.pet.sex
             similarPetCoat.text = it.pet.furColor
             similarPetEyeColor.text = it.pet.eyes
+            Glide.with(view).load(it.imageURL).into(similarPetImage)
 
         })
         myLostPetName.text = lostPetData.pet.name
@@ -100,9 +101,8 @@ class MyLostPetItemFragment : Fragment() {
         myLostPetSex.text = lostPetData.pet.sex
         myLostPetCoat.text = lostPetData.pet.furColor
         myLostPetEyeColor.text = lostPetData.pet.eyes
+        Glide.with(view).load(lostPetData.imageURL).into(myLostPetImage)
         // lostPetState.text = lostPetData.requestCreator.toString()
-
-        Glide.with(view.context).load(R.drawable.atp_logo).into(myLostPetImage)
 
         if (lostPetData.isOpen()) {
             notFoundButton.text = "Reiniciar Busqueda"
