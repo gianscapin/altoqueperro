@@ -1,5 +1,6 @@
 package com.ort.altoqueperro.fragments
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -87,10 +88,20 @@ class SettingsFragment : Fragment() {
 
     fun refreshSwitchPetLost():Unit{
         Notifications.setNotificationPetLost(switchPetLost.isChecked)
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putBoolean("petLost",switchPetLost.isChecked)
+            commit()
+        }
     }
 
     fun refreshSwitchPetFound():Unit{
         Notifications.setNotificationPetFound(switchPetFound.isChecked)
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putBoolean("petFound",switchPetFound.isChecked)
+            commit()
+        }
     }
 
 }

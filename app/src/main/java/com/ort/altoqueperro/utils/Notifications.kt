@@ -1,5 +1,7 @@
 package com.ort.altoqueperro.utils
 
+import android.content.Context
+
 object Notifications {
     var hidePetLost:Boolean = false
     var hidePetFound:Boolean = false
