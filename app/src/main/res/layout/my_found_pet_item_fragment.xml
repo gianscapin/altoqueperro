@@ -5,60 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
-        android:layout_width="329dp"
-        android:layout_height="114dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="130dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.519"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/btnMyPetConfirm"
-            android:layout_width="131dp"
-            android:layout_height="65dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginEnd="15dp"
-            android:backgroundTint="#F0CD71"
-            android:text="La Encontre"
-            android:textColorLink="@color/atp_orange_variant"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnMyPetCancel"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnMyPetCancel"
-            android:layout_width="131dp"
-            android:layout_height="65dp"
-            android:layout_marginEnd="28dp"
-            android:backgroundTint="#F0CD71"
-            android:text="Reiniciar busqueda"
-            android:textColorLink="@color/atp_red_variant"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardItemSimilarPet"
+        android:id="@+id/cardItemSimilarLostPet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
         app:cardBackgroundColor="#D1F8F3"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMensaje">
@@ -69,37 +24,50 @@
             android:layout_height="180dp"
             tools:context=".fragments.MyLostPetItemFragment">
 
+            <TextView
+                android:id="@+id/txtSimilarLostPetName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tableLayoutSimilarLostPet"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageSimilarLostPetDetail"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
-                android:id="@+id/imageSimilarPetDetail"
+                android:id="@+id/imageSimilarLostPetDetail"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:layout_marginStart="1dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tableLayoutSimilarPet"
+                app:layout_constraintEnd_toStartOf="@+id/tableLayoutSimilarLostPet"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/avatars" />
 
             <TableLayout
-                android:id="@+id/tableLayoutSimilarPet"
+                android:id="@+id/tableLayoutSimilarLostPet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="-40dp"
                 android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imageSimilarPetDetail"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintStart_toEndOf="@id/imageSimilarLostPetDetail"
+                app:layout_constraintTop_toBottomOf="@id/txtSimilarLostPetName">
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txtSimilarPetTypeText"
+                        android:id="@+id/txtSimilarLostPetTypeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Animal:"
@@ -107,7 +75,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtSimilarPetType"
+                        android:id="@+id/txtSimilarLostPetType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
@@ -120,7 +88,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txtSimilarPetSizeText"
+                        android:id="@+id/txtSimilarLostPetSizeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tamaño:"
@@ -128,7 +96,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtSimilarPetSize"
+                        android:id="@+id/txtSimilarLostPetSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
@@ -141,7 +109,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txtSimilarPetSexText"
+                        android:id="@+id/txtSimilarLostPetSexText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sexo:"
@@ -149,7 +117,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtSimilarPetSex"
+                        android:id="@+id/txtSimilarLostPetSex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
@@ -162,7 +130,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txtSimilarPetCoatText"
+                        android:id="@+id/txtSimilarLostPetCoatText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pelaje:"
@@ -170,7 +138,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtSimilarPetCoat"
+                        android:id="@+id/txtSimilarLostPetCoat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
@@ -183,7 +151,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txtSimilarPetEyeColorText"
+                        android:id="@+id/txtSimilarLostPetEyeColorText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ojos:"
@@ -191,7 +159,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtSimilarPetEyeColor"
+                        android:id="@+id/txtSimilarLostPetEyeColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
@@ -200,35 +168,6 @@
                 </TableRow>
 
             </TableLayout>
-
-            <Button
-                android:id="@+id/btnMatch"
-                android:layout_width="50dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="175dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="-10dp"
-                android:layout_marginBottom="13dp"
-                android:backgroundTint="#4CAF50"
-                android:drawableTop="@drawable/ic_check"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnNoMatch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tableLayoutSimilarPet" />
-
-            <Button
-                android:id="@+id/btnNoMatch"
-                android:layout_width="50dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="-10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="13dp"
-                android:backgroundTint="#F44336"
-                android:drawableTop="@drawable/ic_cancel"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btnMatch"
-                app:layout_constraintTop_toBottomOf="@+id/tableLayoutSimilarPet" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -258,7 +197,7 @@
             tools:context=".fragments.MyLostPetItemFragment">
 
             <ImageView
-                android:id="@+id/imageMyPetEdit"
+                android:id="@+id/imageMyFoundPetEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="135dp"
@@ -269,7 +208,7 @@
                 app:srcCompat="@drawable/ic_baseline_edit_24" />
 
             <ImageView
-                android:id="@+id/imageMyPetDetail"
+                android:id="@+id/imageMyFoundPetDetail"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:layout_marginStart="1dp"
@@ -282,11 +221,11 @@
                 tools:src="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/txtMyPetName"
+                android:id="@+id/txtMyFoundPetName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Firulais"
+                android:text="Mascota Encontrada"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="25sp"
@@ -294,7 +233,7 @@
                 app:layout_constraintBottom_toTopOf="@id/tableLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.547"
-                app:layout_constraintStart_toEndOf="@+id/imageMyPetDetail"
+                app:layout_constraintStart_toEndOf="@+id/imageMyFoundPetDetail"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TableLayout
@@ -306,15 +245,15 @@
                 android:layout_marginBottom="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imageMyPetDetail"
-                app:layout_constraintTop_toBottomOf="@id/txtMyPetName">
+                app:layout_constraintStart_toEndOf="@id/imageMyFoundPetDetail"
+                app:layout_constraintTop_toBottomOf="@id/txtMyFoundPetName">
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txtMyPetTypeText"
+                        android:id="@+id/txtMyFoundPetTypeText"
                         android:layout_width="61dp"
                         android:layout_height="match_parent"
                         android:text="Animal:"
@@ -322,7 +261,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtMyPetType"
+                        android:id="@+id/txtMyFoundPetType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
@@ -335,7 +274,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txtMyPetSizeText"
+                        android:id="@+id/txtMyFoundPetSizeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tamaño:"
@@ -343,7 +282,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtMyPetSize"
+                        android:id="@+id/txtMyFoundPetSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
@@ -356,7 +295,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txtMyPetSexText"
+                        android:id="@+id/txtMyFoundPetSexText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sexo:"
@@ -364,7 +303,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtMyPetSex"
+                        android:id="@+id/txtMyFoundPetSex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
@@ -377,7 +316,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txtMyPetCoatText"
+                        android:id="@+id/txtMyFoundPetCoatText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pelaje:"
@@ -385,7 +324,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtMyPetCoat"
+                        android:id="@+id/txtMyFoundPetCoat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
@@ -398,7 +337,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txtMyPetEyeColorText"
+                        android:id="@+id/txtMyFoundPetEyeColorText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ojos:"
@@ -406,7 +345,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtMyPetEyeColor"
+                        android:id="@+id/txtMyFoundPetEyeColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
@@ -428,10 +367,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="250dp"
         android:layout_marginBottom="5dp"
-        android:text="- Es esta tu mascota?"
+        android:text="- Alguien cree reconocerla!"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/cardItemSimilarPet"
+        app:layout_constraintBottom_toTopOf="@+id/cardItemSimilarLostPet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.009"
         app:layout_constraintStart_toStartOf="parent"

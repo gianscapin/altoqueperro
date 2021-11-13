@@ -99,11 +99,11 @@
             android:id="@+id/action_listMode_to_lostPetItemFragment"
             app:destination="@id/lostPetItemFragment" />
         <action
-            android:id="@+id/action_listMode_to_foundPetItemFragment2"
-            app:destination="@id/foundPetItemFragment" />
-        <action
             android:id="@+id/action_listMode_to_myLostPetItemFragment"
             app:destination="@id/myLostPetItemFragment" />
+        <action
+            android:id="@+id/action_listMode_to_myFoundPetItemFragment"
+            app:destination="@id/myFoundPetItemFragment" />
     </fragment>
     <fragment
         android:id="@+id/vetItemFragment"
@@ -120,11 +120,8 @@
         tools:layout="@layout/pet_item_fragment">
         <argument
             android:name="petData"
-            app:argType="com.ort.altoqueperro.entities.PetRequest"
+            app:argType="com.ort.altoqueperro.entities.LostPetRequest"
             app:nullable="true" />
-        <action
-            android:id="@+id/action_lostPetItemFragment_to_petFound"
-            app:destination="@id/petFound" />
     </fragment>
     <fragment
         android:id="@+id/shelterItemFragment"
@@ -193,11 +190,6 @@
         android:id="@+id/shelterListFragment"
         android:name="com.ort.altoqueperro.fragments.ShelterListFragment"
         android:label="ShelterListFragment" />
-    <fragment
-        android:id="@+id/foundPetItemFragment"
-        android:name="com.ort.altoqueperro.fragments.FoundPetItemFragment"
-        android:label="found_pet_item_fragment"
-        tools:layout="@layout/found_pet_item_fragment" />
     <fragment
         android:id="@+id/changePassword"
         android:name="com.ort.altoqueperro.fragments.ChangePassword"
@@ -296,6 +288,17 @@
         <action
             android:id="@+id/action_petFoundConfirmation_to_petFoundHostQuestion"
             app:destination="@id/petFoundHostQuestion" />
+    </fragment>
+    <fragment
+        android:id="@+id/myFoundPetItemFragment"
+        android:name="com.ort.altoqueperro.fragments.MyFoundPetItemFragment"
+        android:label="MyFoundPetItemFragment" >
+        <argument
+            android:name="petData"
+            app:argType="com.ort.altoqueperro.entities.FoundPetRequest" />
+        <action
+            android:id="@+id/action_myFoundPetItemFragment_to_petFound"
+            app:destination="@id/petFound" />
     </fragment>
 
 </navigation>

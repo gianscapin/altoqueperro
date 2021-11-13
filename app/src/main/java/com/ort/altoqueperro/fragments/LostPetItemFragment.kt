@@ -20,7 +20,6 @@ import com.ort.altoqueperro.viewmodels.LostPetItemViewModel
 class LostPetItemFragment : Fragment() {
     lateinit var v: View
     private lateinit var lostPetImage: ImageView
-    private lateinit var lostPetEdit: ImageView
     private lateinit var lostPetName: TextView
     private lateinit var lostPetType: TextView
     private lateinit var lostPetSize: TextView
@@ -31,7 +30,7 @@ class LostPetItemFragment : Fragment() {
     private lateinit var lostPetFurColor: TextView
     private lateinit var lostPetComments: TextView
     private lateinit var lostPetLostDate: TextView
-    private lateinit var lostPetData: PetRequest //ToDo cambiar las variables a foundpetrequest
+    private lateinit var lostPetData: LostPetRequest //ToDo cambiar las variables a foundpetrequest
 
 
     companion object {
@@ -46,7 +45,6 @@ class LostPetItemFragment : Fragment() {
     ): View {
         v = inflater.inflate(R.layout.pet_item_fragment, container, false)
         lostPetImage = v.findViewById(R.id.imagePetDetail)
-        lostPetEdit = v.findViewById(R.id.imagePetEdit)
         lostPetName = v.findViewById(R.id.txtPetName)
         lostPetType = v.findViewById(R.id.txtPetType)
         lostPetSize = v.findViewById(R.id.txtPetSize)
@@ -82,11 +80,4 @@ class LostPetItemFragment : Fragment() {
 
 
     }
-
-    fun goToEdit(){
-        val action = LostPetItemFragmentDirections.actionLostPetItemFragmentToPetFound()
-        action.petRequest = lostPetData as @Nullable FoundPetRequest
-        v.findNavController().navigate(action)
-    }
-
 }

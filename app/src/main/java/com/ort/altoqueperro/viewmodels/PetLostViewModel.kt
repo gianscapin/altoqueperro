@@ -1,7 +1,6 @@
 package com.ort.altoqueperro.viewmodels
 
 import android.content.Context
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -12,8 +11,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.google.protobuf.LazyStringArrayList
-import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.repos.RequestRepository
@@ -21,13 +18,15 @@ import com.ort.altoqueperro.repos.RequestRepository
 class PetLostViewModel : ViewModel() {
 
     private val mutableComments = MutableLiveData<String>()
-    val comments: LiveData<String>? get() = mutableComments
+    private var request: LostPetRequest? = null
+    val comments: LiveData<String> get() = mutableComments
 
     fun setComments(value: String) {
         mutableComments.value = value
     }
 
-    fun setRequest(request: LostPetRequest){
+    fun setRequest(request: LostPetRequest) {
+        this.request = request
         val pet: Pet = request.pet
         pet.comments?.let { setComments(it) }
         setLostDate(pet.lostDate)
@@ -117,7 +116,7 @@ class PetLostViewModel : ViewModel() {
         return !mutableLostDate.value.isNullOrEmpty()
     }
 
-    fun saveRequest(petRequest: LostPetRequest) {
+    private fun saveRequest(petRequest: LostPetRequest) {
         RequestRepository().saveLostPetRequest(petRequest)
     }
 
@@ -132,34 +131,41 @@ class PetLostViewModel : ViewModel() {
             petFurLength.value.toString(),
             petFurColor.value.toString(),
             petEyeColor.value.toString(),
-            comments?.value.toString(),
+            comments.value.toString(),
             lostDate.value.toString()
         )
 
-        val petRequest = LostPetRequest(
-            pet,
-            null,
-            user!!.uid,
-        )
+        val petRequest: LostPetRequest
+        if (request != null) {
+            request!!.pet = pet
+            request!!.coordinates = null //ToDo cambiar desp
+            petRequest = request!!
+        } else {
+            petRequest = LostPetRequest(
+                pet,
+                null,
+                user!!.uid,
+            )
+        }
         saveRequest(petRequest)
         return petRequest
     }
 
-    fun setRadioButton(radioGroup: RadioGroup, liveData:  LiveData<String>){
+    fun setRadioButton(radioGroup: RadioGroup, liveData: LiveData<String>) {
         val selectedValue: String? = liveData.value
         radioGroup.children.forEach {
             val radioButton = it as RadioButton
-            if (selectedValue!= null && radioButton.text == selectedValue){
+            if (selectedValue != null && radioButton.text == selectedValue) {
                 radioButton.isChecked = true
             }
         }
     }
 
-    fun setSpinner(liveData: LiveData<String>, array: Int, context: Context, spinner: Spinner){
+    fun setSpinner(liveData: LiveData<String>, array: Int, context: Context, spinner: Spinner) {
 
         val selectedValue: String? = liveData.value
 
-        var adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
+        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
             context,
             array,
             android.R.layout.simple_spinner_item
@@ -170,6 +176,20 @@ class PetLostViewModel : ViewModel() {
             val spinnerPosition: Int = adapter.getPosition(selectedValue)
             spinner.setSelection(spinnerPosition)
         }
+    }
+
+    fun clearALl() {
+        this.request = null
+        setComments("")
+        setLostDate("")
+        setPetEyeColor("")
+        setPetFurColor("")
+        setPetFurLength("")
+        setPetName("")
+        setPetNose("")
+        setPetSex("")
+        setPetSize("")
+        setPetType("")
     }
 
 }

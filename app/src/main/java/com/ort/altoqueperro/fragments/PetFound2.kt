@@ -63,8 +63,8 @@ class PetFound2 : Fragment(), AdapterView.OnItemSelectedListener  {
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
 
         nextButton.setOnClickListener {
             if (viewModel.validateStep2()) {
@@ -76,6 +76,7 @@ class PetFound2 : Fragment(), AdapterView.OnItemSelectedListener  {
 
             }
         }
+        fillData()
     }
 
     private fun configureSpinner(spinner: Spinner, textArrayResId: Int) {
@@ -87,5 +88,12 @@ class PetFound2 : Fragment(), AdapterView.OnItemSelectedListener  {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
         }
+    }
+
+    private fun fillData() {
+        viewModel.setSpinner(viewModel.petNose, R.array.pet_noses, v.context, petNosesSpinner)
+        viewModel.setSpinner(viewModel.petFurLength, R.array.pet_fur_lengths, v.context, petFurLengthSpinner)
+        viewModel.setSpinner(viewModel.petFurColor, R.array.pet_fur_colors, v.context, petFurColorSpinner)
+        viewModel.setSpinner(viewModel.petEyeColor, R.array.pet_eye_colors, v.context, petEyeColorSpinner)
     }
 }

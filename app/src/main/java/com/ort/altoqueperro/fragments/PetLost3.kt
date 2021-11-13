@@ -79,6 +79,6 @@ class PetLost3 : Fragment() {
 
     private fun fillData() {
         date.text = viewModel.lostDate.value
-        comments.text = viewModel.comments?.value
+        comments.text = viewModel.comments.value
     }
 }

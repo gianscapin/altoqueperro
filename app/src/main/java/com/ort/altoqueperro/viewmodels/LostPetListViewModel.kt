@@ -13,7 +13,6 @@ import com.ort.altoqueperro.entities.State
 import com.ort.altoqueperro.utils.Notifications
 
 class LostPetListViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
     var petRepository: MutableLiveData<MutableList<LostPetRequest>> =
         MutableLiveData(mutableListOf())
     var foundPetRepository: MutableLiveData<MutableList<FoundPetRequest>> =
@@ -39,7 +38,7 @@ class LostPetListViewModel : ViewModel() {
                         petRequest.id = request.id
                         val userId: String = user?.uid.toString()
                         val petCreatorId: String = petRequest.requestCreator
-                        if(!petCreatorId.equals(userId)){
+                        if(petCreatorId != userId){
                             lostRequests.add(petRequest)
                         }
                     }
@@ -48,7 +47,7 @@ class LostPetListViewModel : ViewModel() {
                 petRepository.value = lostRequests
             }
             .addOnFailureListener { exception ->
-                println("Error getting documents: " + exception)
+                println("Error getting documents: $exception")
             }
     }
 
@@ -70,16 +69,16 @@ class LostPetListViewModel : ViewModel() {
                 foundPetRepository.value = foundRequests
             }
             .addOnFailureListener { exception ->
-                println("Error getting documents: " + exception)
+                println("Error getting documents: $exception")
             }
     }
 
     fun distribute() {
-        var idUserLogged = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        val idUserLogged = FirebaseAuth.getInstance().currentUser?.uid.toString()
         myLostPets.clear()
         othersLostPets.clear()
         if (petRepository.value != null) {
-            petRepository.value!!.forEach() {
+            petRepository.value!!.forEach {
                 if (it.requestCreator == idUserLogged) {
                     myLostPets.add(it)
                 } else {

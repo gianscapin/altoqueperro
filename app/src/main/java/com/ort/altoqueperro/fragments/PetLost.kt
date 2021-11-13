@@ -81,6 +81,7 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.clearALl()
         var lostPetRequest: LostPetRequest? = PetLostArgs.fromBundle(requireArguments()).petRequest
         if (lostPetRequest != null) fillData(lostPetRequest)
     }
@@ -126,9 +127,8 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
         }
     }
 
-    fun fillData(request: LostPetRequest) {
+    private fun fillData(request: LostPetRequest) {
         viewModel.setRequest(request)
-
         petName.text = viewModel.petName.value
         viewModel.setRadioButton(petSize,viewModel.petSize)
         viewModel.setRadioButton(petSex,viewModel.petSex)

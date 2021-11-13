@@ -12,6 +12,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.FoundPetRequest
+import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.viewmodels.PetFoundViewModel
 
 class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -21,7 +23,8 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
     }
 
     private lateinit var petTypesSpinner: Spinner
-
+    lateinit var petSex: RadioGroup
+    lateinit var petSize: RadioGroup
     //lateinit var petPhoto: ImageView
     //lateinit var photoUploadButton: Button
     private lateinit var nextButton: Button
@@ -40,6 +43,8 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
         //photoUploadButton = v.findViewById(R.id.btnNext)
 
         nextButton = v.findViewById(R.id.btnNext)
+        petSex = v.findViewById(R.id.sex_radio)
+        petSize = v.findViewById(R.id.size_radio)
 
         rootLayout = v.findViewById(R.id.pet_found_root_layout_1)
 
@@ -111,8 +116,17 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.clearALl()
         val foundPetRequest = PetFoundArgs.fromBundle(requireArguments()).petRequest
-        if (foundPetRequest!= null) viewModel.setRequest(foundPetRequest)
+        if (foundPetRequest!= null) fillData(foundPetRequest)
+    }
+
+    private fun fillData(request: FoundPetRequest) {
+        viewModel.setRequest(request)
+        viewModel.setRadioButton(petSize,viewModel.petSize)
+        viewModel.setRadioButton(petSex,viewModel.petSex)
+        viewModel.setSpinner(viewModel.petType, R.array.pet_types, v.context, petTypesSpinner)
+
     }
 
 }

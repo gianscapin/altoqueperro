@@ -310,25 +310,25 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
         }
     }
 
-    fun onLostPetClick(lostPet: PetRequest) {
+    private fun onLostPetClick(lostPet: LostPetRequest) {
         val action =
             NewMapModeFragmentDirections.actionNewMapModeFragmentToLostPetItemFragment(lostPet)
         this.parentFragment?.findNavController()?.navigate(action)
     }
 
-    fun onMyLostPetClick(lostPet: LostPetRequest) {
+    private fun onMyLostPetClick(lostPet: LostPetRequest) {
         val action =
             NewMapModeFragmentDirections.actionNewMapModeFragmentToMyLostPetItemFragment(lostPet)
         this.parentFragment?.findNavController()?.navigate(action)
     }
 
-    fun onVetClick(vet: Vet) {
+    private fun onVetClick(vet: Vet) {
         val action =
             NewMapModeFragmentDirections.actionNewMapModeFragmentToVetItemFragment(vet)
         this.parentFragment?.findNavController()?.navigate(action)
     }
 
-    fun onShelterClick(shelter: Shelter) {
+    private fun onShelterClick(shelter: Shelter) {
         val action =
             NewMapModeFragmentDirections.actionNewMapModeFragmentToShelterItemFragment(shelter)
         this.parentFragment?.findNavController()?.navigate(action)
