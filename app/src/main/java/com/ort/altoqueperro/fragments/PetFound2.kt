@@ -19,13 +19,13 @@ class PetFound2 : Fragment(), AdapterView.OnItemSelectedListener  {
         fun newInstance() = PetFound2()
     }
 
-    lateinit var nextButton: Button
-    lateinit var petEyeColorSpinner: Spinner
-    lateinit var petFurColorSpinner: Spinner
-    lateinit var petFurLengthSpinner: Spinner
-    lateinit var petNosesSpinner: Spinner
+    private lateinit var nextButton: Button
+    private lateinit var petEyeColorSpinner: Spinner
+    private lateinit var petFurColorSpinner: Spinner
+    private lateinit var petFurLengthSpinner: Spinner
+    private lateinit var petNosesSpinner: Spinner
     lateinit var v: View
-    lateinit var rootLayout: ConstraintLayout
+    private lateinit var rootLayout: ConstraintLayout
     private val viewModel: PetFoundViewModel by activityViewModels()
 
 

@@ -6,15 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.FoundPetRequest
+import com.ort.altoqueperro.entities.LostPetRequest
+import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.viewmodels.LostPetItemViewModel
 
 class LostPetItemFragment : Fragment() {
     lateinit var v: View
     private lateinit var lostPetImage: ImageView
+    private lateinit var lostPetEdit: ImageView
     private lateinit var lostPetName: TextView
     private lateinit var lostPetType: TextView
     private lateinit var lostPetSize: TextView
@@ -25,6 +31,7 @@ class LostPetItemFragment : Fragment() {
     private lateinit var lostPetFurColor: TextView
     private lateinit var lostPetComments: TextView
     private lateinit var lostPetLostDate: TextView
+    private lateinit var lostPetData: PetRequest //ToDo cambiar las variables a foundpetrequest
 
 
     companion object {
@@ -39,6 +46,7 @@ class LostPetItemFragment : Fragment() {
     ): View {
         v = inflater.inflate(R.layout.pet_item_fragment, container, false)
         lostPetImage = v.findViewById(R.id.imagePetDetail)
+        lostPetEdit = v.findViewById(R.id.imagePetEdit)
         lostPetName = v.findViewById(R.id.txtPetName)
         lostPetType = v.findViewById(R.id.txtPetType)
         lostPetSize = v.findViewById(R.id.txtPetSize)
@@ -57,24 +65,28 @@ class LostPetItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(LostPetItemViewModel::class.java)
-        val lostPetData = LostPetItemFragmentArgs.fromBundle(requireArguments()).petData
-        if (lostPetData != null) {
-            lostPetName.text = lostPetData.pet.name
-            lostPetType.text = lostPetData.pet.type
-            lostPetSize.text = lostPetData.pet.size
-            lostPetSex.text = lostPetData.pet.sex
-            lostPetEyeColor.text = lostPetData.pet.eyes
-            lostPetFurLength.text = lostPetData.pet.furLength
-            lostPetFurColor.text = lostPetData.pet.furColor
-            lostPetComments.text = lostPetData.pet.comments
-            lostPetLostDate.text = lostPetData.pet.lostDate
+        lostPetData = LostPetItemFragmentArgs.fromBundle(requireArguments()).petData!!
+        lostPetName.text = lostPetData.pet.name
+        lostPetType.text = lostPetData.pet.type
+        lostPetSize.text = lostPetData.pet.size
+        lostPetSex.text = lostPetData.pet.sex
+        lostPetEyeColor.text = lostPetData.pet.eyes
+        lostPetFurLength.text = lostPetData.pet.furLength
+        lostPetFurColor.text = lostPetData.pet.furColor
+        lostPetComments.text = lostPetData.pet.comments
+        lostPetLostDate.text = lostPetData.pet.lostDate
 
-            // lostPetState.text = lostPetData.requestCreator.toString()
+        // lostPetState.text = lostPetData.requestCreator.toString()
 
-            Glide.with(view.context).load(R.drawable.atp_logo).into(lostPetImage)
-        }
+        Glide.with(view.context).load(R.drawable.atp_logo).into(lostPetImage)
 
 
+    }
+
+    fun goToEdit(){
+        val action = LostPetItemFragmentDirections.actionLostPetItemFragmentToPetFound()
+        action.petRequest = lostPetData as @Nullable FoundPetRequest
+        v.findNavController().navigate(action)
     }
 
 }
