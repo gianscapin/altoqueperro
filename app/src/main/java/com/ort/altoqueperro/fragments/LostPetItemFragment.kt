@@ -73,11 +73,7 @@ class LostPetItemFragment : Fragment() {
         lostPetFurColor.text = lostPetData.pet.furColor
         lostPetComments.text = lostPetData.pet.comments
         lostPetLostDate.text = lostPetData.pet.lostDate
-
-        // lostPetState.text = lostPetData.requestCreator.toString()
-
-        Glide.with(view.context).load(R.drawable.atp_logo).into(lostPetImage)
-
+        Glide.with(view).load(lostPetData.imageURL).into(lostPetImage)
 
     }
 }

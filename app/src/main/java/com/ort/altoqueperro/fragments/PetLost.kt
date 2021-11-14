@@ -1,5 +1,7 @@
 package com.ort.altoqueperro.fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,19 +11,27 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.LostPetRequest
+import com.ort.altoqueperro.utils.ImageHelper
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
+import java.io.File
 
 class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     companion object {
         fun newInstance() = PetLost()
     }
+    var imageHelper = ImageHelper()
+    lateinit var takePic: Button
+    lateinit var choosePic: Button
+    lateinit var imageUpload: ImageView
+    var inst:Fragment = this
 
     lateinit var petName: TextView
     lateinit var petType: Spinner
@@ -75,7 +85,16 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
 
         (v.findViewById(R.id.radio_male) as RadioButton).setOnClickListener(this)
         (v.findViewById(R.id.radio_female) as RadioButton).setOnClickListener(this)
-
+        takePic = v.findViewById(R.id.takePic)
+        choosePic = v.findViewById(R.id.choosePic)
+        imageUpload = v.findViewById(R.id.imageUpload)
+        takePic.setOnClickListener {
+            imageHelper.takePicture(inst)
+        }
+        choosePic.setOnClickListener {
+            imageHelper.choosePicture(inst)
+        }
+        if (viewModel.photo!=null) imageUpload.setImageURI(viewModel.photo.value)
         return v
     }
 
@@ -126,16 +145,28 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
             }
         }
     }
-
     private fun fillData(request: LostPetRequest) {
         viewModel.setRequest(request)
         petName.text = viewModel.petName.value
         viewModel.setRadioButton(petSize,viewModel.petSize)
         viewModel.setRadioButton(petSex,viewModel.petSex)
         viewModel.setSpinner(viewModel.petType, R.array.pet_types, v.context, petType)
-
-
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+        super.onActivityResult(requestCode, resultCode, data);
+        when(requestCode) {
+            0->
+                if(resultCode == Activity.RESULT_OK){
+                    viewModel.setPhoto(File(imageHelper.currentPhotoPath).toUri())
+                    imageUpload.setImageURI(viewModel.photo.value);
+                }
+            1->
+                if(resultCode == Activity.RESULT_OK){
+                    viewModel.setPhoto(data?.data!!)
+                    imageUpload.setImageURI(viewModel.photo.value);
+                }
+        }
+    }
 
 }

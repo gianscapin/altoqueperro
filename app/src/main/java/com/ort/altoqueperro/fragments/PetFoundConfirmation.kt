@@ -1,10 +1,12 @@
 package com.ort.altoqueperro.fragments
 
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -29,6 +31,7 @@ class PetFoundConfirmation : Fragment() {
     private lateinit var txtPetSexValue: TextView
     private lateinit var txtPetSizeValue: TextView
     private lateinit var txtPetTypeValue: TextView
+    private lateinit var photo: ImageView
     lateinit var v: View
 
     private val viewModel: PetFoundViewModel by activityViewModels()
@@ -51,6 +54,7 @@ class PetFoundConfirmation : Fragment() {
         txtPetSexValue = v.findViewById(R.id.txtPetSexValue)
         txtPetSizeValue = v.findViewById(R.id.txtPetSizeValue)
         txtPetTypeValue = v.findViewById(R.id.txtPetTypeValue)
+        photo = v.findViewById(R.id.photo)
 
         viewModel.comments.observe(viewLifecycleOwner, {
             if (it.isNullOrEmpty()) {
@@ -93,6 +97,9 @@ class PetFoundConfirmation : Fragment() {
 
         viewModel.lostDate.observe(viewLifecycleOwner, {
             txtDateValue.text = it
+        })
+        viewModel.photo.observe(viewLifecycleOwner, {
+            photo.setImageURI(it)
         })
 
         return v

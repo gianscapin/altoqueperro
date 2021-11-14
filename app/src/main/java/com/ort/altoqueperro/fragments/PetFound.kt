@@ -1,6 +1,7 @@
 package com.ort.altoqueperro.fragments
 
 
+import android.app.Activity.RESULT_OK
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,14 @@ import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.viewmodels.PetFoundViewModel
 
+import android.content.Intent
+import android.net.Uri
+import android.provider.MediaStore
+import androidx.core.net.toUri
+import com.ort.altoqueperro.utils.ImageHelper
+import java.io.File
+
+
 class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     companion object {
@@ -26,10 +35,13 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
     lateinit var petSex: RadioGroup
     lateinit var petSize: RadioGroup
     //lateinit var petPhoto: ImageView
-    //lateinit var photoUploadButton: Button
+    var imageHelper = ImageHelper()
+    lateinit var takePic: Button
+    lateinit var choosePic: Button
+    lateinit var imageUpload: ImageView
     private lateinit var nextButton: Button
     lateinit var v: View
-
+    var inst:Fragment = this
     private lateinit var rootLayout: ConstraintLayout
 
     private val viewModel: PetFoundViewModel by activityViewModels()
@@ -40,7 +52,9 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
     ): View {
         v = inflater.inflate(R.layout.pet_found_fragment, container, false)
 
-        //photoUploadButton = v.findViewById(R.id.btnNext)
+        takePic = v.findViewById(R.id.takePic)
+        choosePic = v.findViewById(R.id.choosePic)
+        imageUpload = v.findViewById(R.id.imageUpload)
 
         nextButton = v.findViewById(R.id.btnNext)
         petSex = v.findViewById(R.id.sex_radio)
@@ -67,6 +81,13 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
         (v.findViewById(R.id.radio_female) as RadioButton).setOnClickListener(this)
         (v.findViewById(R.id.radio_dont_know) as RadioButton).setOnClickListener(this)
 
+        takePic.setOnClickListener {
+            imageHelper.takePicture(inst)
+        }
+        choosePic.setOnClickListener {
+            imageHelper.choosePicture(inst)
+        }
+        if (viewModel.photo!=null) imageUpload.setImageURI(viewModel.photo.value)
         return v
     }
 
@@ -109,11 +130,7 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
             }
         }
 
-//        photoUploadButton.setOnClickListener {
-//            //do something
-//        }
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.clearALl()
@@ -129,4 +146,19 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+        super.onActivityResult(requestCode, resultCode, data);
+        when(requestCode) {
+            0->
+            if(resultCode == RESULT_OK){
+                viewModel.setPhoto(File(imageHelper.currentPhotoPath).toUri())
+                imageUpload.setImageURI(viewModel.photo.value);
+            }
+            1->
+            if(resultCode == RESULT_OK){
+                viewModel.setPhoto(data?.data!!)
+                imageUpload.setImageURI(viewModel.photo.value);
+            }
+        }
+    }
 }

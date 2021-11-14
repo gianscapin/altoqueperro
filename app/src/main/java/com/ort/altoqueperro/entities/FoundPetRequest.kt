@@ -12,7 +12,8 @@ class FoundPetRequest(
     coordinates: Coordinates?,
     requestCreator: String,
     requestConsumer: String?,
-    rescueCenter: String?
+    rescueCenter: String?,
+    imageURL: String?
 ) : PetRequest(
     id,
     pet,
@@ -21,13 +22,14 @@ class FoundPetRequest(
     resolvedDate,
     coordinates,
     requestCreator,
-    requestConsumer
+    requestConsumer,
+    imageURL
 ) {
 
     constructor() : this(
         "",
         Pet(), State.OPEN.ordinal,
-        Calendar.getInstance().time, null, null, "", null, null
+        Calendar.getInstance().time, null, null, "", null, null, null
     )
 
     constructor(
@@ -37,7 +39,7 @@ class FoundPetRequest(
     ) : this(
         "",
         pet, State.OPEN.ordinal,
-        Calendar.getInstance().time, null, coordinates, requestCreator, null, null
+        Calendar.getInstance().time, null, coordinates, requestCreator, null, null, null
     )
 
 }

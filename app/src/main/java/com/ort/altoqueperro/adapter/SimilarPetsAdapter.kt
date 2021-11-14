@@ -3,9 +3,11 @@ package com.ort.altoqueperro.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.RequestScore
 
@@ -19,7 +21,10 @@ class SimilarPetsAdapter(private var similarRequestList : MutableList<RequestSco
             val txt: TextView = view.findViewById(R.id.txtPetFoundItemScore)
             txt.text = "${score}%"
         }
-
+        fun setImage(url:String) {
+            val img: ImageView = view.findViewById(R.id.imagePetItem)
+            Glide.with(view).load(url).into(img)
+        }
         fun getCardLayout (): CardView {
             return view.findViewById(R.id.cardItem)
         }
@@ -33,7 +38,7 @@ class SimilarPetsAdapter(private var similarRequestList : MutableList<RequestSco
     override fun onBindViewHolder(holder: SimilarPetsHolder, position: Int) {
         val petScore = similarRequestList[position]
         holder.setScore(petScore.score)
-        // holder.setPicture(pet.pictureUrl)
+        petScore.request?.imageURL?.let { holder.setImage(it) }
         holder.getCardLayout().setOnClickListener {
             onSimilarPetsClick(petScore)
         }

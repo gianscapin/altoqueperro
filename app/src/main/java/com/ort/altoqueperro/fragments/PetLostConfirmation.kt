@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
@@ -33,6 +35,7 @@ class PetLostConfirmation : Fragment() {
     private lateinit var txtPetSexValue: TextView
     private lateinit var txtPetSizeValue: TextView
     private lateinit var txtPetTypeValue: TextView
+    lateinit var imagen: ImageView
     lateinit var v: View
 
     private val viewModel: PetLostViewModel by activityViewModels()
@@ -55,6 +58,7 @@ class PetLostConfirmation : Fragment() {
         txtPetSexValue = v.findViewById(R.id.txtPetSexValue)
         txtPetSizeValue = v.findViewById(R.id.txtPetSizeValue)
         txtPetTypeValue = v.findViewById(R.id.txtPetTypeValue)
+        imagen = v.findViewById(R.id.imagen)
 
         viewModel.comments?.observe(viewLifecycleOwner, {
             if (it.isEmpty()) {
@@ -66,6 +70,9 @@ class PetLostConfirmation : Fragment() {
 
         viewModel.petEyeColor.observe(viewLifecycleOwner, {
             txtPetEyeColorValue.text = it
+        })
+        viewModel.photo.observe(viewLifecycleOwner, {
+            imagen.setImageURI(it)
         })
 
         viewModel.petFurColor.observe(viewLifecycleOwner, {

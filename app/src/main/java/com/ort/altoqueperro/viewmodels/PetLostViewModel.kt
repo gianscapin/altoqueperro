@@ -6,14 +6,20 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.core.view.children
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.repos.RequestRepository
+import com.ort.altoqueperro.utils.ImageHelper
+import com.ort.altoqueperro.utils.ServiceLocation
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PetLostViewModel : ViewModel() {
 
@@ -119,6 +125,11 @@ class PetLostViewModel : ViewModel() {
     private fun saveRequest(petRequest: LostPetRequest) {
         RequestRepository().saveLostPetRequest(petRequest)
     }
+    private val mutablePhoto = MutableLiveData<Uri>()
+    val photo: LiveData<Uri> get() = mutablePhoto
+    fun setPhoto(value: Uri) {
+        mutablePhoto.value = value
+    }
 
     fun registerPet(): LostPetRequest {
         val user = Firebase.auth.currentUser
@@ -138,7 +149,6 @@ class PetLostViewModel : ViewModel() {
         val petRequest: LostPetRequest
         if (request != null) {
             request!!.pet = pet
-            request!!.coordinates = null //ToDo cambiar desp
             petRequest = request!!
         } else {
             petRequest = LostPetRequest(
@@ -147,7 +157,14 @@ class PetLostViewModel : ViewModel() {
                 user!!.uid,
             )
         }
-        saveRequest(petRequest)
+        //upload image
+        if (petRequest.coordinates==null) petRequest.coordinates = ServiceLocation.getLocation()
+        viewModelScope.launch(Dispatchers.IO){
+            if(photo.value!=null) {
+                petRequest.imageURL = ImageHelper().storeImage(photo.value!!)
+            }
+            saveRequest(petRequest)
+        }
         return petRequest
     }
 

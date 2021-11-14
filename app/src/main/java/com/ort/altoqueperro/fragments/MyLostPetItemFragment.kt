@@ -1,5 +1,6 @@
 package com.ort.altoqueperro.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.activities.CongratulationMessage
+import com.ort.altoqueperro.activities.SplashWelcomeActivity
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.viewmodels.MyLostPetItemViewModel
@@ -98,6 +101,7 @@ class MyLostPetItemFragment : Fragment() {
             similarPetSex.text = it.pet.sex
             similarPetCoat.text = it.pet.furColor
             similarPetEyeColor.text = it.pet.eyes
+            Glide.with(view).load(it.imageURL).into(similarPetImage)
 
         })
         myLostPetName.text = lostPetData.pet.name
@@ -106,9 +110,8 @@ class MyLostPetItemFragment : Fragment() {
         myLostPetSex.text = lostPetData.pet.sex
         myLostPetCoat.text = lostPetData.pet.furColor
         myLostPetEyeColor.text = lostPetData.pet.eyes
+        Glide.with(view).load(lostPetData.imageURL).into(myLostPetImage)
         // lostPetState.text = lostPetData.requestCreator.toString()
-
-        Glide.with(view.context).load(R.drawable.atp_logo).into(myLostPetImage)
 
         if (lostPetData.isOpen()) {
             notFoundButton.text = "Reiniciar Busqueda"
@@ -116,7 +119,7 @@ class MyLostPetItemFragment : Fragment() {
 
             foundButton.setOnClickListener {
                 lostPetData.nextStateConfirm()
-                saveAndBackToMenu()
+                matchSaveAndBackToMenu()
             }
 
             notFoundButton.setOnClickListener {
@@ -130,7 +133,7 @@ class MyLostPetItemFragment : Fragment() {
 
             btnMatch.setOnClickListener{
                 lostPetData.nextStateConfirm(similarPetData!!)
-                saveAndBackToMenu()
+                matchSaveAndBackToMenu()
             }
 
             btnNoMatch.setOnClickListener {
@@ -187,5 +190,12 @@ class MyLostPetItemFragment : Fragment() {
         val action = MyLostPetItemFragmentDirections.actionMyLostPetItemFragmentToPetLost()
         action.petRequest = lostPetData
         v.findNavController().navigate(action)
+   }
+
+    fun matchSaveAndBackToMenu(){
+        viewModel.updateRequests(similarPetData, lostPetData)
+        startActivity(Intent(context, CongratulationMessage::class.java))
+
     }
+
 }
