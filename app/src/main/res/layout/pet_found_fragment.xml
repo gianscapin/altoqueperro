@@ -146,24 +146,24 @@
             app:layout_constraintStart_toStartOf="@+id/textView21"
             app:layout_constraintTop_toBottomOf="@+id/textView21">
 
-                <Button
-                    android:id="@+id/takePic"
-                    android:layout_width="60dp"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginLeft="4dp"
-                    android:backgroundTint="#C6C6C6"
-                    app:icon="@android:drawable/ic_menu_camera" />
+            <Button
+                android:id="@+id/takePic"
+                android:layout_width="60dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="4dp"
+                android:backgroundTint="#EEB466"
+                app:icon="@android:drawable/ic_menu_camera" />
 
-                <Button
-                    android:id="@+id/choosePic"
-                    android:layout_width="164dp"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
-                    android:backgroundTint="#C6C6C6"
-                    app:icon="@android:drawable/ic_menu_gallery"
-                    android:text="Cargar" />
+            <Button
+                android:id="@+id/choosePic"
+                android:layout_width="164dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#EEB466"
+                android:text="Cargar"
+                app:icon="@android:drawable/ic_menu_gallery" />
             <ImageView
                 android:id="@+id/imageUpload"
                 android:layout_width="100dp"
