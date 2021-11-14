@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TextView
@@ -72,7 +73,8 @@ class PetFound3 : Fragment() {
             val dpd = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
-                    date.setText("" + mDay + "/" + mMonth + "/" + mYear)
+                    val mMonthFix = mMonth+1
+                    date.text= "$mDay/$mMonthFix/$mYear"
                 },
                 year,
                 month,
@@ -89,6 +91,7 @@ class PetFound3 : Fragment() {
         super.onStart()
 
         nextButton.setOnClickListener {
+            viewModel.setLostDate(date.text.toString())
             if (viewModel.validateStep3()) {
                 val action = PetFound3Directions.actionPetFound3ToPetFoundConfirmation()
                 v.findNavController().navigate(action)

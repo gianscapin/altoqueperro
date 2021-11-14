@@ -128,7 +128,8 @@ class NewProfileUserFragment : Fragment() {
             val dpd = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
-                    birthUser.setText("" + mDay + "/" + mMonth + "/" + mYear)
+                    val mMonthFix = mMonth+1
+                    birthUser.text = "$mDay/$mMonthFix/$mYear"
                 },
                 year,
                 month,

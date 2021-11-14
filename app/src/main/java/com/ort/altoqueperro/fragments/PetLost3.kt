@@ -65,7 +65,6 @@ class PetLost3 : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })*/
 
-        date = v.findViewById(R.id.txtDate)
         /*date.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -83,7 +82,8 @@ class PetLost3 : Fragment() {
             val dpd = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
-                    date.setText("" + mDay + "/" + mMonth + "/" + mYear)
+                    val mMonthFix = mMonth+1
+                    date.text= "$mDay/$mMonthFix/$mYear"
                 },
                 year,
                 month,
@@ -99,6 +99,7 @@ class PetLost3 : Fragment() {
         super.onStart()
 
         nextButton.setOnClickListener {
+            viewModel.setLostDate(date.text.toString())
             if (viewModel.validateStep3()) {
                 val action = PetLost3Directions.actionPetLost3ToPetLostConfirmation()
                 v.findNavController().navigate(action)
