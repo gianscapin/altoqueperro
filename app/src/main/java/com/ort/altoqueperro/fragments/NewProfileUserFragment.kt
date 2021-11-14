@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.util.Linkify
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentFactory
 import androidx.navigation.findNavController
@@ -132,7 +134,9 @@ class NewProfileUserFragment : Fragment() {
             phoneUser.inputType = 0
             birthUser.inputType = 0
 
-            Snackbar.make(v,"Perfil actualizado!", Snackbar.LENGTH_SHORT).show()
+            //Snackbar.make(v,"Perfil actualizado!", Snackbar.LENGTH_SHORT).
+            val toast = Toast.makeText(context,"Perfil actualizado!", Toast.LENGTH_LONG)
+            toast.show()
         }
 
         btnLogout.setOnClickListener {
