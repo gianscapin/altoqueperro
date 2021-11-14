@@ -15,7 +15,6 @@ import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.activities.CongratulationMessage
-import com.ort.altoqueperro.activities.SplashWelcomeActivity
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.viewmodels.MyLostPetItemViewModel
@@ -41,9 +40,9 @@ class MyLostPetItemFragment : Fragment() {
     private var similarPetData: FoundPetRequest? = null
     private lateinit var foundButton: Button
     private lateinit var notFoundButton: Button
-    private lateinit var txtConsulta : TextView
-    private lateinit var btnMatch : Button
-    private lateinit var btnNoMatch : Button
+    private lateinit var txtConsulta: TextView
+    private lateinit var btnMatch: Button
+    private lateinit var btnNoMatch: Button
 
     companion object {
         fun newInstance() = MyLostPetItemFragment()
@@ -90,7 +89,7 @@ class MyLostPetItemFragment : Fragment() {
             txtConsulta.visibility = View.GONE
         }
 
-        myLostPetEdit.setOnClickListener{
+        myLostPetEdit.setOnClickListener {
             goToEdit()
         }
 
@@ -131,7 +130,7 @@ class MyLostPetItemFragment : Fragment() {
             notFoundButton.visibility = View.GONE
             foundButton.visibility = View.GONE
 
-            btnMatch.setOnClickListener{
+            btnMatch.setOnClickListener {
                 lostPetData.nextStateConfirm(similarPetData!!)
                 matchSaveAndBackToMenu()
             }
@@ -140,7 +139,6 @@ class MyLostPetItemFragment : Fragment() {
                 lostPetData.nextStateCancel(similarPetData!!)
                 saveAndBackToMenu()
             }
-
 
 
             /*notFoundButton.text = "No era esta"
@@ -186,13 +184,13 @@ class MyLostPetItemFragment : Fragment() {
         v.findNavController().navigate(action)
     }
 
-    private fun goToEdit(){
+    private fun goToEdit() {
         val action = MyLostPetItemFragmentDirections.actionMyLostPetItemFragmentToPetLost()
         action.petRequest = lostPetData
         v.findNavController().navigate(action)
-   }
+    }
 
-    fun matchSaveAndBackToMenu(){
+    private fun matchSaveAndBackToMenu() {
         viewModel.updateRequests(similarPetData, lostPetData)
         startActivity(Intent(context, CongratulationMessage::class.java))
 

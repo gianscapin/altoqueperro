@@ -1,26 +1,25 @@
 package com.ort.altoqueperro.viewmodels
 
 import android.content.Context
+import android.net.Uri
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.core.view.children
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.Pet
 import com.ort.altoqueperro.repos.RequestRepository
 import com.ort.altoqueperro.utils.ImageHelper
 import com.ort.altoqueperro.utils.ServiceLocation
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PetFoundViewModel : ViewModel() {
 
@@ -126,7 +125,7 @@ class PetFoundViewModel : ViewModel() {
             comments.value.toString(),
             lostDate.value.toString()
         )
-        
+
         val petRequest: FoundPetRequest
         if (request != null) {
             request!!.pet = pet
@@ -140,8 +139,8 @@ class PetFoundViewModel : ViewModel() {
         }
         //upload image
         petRequest.coordinates = ServiceLocation.getLocation()
-        viewModelScope.launch(Dispatchers.IO){
-            if(photo.value!=null) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (photo.value != null) {
                 petRequest.imageURL = ImageHelper().storeImage(photo.value!!)
             }
             saveRequest(petRequest)
@@ -203,6 +202,7 @@ class PetFoundViewModel : ViewModel() {
         setPetSex("")
         setPetSize("")
         setPetType("")
+        setPhoto(Uri.EMPTY)
     }
 
 
