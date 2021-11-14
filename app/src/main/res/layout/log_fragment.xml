@@ -45,21 +45,6 @@
         app:layout_constraintTop_toBottomOf="@+id/idPassword"
         tools:ignore="TextContrastCheck" />
 
-    <Button
-        android:id="@+id/btnTestLogin"
-        android:layout_width="114dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="126dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="126dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#D36D5E"
-        android:text="TEST"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
     <EditText
         android:id="@+id/idPassword"
         android:layout_width="340dp"
@@ -120,7 +105,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/lostPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/lostPassword"
+        app:layout_constraintVertical_bias="0.466" />
 
     <TextView
         android:id="@+id/lostPassword"

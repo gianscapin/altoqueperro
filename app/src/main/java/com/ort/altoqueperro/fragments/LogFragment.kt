@@ -33,7 +33,6 @@ class LogFragment : Fragment() {
     lateinit var inputPassword: TextView
     lateinit var login: Button
     lateinit var signUp: TextView
-    lateinit var testLogin: Button
     lateinit var txtSignUp: TextView
     lateinit var lostPass: TextView
     lateinit var rootLayout:ConstraintLayout
@@ -54,7 +53,6 @@ class LogFragment : Fragment() {
         signUp = v.findViewById(R.id.btnSign)
         inputMail = v.findViewById(R.id.idUser)
         inputPassword = v.findViewById(R.id.idPassword)
-        testLogin = v.findViewById(R.id.btnTestLogin)
         txtSignUp = v.findViewById(R.id.textView5)
         lostPass = v.findViewById(R.id.lostPassword)
         rootLayout = v.findViewById(R.id.frameLayout)
@@ -88,26 +86,6 @@ class LogFragment : Fragment() {
             var mail = inputMail.text.toString()
             var password = inputPassword.text.toString()
 
-            /*
-            val usersRef = db.collection("users")
-
-
-            val query = usersRef.whereEqualTo("email",mail).whereEqualTo("password",password).get().addOnSuccessListener { snapshot ->
-                if(snapshot != null){
-                    for(user in snapshot){
-                        usersList.add(user.toObject())
-                    }
-                }
-            }
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error getting documents: ", exception)
-                }
-
-            if(usersList.size>0){
-                println(usersList[0].toString())
-            }
-             */
-
             if(mail.isNotEmpty() && password.isNotEmpty()) {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(mail,password).addOnCompleteListener {
                     if(it.isSuccessful){
@@ -126,18 +104,6 @@ class LogFragment : Fragment() {
                 Snackbar.make(rootLayout, "Email o Contraseña incorrecta", Snackbar.LENGTH_LONG)
                     .show()
             }
-        }
-        testLogin.setOnClickListener {
-        FirebaseAuth.getInstance().signInWithEmailAndPassword("testatp@atp.com","testatp123").addOnCompleteListener {
-            if(it.isSuccessful){
-                //val action = LogFragmentDirections.actionLogFragmentToPetFragment2()
-                //v.findNavController().navigate(action)
-                startActivity(Intent(context, HomeNavigationActivity::class.java))
-                //v.findNavController().navigate(R.id.petFragment2)
-            }else{
-                println("credenciales no válidas")
-            }
-        }
         }
     }
 
