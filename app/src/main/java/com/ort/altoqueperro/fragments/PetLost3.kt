@@ -62,8 +62,8 @@ class PetLost3 : Fragment() {
         return v
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
 
         nextButton.setOnClickListener {
             if (viewModel.validateStep3()) {
@@ -74,5 +74,11 @@ class PetLost3 : Fragment() {
 
             }
         }
+        fillData()
+    }
+
+    private fun fillData() {
+        date.text = viewModel.lostDate.value
+        comments.text = viewModel.comments.value
     }
 }

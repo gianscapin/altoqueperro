@@ -22,20 +22,20 @@ class PetLost2 : Fragment(), AdapterView.OnItemSelectedListener {
         fun newInstance() = PetLost2()
     }
 
-    lateinit var nextButton: Button
-    lateinit var petEyeColorSpinner: Spinner
-    lateinit var petFurColorSpinner: Spinner
-    lateinit var petFurLengthSpinner: Spinner
-    lateinit var petNosesSpinner: Spinner
+    private lateinit var nextButton: Button
+    private lateinit var petEyeColorSpinner: Spinner
+    private lateinit var petFurColorSpinner: Spinner
+    private lateinit var petFurLengthSpinner: Spinner
+    private lateinit var petNosesSpinner: Spinner
 
     lateinit var v: View
-    lateinit var rootLayout: ConstraintLayout
+    private lateinit var rootLayout: ConstraintLayout
     private val viewModel: PetLostViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         v = inflater.inflate(R.layout.pet_lost_2_fragment, container, false)
 
         nextButton = v.findViewById(R.id.btnNext)
@@ -66,9 +66,8 @@ class PetLost2 : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun onResume() {
+        super.onResume()
         nextButton.setOnClickListener {
             if (viewModel.validateStep2()) {
                 val action = PetLost2Directions.actionPetLost2ToPetLost3()
@@ -79,6 +78,14 @@ class PetLost2 : Fragment(), AdapterView.OnItemSelectedListener {
 
             }
         }
+        fillData()
+    }
+
+    private fun fillData() {
+        viewModel.setSpinner(viewModel.petNose, R.array.pet_noses, v.context, petNosesSpinner)
+        viewModel.setSpinner(viewModel.petFurLength, R.array.pet_fur_lengths, v.context, petFurLengthSpinner)
+        viewModel.setSpinner(viewModel.petFurColor, R.array.pet_fur_colors, v.context, petFurColorSpinner)
+        viewModel.setSpinner(viewModel.petEyeColor, R.array.pet_eye_colors, v.context, petEyeColorSpinner)
     }
 
     private fun configureSpinner(spinner: Spinner, textArrayResId: Int) {

@@ -22,17 +22,17 @@ class PetFound3 : Fragment() {
         fun newInstance() = PetFound3()
     }
 
-    lateinit var nextButton : Button
-    lateinit var date : TextView
+    private lateinit var nextButton : Button
+    private lateinit var date : TextView
     lateinit var comments : TextView
     lateinit var v : View
-    lateinit var rootLayout : ConstraintLayout
+    private lateinit var rootLayout : ConstraintLayout
     private val viewModel: PetFoundViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         v =  inflater.inflate(R.layout.pet_found_3_fragment, container, false)
 
         nextButton = v.findViewById(R.id.btnNext3)
@@ -61,9 +61,8 @@ class PetFound3 : Fragment() {
         return v
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun onResume() {
+        super.onResume()
         nextButton.setOnClickListener {
             if (viewModel.validateStep3()) {
                 val action = PetFound3Directions.actionPetFound3ToPetFoundConfirmation()
@@ -74,5 +73,11 @@ class PetFound3 : Fragment() {
 
             }
         }
+        fillData()
+    }
+
+    private fun fillData() {
+        date.text = viewModel.lostDate.value
+        comments.text = viewModel.comments.value
     }
 }

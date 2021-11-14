@@ -13,6 +13,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.FoundPetRequest
+import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.viewmodels.PetFoundViewModel
 
 import android.content.Intent
@@ -30,7 +32,8 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
     }
 
     private lateinit var petTypesSpinner: Spinner
-
+    lateinit var petSex: RadioGroup
+    lateinit var petSize: RadioGroup
     //lateinit var petPhoto: ImageView
     var imageHelper = ImageHelper()
     lateinit var takePic: Button
@@ -54,6 +57,8 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
         imageUpload = v.findViewById(R.id.imageUpload)
 
         nextButton = v.findViewById(R.id.btnNext)
+        petSex = v.findViewById(R.id.sex_radio)
+        petSize = v.findViewById(R.id.size_radio)
 
         rootLayout = v.findViewById(R.id.pet_found_root_layout_1)
 
@@ -114,9 +119,8 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun onResume() {
+        super.onResume()
         nextButton.setOnClickListener {
             if (viewModel.validateStep1()) {
                 val action = PetFoundDirections.actionPetFoundToPetFound2()
@@ -127,6 +131,21 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
         }
 
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.clearALl()
+        val foundPetRequest = PetFoundArgs.fromBundle(requireArguments()).petRequest
+        if (foundPetRequest!= null) fillData(foundPetRequest)
+    }
+
+    private fun fillData(request: FoundPetRequest) {
+        viewModel.setRequest(request)
+        viewModel.setRadioButton(petSize,viewModel.petSize)
+        viewModel.setRadioButton(petSex,viewModel.petSex)
+        viewModel.setSpinner(viewModel.petType, R.array.pet_types, v.context, petTypesSpinner)
+
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
         super.onActivityResult(requestCode, resultCode, data);
         when(requestCode) {

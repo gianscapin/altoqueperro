@@ -27,7 +27,7 @@ class ListMode : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.list_mode_fragment, container, false)
         tabLayout = v.findViewById(R.id.tab_layout)

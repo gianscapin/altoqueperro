@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
+import com.ort.altoqueperro.entities.FoundPetRequest
+import com.ort.altoqueperro.entities.LostPetRequest
+import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.viewmodels.LostPetItemViewModel
 
 class LostPetItemFragment : Fragment() {
@@ -25,6 +30,7 @@ class LostPetItemFragment : Fragment() {
     private lateinit var lostPetFurColor: TextView
     private lateinit var lostPetComments: TextView
     private lateinit var lostPetLostDate: TextView
+    private lateinit var lostPetData: LostPetRequest //ToDo cambiar las variables a foundpetrequest
 
 
     companion object {
@@ -57,21 +63,17 @@ class LostPetItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(LostPetItemViewModel::class.java)
-        val lostPetData = LostPetItemFragmentArgs.fromBundle(requireArguments()).petData
-        if (lostPetData != null) {
-            lostPetName.text = lostPetData.pet.name
-            lostPetType.text = lostPetData.pet.type
-            lostPetSize.text = lostPetData.pet.size
-            lostPetSex.text = lostPetData.pet.sex
-            lostPetEyeColor.text = lostPetData.pet.eyes
-            lostPetFurLength.text = lostPetData.pet.furLength
-            lostPetFurColor.text = lostPetData.pet.furColor
-            lostPetComments.text = lostPetData.pet.comments
-            lostPetLostDate.text = lostPetData.pet.lostDate
-            Glide.with(view).load(lostPetData.imageURL).into(lostPetImage)
-        }
-
+        lostPetData = LostPetItemFragmentArgs.fromBundle(requireArguments()).petData!!
+        lostPetName.text = lostPetData.pet.name
+        lostPetType.text = lostPetData.pet.type
+        lostPetSize.text = lostPetData.pet.size
+        lostPetSex.text = lostPetData.pet.sex
+        lostPetEyeColor.text = lostPetData.pet.eyes
+        lostPetFurLength.text = lostPetData.pet.furLength
+        lostPetFurColor.text = lostPetData.pet.furColor
+        lostPetComments.text = lostPetData.pet.comments
+        lostPetLostDate.text = lostPetData.pet.lostDate
+        Glide.with(view).load(lostPetData.imageURL).into(lostPetImage)
 
     }
-
 }

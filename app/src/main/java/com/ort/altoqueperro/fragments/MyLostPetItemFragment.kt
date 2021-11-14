@@ -15,7 +15,6 @@ import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.activities.CongratulationMessage
-import com.ort.altoqueperro.activities.SplashWelcomeActivity
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.viewmodels.MyLostPetItemViewModel
@@ -23,6 +22,7 @@ import com.ort.altoqueperro.viewmodels.MyLostPetItemViewModel
 class MyLostPetItemFragment : Fragment() {
     lateinit var v: View
     private lateinit var myLostPetImage: ImageView
+    private lateinit var myLostPetEdit: ImageView
     private lateinit var myLostPetName: TextView
     private lateinit var myLostPetType: TextView
     private lateinit var myLostPetSize: TextView
@@ -40,9 +40,9 @@ class MyLostPetItemFragment : Fragment() {
     private var similarPetData: FoundPetRequest? = null
     private lateinit var foundButton: Button
     private lateinit var notFoundButton: Button
-    private lateinit var txtConsulta : TextView
-    private lateinit var btnMatch : Button
-    private lateinit var btnNoMatch : Button
+    private lateinit var txtConsulta: TextView
+    private lateinit var btnMatch: Button
+    private lateinit var btnNoMatch: Button
 
     companion object {
         fun newInstance() = MyLostPetItemFragment()
@@ -56,6 +56,7 @@ class MyLostPetItemFragment : Fragment() {
     ): View {
         v = inflater.inflate(R.layout.my_lost_pet_item_fragment, container, false)
         myLostPetImage = v.findViewById(R.id.imageMyPetDetail)
+        myLostPetEdit = v.findViewById(R.id.imageMyPetEdit)
         myLostPetName = v.findViewById(R.id.txtMyPetName)
         myLostPetType = v.findViewById(R.id.txtMyPetType)
         myLostPetSize = v.findViewById(R.id.txtMyPetSize)
@@ -71,7 +72,7 @@ class MyLostPetItemFragment : Fragment() {
         similarPetCardView = v.findViewById(R.id.cardItemSimilarPet)
         foundButton = v.findViewById(R.id.btnMyPetConfirm)
         notFoundButton = v.findViewById(R.id.btnMyPetCancel)
-        txtConsulta = v.findViewById(R.id.textView10)
+        txtConsulta = v.findViewById(R.id.textViewMensaje)
         btnMatch = v.findViewById(R.id.btnMatch)
         btnNoMatch = v.findViewById(R.id.btnNoMatch)
 
@@ -86,6 +87,10 @@ class MyLostPetItemFragment : Fragment() {
         if (lostPetData.requestConsumer == null) {
             similarPetCardView.visibility = View.GONE
             txtConsulta.visibility = View.GONE
+        }
+
+        myLostPetEdit.setOnClickListener {
+            goToEdit()
         }
 
         viewModel.requestConsumerLiveData.observe(viewLifecycleOwner, {
@@ -121,10 +126,11 @@ class MyLostPetItemFragment : Fragment() {
             }
         } else if (lostPetData.isPending()) {
 
+            myLostPetEdit.visibility = View.GONE
             notFoundButton.visibility = View.GONE
             foundButton.visibility = View.GONE
 
-            btnMatch.setOnClickListener{
+            btnMatch.setOnClickListener {
                 lostPetData.nextStateConfirm(similarPetData!!)
                 matchSaveAndBackToMenu()
             }
@@ -133,7 +139,6 @@ class MyLostPetItemFragment : Fragment() {
                 lostPetData.nextStateCancel(similarPetData!!)
                 saveAndBackToMenu()
             }
-
 
 
             /*notFoundButton.text = "No era esta"
@@ -165,23 +170,30 @@ class MyLostPetItemFragment : Fragment() {
         backToMenu()
     }
 
-    fun goToNewSimilaritySearch() {
+    private fun goToNewSimilaritySearch() {
         val action =
             MyLostPetItemFragmentDirections.actionMyLostPetItemFragmentToPetLostSearchSimilarities(
                 lostPetData
             )
-        v.findNavController().navigate(action);
+        v.findNavController().navigate(action)
     }
 
-    fun backToMenu() {
+    private fun backToMenu() {
         val action =
             MyLostPetItemFragmentDirections.actionMyLostPetItemFragmentToNewMapModeFragment()
-        v.findNavController().navigate(action);
-   }
+        v.findNavController().navigate(action)
+    }
 
-    fun matchSaveAndBackToMenu(){
+    private fun goToEdit() {
+        val action = MyLostPetItemFragmentDirections.actionMyLostPetItemFragmentToPetLost()
+        action.petRequest = lostPetData
+        v.findNavController().navigate(action)
+    }
+
+    private fun matchSaveAndBackToMenu() {
         viewModel.updateRequests(similarPetData, lostPetData)
         startActivity(Intent(context, CongratulationMessage::class.java))
+
     }
 
 }

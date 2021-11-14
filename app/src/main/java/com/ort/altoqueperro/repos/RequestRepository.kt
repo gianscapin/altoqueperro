@@ -19,7 +19,6 @@ class RequestRepository {
             .addOnSuccessListener {
                 for (request in it) {
                     val requestObject = request.toObject<LostPetRequest>()
-                    requestObject.id = request.id //ToDo sacar
                     lostRequests.add(requestObject)
                 }
                 liveData.postValue(lostRequests)
@@ -32,12 +31,11 @@ class RequestRepository {
     fun getAllFoundPetRequests(liveData: MutableLiveData<MutableList<FoundPetRequest>>) {
         val foundPetRequests: MutableList<FoundPetRequest> = mutableListOf()
         db.collection("foundPetRequests")
-            .whereNotEqualTo("state", State.CLOSED.ordinal)
+            .whereEqualTo("state", State.OPEN.ordinal)
             .get()
             .addOnSuccessListener {
                 for (request in it) {
                     val requestObject = request.toObject<FoundPetRequest>()
-                    requestObject.id = request.id //ToDo sacar cuando se guarde ya con el id
                     foundPetRequests.add(requestObject)
                 }
                 liveData.postValue(foundPetRequests)

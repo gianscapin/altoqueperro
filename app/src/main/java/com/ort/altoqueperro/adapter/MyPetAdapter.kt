@@ -15,7 +15,7 @@ import com.ort.altoqueperro.utils.ServiceLocation
 import kotlin.math.roundToInt
 
 class MyPetAdapter(private var requestList: MutableList<LostPetRequest>,
-                   val onPetClick: (PetRequest) -> Unit
+                   val onPetClick: (LostPetRequest) -> Unit
 ) : RecyclerView.Adapter <MyPetAdapter.PetHolder>() {
     class PetHolder(v: View): RecyclerView.ViewHolder(v) {
         private var view: View = v
@@ -86,33 +86,33 @@ class MyPetAdapter(private var requestList: MutableList<LostPetRequest>,
         petRequest.imageURL?.let { holder.setPicture(it) }
         pet.name?.let { holder.setName(it) }
 
-        pet.size?.let { holder.setSize(it) }
-        pet.sex?.let { holder.setSex(it) }
-        pet.eyes?.let {
-            if(it.equals("")){
+        pet.size.let { holder.setSize(it) }
+        pet.sex.let { holder.setSex(it) }
+        pet.eyes.let {
+            if(it == ""){
                 holder.setEyes("-")
             }else{
                 holder.setEyes(it)
             }
         }
-        pet.nose?.let {
-            if(it.equals("")){
+        pet.nose.let {
+            if(it == ""){
                 holder.setNose("-")
             }else{
                 holder.setNose(it)
             }
         }
 
-        pet.furLength?.let {
-            if(it.equals("")){
+        pet.furLength.let {
+            if(it == ""){
                 holder.setColor("-")
             }else{
                 holder.setColor(it)
             }
         }
 
-        pet.lostDate?.let {
-            if(it.equals("")){
+        pet.lostDate.let {
+            if(it == ""){
                 holder.setDateLost("-")
             }else{
                 holder.setDateLost(it)
