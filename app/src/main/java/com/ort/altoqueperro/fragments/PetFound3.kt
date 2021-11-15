@@ -1,5 +1,8 @@
 package com.ort.altoqueperro.fragments
 
+import android.app.DatePickerDialog
+import android.icu.util.Calendar
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,8 +10,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -29,6 +35,7 @@ class PetFound3 : Fragment() {
     private lateinit var rootLayout : ConstraintLayout
     private val viewModel: PetFoundViewModel by activityViewModels()
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,13 +56,32 @@ class PetFound3 : Fragment() {
         })
 
         date = v.findViewById(R.id.txtDate)
-        date.addTextChangedListener(object : TextWatcher {
+        /*date.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.setLostDate(s.toString())
             }
             override fun afterTextChanged(s: Editable?) {}
-        })
+        })*/
+
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        date.setOnClickListener {
+            val dpd = DatePickerDialog(
+                requireContext(),
+                DatePickerDialog.OnDateSetListener { view: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
+                    val mMonthFix = mMonth+1
+                    date.text= "$mDay/$mMonthFix/$mYear"
+                },
+                year,
+                month,
+                day
+            )
+            dpd.show()
+        }
 
 
         return v
@@ -64,6 +90,7 @@ class PetFound3 : Fragment() {
     override fun onResume() {
         super.onResume()
         nextButton.setOnClickListener {
+            viewModel.setLostDate(date.text.toString())
             if (viewModel.validateStep3()) {
                 val action = PetFound3Directions.actionPetFound3ToPetFoundConfirmation()
                 v.findNavController().navigate(action)

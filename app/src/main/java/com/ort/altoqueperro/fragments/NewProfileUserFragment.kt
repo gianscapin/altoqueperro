@@ -1,6 +1,9 @@
 package com.ort.altoqueperro.fragments
 
+import android.app.DatePickerDialog
 import android.content.Intent
+import android.icu.util.Calendar
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.util.Linkify
@@ -9,10 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentFactory
 import androidx.navigation.findNavController
@@ -28,6 +28,7 @@ import com.ort.altoqueperro.activities.MainActivity
 import com.ort.altoqueperro.activities.SplashActivity
 import com.ort.altoqueperro.viewmodels.NewProfileUserViewModel
 import org.w3c.dom.Text
+import java.util.*
 
 class NewProfileUserFragment : Fragment() {
 
@@ -79,6 +80,7 @@ class NewProfileUserFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onStart() {
         super.onStart()
 
@@ -106,13 +108,28 @@ class NewProfileUserFragment : Fragment() {
                 btnEdit.text = "Confirmar"
             }
         }
+
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
         birthUser.setOnClickListener {
-            birthUser.inputType = 1
-            btnEdit.isVisible = true
-            if(btnEdit.isEnabled){
-                btnEdit.text = "Confirmar"
-            }
+            val dpd = DatePickerDialog(
+                requireContext(),
+                DatePickerDialog.OnDateSetListener { view: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
+                    val mMonthFix = mMonth+1
+                    birthUser.text = "$mDay/$mMonthFix/$mYear"
+                },
+                year,
+                month,
+                day
+            )
+            dpd.show()
         }
+
+
+
 
         btnChangePassword.setOnClickListener {
             val action = NewProfileUserFragmentDirections.actionNewProfileUserFragmentToChangePassword(user!!)
