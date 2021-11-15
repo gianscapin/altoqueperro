@@ -10,11 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.navigation.NavigationBarView
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.activities.HomeNavigationActivity
 import com.ort.altoqueperro.adapter.SimilarPetsAdapter
-import com.ort.altoqueperro.entities.PetRequest
+import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.RequestScore
 import com.ort.altoqueperro.viewmodels.PetLostSearchSimilaritiesViewModel
 
@@ -27,7 +25,7 @@ class PetLostSearchSimilarities : Fragment() {
     private lateinit var viewModel: PetLostSearchSimilaritiesViewModel
     private lateinit var recSimilarPets: RecyclerView
     private lateinit var noResult: Button
-    private lateinit var petRequestData: PetRequest
+    private lateinit var petRequestData: LostPetRequest
     private lateinit var v: View
 
     override fun onCreateView(
@@ -67,7 +65,8 @@ class PetLostSearchSimilarities : Fragment() {
 
         noResult.setOnClickListener { noResult() }
         recSimilarPets.setHasFixedSize(true)
-        recSimilarPets.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recSimilarPets.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun onSimilarPetsClick(requestScore: RequestScore) {

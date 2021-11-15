@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -26,7 +25,6 @@ import com.google.android.gms.maps.model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.LostPetRequest
-import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.entities.Shelter
 import com.ort.altoqueperro.entities.Vet
 import com.ort.altoqueperro.utils.Notifications
@@ -44,11 +42,11 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
 
     private lateinit var map: GoogleMap
     private var permissionDenied = false
-    lateinit var serviceLocationGet: ServiceLocationGet
-    var firstRun = true
-    var inst: Fragment = this
-    var idUserLogged = FirebaseAuth.getInstance().currentUser?.uid.toString()
-    val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+    private lateinit var serviceLocationGet: ServiceLocationGet
+    private var firstRun = true
+    //var inst: Fragment = this
+    //var idUserLogged = FirebaseAuth.getInstance().currentUser?.uid.toString()
+    //val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
 
     companion object {
         fun newInstance() = NewMapModeFragment()
@@ -83,65 +81,64 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
         return v
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(NewMapModeViewModel::class.java)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        var idUserLogged = FirebaseAuth.getInstance().currentUser?.uid.toString()
-        map = googleMap ?: return
+        val idUserLogged = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        map = googleMap
         googleMap.setOnMyLocationButtonClickListener(this)
         googleMap.setOnMyLocationClickListener(this)
         map.setInfoWindowAdapter(CustomInfoWindowAdapter())
         enableMyLocation()
         viewModel.getLostPets()
         map.clear()
-        viewModel.petRepository.observe(this, Observer {
-            it.forEach {
+        viewModel.requestRepository.observe(this, {
+            viewModel.filterRequests().forEach {
                 if (it.coordinates != null) {
-                    var bmp: BitmapDescriptor
-                    if (it.requestCreator == idUserLogged) {
-                        bmp = BitmapDescriptorFactory.fromResource(R.drawable.ownpaw)
+                    val bmp: BitmapDescriptor = if (it.requestCreator == idUserLogged) {
+                        BitmapDescriptorFactory.fromResource(R.drawable.ownpaw)
                     } else {
-                        bmp = BitmapDescriptorFactory.fromResource(R.drawable.dow_paw)
+                        BitmapDescriptorFactory.fromResource(R.drawable.dow_paw)
                     }
-                    var marker: MarkerOptions =
+                    val marker: MarkerOptions =
                         MarkerOptions().position(it.coordinates!!.getLatLng()).title(it.pet.name)
                             .icon(
                                 bmp
                             )
-                    map.addMarker(marker).tag = it
+                    map.addMarker(marker)?.tag = it
                 }
             }
         })
 
         viewModel.getShelters()
-        viewModel.sheltersRepository.observe(this, Observer {
+        viewModel.sheltersRepository.observe(this, { it ->
             it.forEach {
                 if (it.coordinates != null) {
-                    var bmp: BitmapDescriptor
-                    bmp = BitmapDescriptorFactory.fromResource(R.drawable.home)
-                    var marker: MarkerOptions =
+                    val bmp: BitmapDescriptor =
+                        BitmapDescriptorFactory.fromResource(R.drawable.home)
+                    val marker: MarkerOptions =
                         MarkerOptions().position(it.coordinates!!.getLatLng()).title(it.name).icon(
                             bmp
                         )
-                    map.addMarker(marker).tag = it
+                    map.addMarker(marker)?.tag = it
                 }
             }
         })
 
         viewModel.getVets()
-        viewModel.vetsRepository.observe(this, Observer {
+        viewModel.vetsRepository.observe(this, { it ->
             it.forEach {
                 if (it.coordinates != null) {
-                    var bmp: BitmapDescriptor
-                    bmp = BitmapDescriptorFactory.fromResource(R.drawable.vetmapa)
-                    var marker: MarkerOptions =
+                    val bmp: BitmapDescriptor =
+                        BitmapDescriptorFactory.fromResource(R.drawable.vetmapa)
+                    val marker: MarkerOptions =
                         MarkerOptions().position(it.coordinates!!.getLatLng()).title(it.name).icon(
                             bmp
                         )
-                    map.addMarker(marker).tag = it
+                    map.addMarker(marker)?.tag = it
                 }
             }
         })
@@ -183,6 +180,7 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             Toast.makeText(this.requireContext(), "Permiso de acceso denegado", Toast.LENGTH_LONG)
+                .show()
             map.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(-34.6090638, -58.4289158),
@@ -250,7 +248,7 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
                 requireContext(),
                 "No permitio que sepamos donde esta asi que el mapa aparecera por cualquier lado",
                 Toast.LENGTH_LONG
-            )
+            ).show()
             permissionDenied = true
             // [END_EXCLUDE]
         }
@@ -264,47 +262,48 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
         private val window: View = layoutInflater.inflate(R.layout.custom_info_window, null)
         private val contents: View = layoutInflater.inflate(R.layout.custom_info_contents, null)
 
-        override fun getInfoWindow(marker: Marker): View? {
+        override fun getInfoWindow(marker: Marker): View {
             // This means that getInfoContents will be called.
             marker.setInfoWindowAnchor(-1.1f, 0f)
             render(marker, window)
             return window
         }
 
-        override fun getInfoContents(marker: Marker): View? {
+        override fun getInfoContents(marker: Marker): View {
             render(marker, contents)
             return contents
         }
 
+        //ToDo no entiendo por que se pasa el view si no se usa
         private fun render(marker: Marker, view: View) {
             val badge = R.drawable.dog // Passing 0 to setImageResource will clear the image view.
             val distance = window.findViewById<TextView>(R.id.distance)
             val size = window.findViewById<TextView>(R.id.size)
             val coatColor = window.findViewById<TextView>(R.id.coatColor)
-            val more = window.findViewById<TextView>(R.id.more)
+            //val more = window.findViewById<TextView>(R.id.more)
             val imagen = window.findViewById<ImageView>(R.id.badge)
             if (marker.tag is LostPetRequest) {
                 val pet: LostPetRequest = marker.tag as LostPetRequest
-                size.text = "Tamaño: " + pet.pet.size
-                coatColor.text = "Color: " + pet.pet.furColor
+                size.text = "Tamaño: ${pet.pet.size}"
+                coatColor.text = "Color: ${pet.pet.furColor}"
                 distance.text =
-                    ServiceLocation.getDistance(pet.coordinates!!).roundToInt().toString() + " mts."
+                    "${ServiceLocation.getDistance(pet.coordinates!!).roundToInt()} mts."
                 imagen.setImageResource(badge)
             }
             if (marker.tag is Vet) {
                 val vet: Vet = marker.tag as Vet
-                size.text = "Nombre: " + vet.name
-                coatColor.text = "Horario: " + vet.businessHours
+                size.text = "Nombre: ${vet.name}"
+                coatColor.text = "Horario: ${vet.businessHours}"
                 distance.text =
-                    ServiceLocation.getDistance(vet.coordinates!!).roundToInt().toString() + " mts."
+                    "${ServiceLocation.getDistance(vet.coordinates!!).roundToInt()} mts."
                 imagen.setImageResource(R.drawable.vetmapa)
             }
             if (marker.tag is Shelter) {
                 val shelter: Shelter = marker.tag as Shelter
-                size.text = "Nombre: " + shelter.name
-                coatColor.text = "Telefono: " + shelter.phoneNumber
-                distance.text = ServiceLocation.getDistance(shelter.coordinates!!).roundToInt()
-                    .toString() + " mts."
+                size.text = "Nombre: ${shelter.name}"
+                coatColor.text = "Telefono: ${shelter.phoneNumber}"
+                distance.text =
+                    "${ServiceLocation.getDistance(shelter.coordinates!!).roundToInt()} mts."
                 imagen.setImageResource(R.drawable.home)
             }
         }

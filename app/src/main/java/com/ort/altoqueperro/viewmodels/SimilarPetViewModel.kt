@@ -6,9 +6,9 @@ import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.repos.RequestRepository
 
 class SimilarPetViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
-    fun updateRequests(foundRequest: FoundPetRequest?, lostRequest: LostPetRequest){
-        RequestRepository().saveLostPetRequest(lostRequest)
-        if (foundRequest!= null) RequestRepository().saveFoundPetRequest(foundRequest)
+
+    fun updateRequests(foundRequest: FoundPetRequest?, lostRequest: LostPetRequest) {
+        RequestRepository.saveLostPetRequest(lostRequest)
+        if (foundRequest != null) RequestRepository.saveFoundPetRequest(foundRequest)
     }
 }

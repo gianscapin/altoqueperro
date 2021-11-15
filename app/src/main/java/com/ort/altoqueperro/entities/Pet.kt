@@ -9,7 +9,6 @@ class Pet(
     var type: String,
     var size: String,
     var sex: String,
-    //var imageURL: String,
     var nose: String,
     var furLength: String,
     var furColor: String,

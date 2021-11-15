@@ -15,7 +15,7 @@ class PetLostSearchSimilaritiesViewModel : ViewModel() {
         MutableLiveData(mutableListOf())
 
     fun getFoundPetRequests() {
-        RequestRepository().getAllFoundPetRequests(foundPetRequestRepository)
+        RequestRepository.getAllFoundPetRequests(foundPetRequestRepository)
     }
 
     fun lookForSimilarities(petRequest: PetRequest): MutableList<RequestScore> {
@@ -31,6 +31,6 @@ class PetLostSearchSimilaritiesViewModel : ViewModel() {
     }
 
     fun getComparingScore() {
-        ComparingScoreRepository().getScore(comparingScoreLiveData)
+        ComparingScoreRepository.getScore(comparingScoreLiveData)
     }
 }

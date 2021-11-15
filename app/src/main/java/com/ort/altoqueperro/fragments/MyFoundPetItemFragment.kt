@@ -74,7 +74,7 @@ class MyFoundPetItemFragment : Fragment() {
         if (foundPetData.requestConsumer == null) {
             similarPetCardView.visibility = View.GONE
             txtConsulta.visibility = View.GONE
-        }else{
+        } else {
             myFoundPetEdit.visibility = View.GONE
         }
 
@@ -90,14 +90,14 @@ class MyFoundPetItemFragment : Fragment() {
             similarPetSex.text = it.pet.sex
             similarPetCoat.text = it.pet.furColor
             similarPetEyeColor.text = it.pet.eyes
-
+            Glide.with(view.context).load(it.imageURL).into(similarPetImage)
         })
         myFoundPetType.text = foundPetData.pet.type
         myFoundPetSize.text = foundPetData.pet.size
         myFoundPetSex.text = foundPetData.pet.sex
         myFoundPetCoat.text = foundPetData.pet.furColor
         myFoundPetEyeColor.text = foundPetData.pet.eyes
-        Glide.with(view.context).load(R.drawable.atp_logo).into(myFoundPetImage)
+        Glide.with(view.context).load(foundPetData.imageURL).into(myFoundPetImage)
 
     }
 

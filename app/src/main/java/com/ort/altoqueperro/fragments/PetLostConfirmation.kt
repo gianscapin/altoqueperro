@@ -11,9 +11,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.entities.PetRequest
+import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
 
 class PetLostConfirmation : Fragment() {
@@ -29,13 +28,11 @@ class PetLostConfirmation : Fragment() {
     private lateinit var txtPetEyeColorValue: TextView
     private lateinit var txtPetFurColorValue: TextView
     private lateinit var txtPetFurLengthValue: TextView
-
-    //lateinit var txtPetNameValue: TextView
     private lateinit var txtPetNoseValue: TextView
     private lateinit var txtPetSexValue: TextView
     private lateinit var txtPetSizeValue: TextView
     private lateinit var txtPetTypeValue: TextView
-    lateinit var imagen: ImageView
+    private lateinit var imagen: ImageView
     lateinit var v: View
 
     private val viewModel: PetLostViewModel by activityViewModels()
@@ -60,7 +57,7 @@ class PetLostConfirmation : Fragment() {
         txtPetTypeValue = v.findViewById(R.id.txtPetTypeValue)
         imagen = v.findViewById(R.id.imagen)
 
-        viewModel.comments?.observe(viewLifecycleOwner, {
+        viewModel.comments.observe(viewLifecycleOwner, {
             if (it.isEmpty()) {
                 txtCommentsValue.text = "Sin comentarios"
             } else {
@@ -112,17 +109,17 @@ class PetLostConfirmation : Fragment() {
     override fun onStart() {
         super.onStart()
         nextButton.setOnClickListener {
-            val petRequest = viewModel.registerPet()
+            val petRequest = viewModel.registerPet() //ToDo a revisar esto porque si da error se rompe la app creo
             lookForSimilarities(petRequest)
         }
     }
 
-    private fun lookForSimilarities(petRequest: PetRequest) {
+    private fun lookForSimilarities(petRequest: LostPetRequest) {
         val action =
             PetLostConfirmationDirections.actionPetLostConfirmationToPetLostSearchSimilarities(
                 petRequest
             )
-        v.findNavController().navigate(action);
+        v.findNavController().navigate(action)
     }
 
 

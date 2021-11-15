@@ -19,16 +19,16 @@ import com.ort.altoqueperro.viewmodels.SimilarPetViewModel
 
 class SimilarPetFragment : Fragment() {
     lateinit var v: View
-    lateinit var petImage: ImageView
+    private lateinit var petImage: ImageView
     lateinit var petName: TextView
     lateinit var petType: TextView
     lateinit var petSize: TextView
-    lateinit var petSex: TextView
-    lateinit var petCoat: TextView
-    lateinit var petEyeColor: TextView
-    lateinit var confirmButton: Button
-    lateinit var cancelButton: Button
-    lateinit var requestScore: RequestScore
+    private lateinit var petSex: TextView
+    private lateinit var petCoat: TextView
+    private lateinit var petEyeColor: TextView
+    private lateinit var confirmButton: Button
+    private lateinit var cancelButton: Button
+    private lateinit var requestScore: RequestScore
     lateinit var lostPetRequest: LostPetRequest
 
     companion object {
@@ -58,7 +58,7 @@ class SimilarPetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(SimilarPetViewModel::class.java)
         requestScore = SimilarPetFragmentArgs.fromBundle(requireArguments()).requestScore
-        lostPetRequest = SimilarPetFragmentArgs.fromBundle(requireArguments()).petRequest as LostPetRequest //ToDo desp se envia directo un LostPetRequest
+        lostPetRequest = SimilarPetFragmentArgs.fromBundle(requireArguments()).petRequest
 
         val foundPetRequest: PetRequest = requestScore.request!!
 
@@ -84,35 +84,25 @@ class SimilarPetFragment : Fragment() {
         }
 
         cancelButton.setOnClickListener {
-           // lostPetRequest.nextStateCancel(foundPetRequest)
             backToSimilarPetList()
         }
 
     }
 
-    fun backToMenu(){
-        val action = SimilarPetFragmentDirections.actionSimilarPetFragmentToNewMapModeFragment()
-        v.findNavController().navigate(action);
-    }
 
-    fun backToSimilarPetList(){
+    private fun backToSimilarPetList() {
         v.findNavController().popBackStack()
     }
 
-    /*private fun saveAndBackToMenu() {
-        //if (lostPetData.requestConsumer != null)viewModel.updateRequests().saveFoundPetRequest(similarPetData)
-        saveChanges()
-        backToMenu()
-    }*/
-
-    private fun goToUserData(){
+    private fun goToUserData() {
         val action = SimilarPetFragmentDirections.actionSimilarPetFragmentToSimilarPetConfirm(
-            requestScore.request!!.requestCreator)
-        v.findNavController().navigate(action);
+            requestScore.request!!.requestCreator
+        )
+        v.findNavController().navigate(action)
     }
 
-    private fun saveChanges(){
-        viewModel.updateRequests(requestScore.request,lostPetRequest)
+    private fun saveChanges() {
+        viewModel.updateRequests(requestScore.request, lostPetRequest)
     }
 
 }

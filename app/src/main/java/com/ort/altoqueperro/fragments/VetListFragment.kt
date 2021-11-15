@@ -33,10 +33,9 @@ class VetListFragment : Fragment() {
         return v
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         listViewModel = ViewModelProvider(this).get(VetListViewModel::class.java)
-        // TODO: Use the ViewModel
         listViewModel.vetsLiveData.observe(viewLifecycleOwner, {
 
             recVet.adapter = VetListAdapter(listViewModel.vetsLiveData.value!!) { onVetClick(it) }
@@ -47,13 +46,13 @@ class VetListFragment : Fragment() {
         super.onStart()
         recVet.setHasFixedSize(true)
         recVet.layoutManager = LinearLayoutManager(context)
-        listViewModel.getVets2()
+        listViewModel.getVets()
     }
 
-    fun onVetClick(vet: Vet) {
+    private fun onVetClick(vet: Vet) {
         val action =
             ListModeDirections.actionListModeToVetItemFragment(vet)
-        v.findNavController().navigate(action);
+        v.findNavController().navigate(action)
     }
 
 }

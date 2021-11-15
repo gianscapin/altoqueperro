@@ -138,9 +138,9 @@ class PetFoundViewModel : ViewModel() {
             )
         }
         //upload image
-        petRequest.coordinates = ServiceLocation.getLocation()
+        if (petRequest.coordinates==null) petRequest.coordinates = ServiceLocation.getLocation()
         viewModelScope.launch(Dispatchers.IO) {
-            if (photo.value != null) {
+            if (!Uri.EMPTY.equals(photo.value)) {
                 petRequest.imageURL = ImageHelper().storeImage(photo.value!!)
             }
             saveRequest(petRequest)
@@ -149,7 +149,7 @@ class PetFoundViewModel : ViewModel() {
 
 
     fun validateStep1(): Boolean {
-        return !mutablePetSex.value.isNullOrEmpty() && !mutablePetSize.value.isNullOrEmpty() && !mutablePetType.value.isNullOrEmpty()
+        return !mutablePetSex.value.isNullOrEmpty() && !mutablePetSize.value.isNullOrEmpty() && !mutablePetType.value.isNullOrEmpty() && !Uri.EMPTY.equals(mutablePhoto.value)
     }
 
     fun validateStep2(): Boolean {
@@ -161,7 +161,7 @@ class PetFoundViewModel : ViewModel() {
     }
 
     private fun saveRequest(petRequest: FoundPetRequest) {
-        RequestRepository().saveFoundPetRequest(petRequest)
+        RequestRepository.saveFoundPetRequest(petRequest)
     }
 
     fun setSpinner(liveData: LiveData<String>, array: Int, context: Context, spinner: Spinner) {

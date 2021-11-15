@@ -11,27 +11,31 @@ import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.RequestScore
 
-class SimilarPetsAdapter(private var similarRequestList : MutableList<RequestScore>,
-                         val onSimilarPetsClick: (RequestScore) -> Unit
-) : RecyclerView.Adapter <SimilarPetsAdapter.SimilarPetsHolder>() {
-    class SimilarPetsHolder(v: View): RecyclerView.ViewHolder(v) {
+class SimilarPetsAdapter(
+    private var similarRequestList: MutableList<RequestScore>,
+    val onSimilarPetsClick: (RequestScore) -> Unit
+) : RecyclerView.Adapter<SimilarPetsAdapter.SimilarPetsHolder>() {
+    class SimilarPetsHolder(v: View) : RecyclerView.ViewHolder(v) {
         private var view: View = v
 
-        fun setScore(score: Int){
+        fun setScore(score: Int) {
             val txt: TextView = view.findViewById(R.id.txtPetFoundItemScore)
             txt.text = "${score}%"
         }
-        fun setImage(url:String) {
+
+        fun setImage(url: String) {
             val img: ImageView = view.findViewById(R.id.imagePetItem)
             Glide.with(view).load(url).into(img)
         }
-        fun getCardLayout (): CardView {
+
+        fun getCardLayout(): CardView {
             return view.findViewById(R.id.cardItem)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimilarPetsHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.pet_item_found, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.pet_item_found, parent, false)
         return (SimilarPetsHolder(view))
     }
 

@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.children
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -27,16 +26,16 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
     companion object {
         fun newInstance() = PetLost()
     }
+
     var imageHelper = ImageHelper()
     lateinit var takePic: Button
     lateinit var choosePic: Button
     lateinit var imageUpload: ImageView
-    var inst:Fragment = this
+    var inst: Fragment = this
 
     lateinit var petName: TextView
     lateinit var petType: Spinner
 
-    //lateinit var petTypeValue: String
     lateinit var petSex: RadioGroup
     lateinit var petSize: RadioGroup
 
@@ -47,7 +46,6 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
 
     private val viewModel: PetLostViewModel by activityViewModels()
 
-    //private lateinit var database: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -94,7 +92,7 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
         choosePic.setOnClickListener {
             imageHelper.choosePicture(inst)
         }
-        if (viewModel.photo!=null) imageUpload.setImageURI(viewModel.photo.value)
+        imageUpload.setImageURI(viewModel.photo.value)
         return v
     }
 
@@ -145,24 +143,25 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
             }
         }
     }
+
     private fun fillData(request: LostPetRequest) {
         viewModel.setRequest(request)
         petName.text = viewModel.petName.value
-        viewModel.setRadioButton(petSize,viewModel.petSize)
-        viewModel.setRadioButton(petSex,viewModel.petSex)
+        viewModel.setRadioButton(petSize, viewModel.petSize)
+        viewModel.setRadioButton(petSex, viewModel.petSex)
         viewModel.setSpinner(viewModel.petType, R.array.pet_types, v.context, petType)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data);
-        when(requestCode) {
-            0->
-                if(resultCode == Activity.RESULT_OK){
+        when (requestCode) {
+            0 ->
+                if (resultCode == Activity.RESULT_OK) {
                     viewModel.setPhoto(File(imageHelper.currentPhotoPath).toUri())
                     imageUpload.setImageURI(viewModel.photo.value);
                 }
-            1->
-                if(resultCode == Activity.RESULT_OK){
+            1 ->
+                if (resultCode == Activity.RESULT_OK) {
                     viewModel.setPhoto(data?.data!!)
                     imageUpload.setImageURI(viewModel.photo.value);
                 }
