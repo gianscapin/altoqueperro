@@ -41,7 +41,7 @@ class VetItemFragment : Fragment() {
         phoneNumber = v.findViewById(R.id.txtVetPhoneNumber)
         businessHours = v.findViewById(R.id.txtVetBusinessHours)
         imageLogo = v.findViewById(R.id.txtVetLogo)
-        neighborhood = v.findViewById(R.id.txtShelterLocalidad)
+        neighborhood = v.findViewById(R.id.txtShelterLocation)
         distance = v.findViewById(R.id.txtDistance)
         return  v
     }

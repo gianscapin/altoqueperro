@@ -15,13 +15,14 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/neighborhood"
+            android:id="@+id/vetNeighborhood"
             android:layout_width="220dp"
             android:layout_height="21dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="3dp"
             android:text="Villa Urquiza"
+            android:drawableStart="@drawable/ic_location"
             app:layout_constraintBottom_toTopOf="@+id/txtVetName"
             app:layout_constraintEnd_toStartOf="@+id/distancia"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,7 @@
             android:gravity="end"
             app:layout_constraintBottom_toTopOf="@+id/txtVetName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/neighborhood"
+            app:layout_constraintStart_toEndOf="@+id/vetNeighborhood"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -98,7 +99,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/txtVetName"
             app:layout_constraintStart_toEndOf="@+id/txtVetName"
-            app:layout_constraintTop_toBottomOf="@+id/neighborhood"
+            app:layout_constraintTop_toBottomOf="@+id/vetNeighborhood"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/atp_logo" />
     </androidx.constraintlayout.widget.ConstraintLayout>

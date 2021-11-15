@@ -39,7 +39,7 @@ class ShelterItemFragment : Fragment() {
         shelterName = v.findViewById(R.id.txtShelterName)
         shelterPhoneNumber = v.findViewById(R.id.txtShelterPhoneNumber)
         shelterImage = v.findViewById(R.id.imageShelterDetail)
-        shelterLocation = v.findViewById(R.id.txtShelterLocalidad)
+        shelterLocation = v.findViewById(R.id.txtShelterLocation)
         distance = v.findViewById(R.id.txtDistance)
         return  v
     }
@@ -63,7 +63,7 @@ class ShelterItemFragment : Fragment() {
         distance.text = "$distanceAct mts."
         shelterAddress.text = shelterData.address
         shelterName.text = shelterData.name
-        shelterLocation.text = "Direccion Hogar"
+        shelterLocation.text = shelterData.localidad
         shelterPhoneNumber.text = shelterData.phoneNumber
         Glide.with(view.context).load(shelterData.imageUrl).into(shelterImage)
 
