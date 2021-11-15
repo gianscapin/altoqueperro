@@ -100,7 +100,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txtVetName" />
 
         <TextView
-            android:id="@+id/txtShelterLocalidad"
+            android:id="@+id/txtShelterLocation"
             android:layout_width="175dp"
             android:layout_height="30dp"
             android:layout_marginStart="30dp"
@@ -135,7 +135,7 @@
             app:layout_constraintBottom_toTopOf="@+id/txtVetLogo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/txtShelterLocalidad"
+            app:layout_constraintStart_toEndOf="@+id/txtShelterLocation"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 

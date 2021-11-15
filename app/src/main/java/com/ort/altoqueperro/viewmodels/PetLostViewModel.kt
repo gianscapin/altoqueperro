@@ -1,12 +1,12 @@
 package com.ort.altoqueperro.viewmodels
 
 import android.content.Context
+import android.net.Uri
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import androidx.core.view.children
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -111,7 +111,9 @@ class PetLostViewModel : ViewModel() {
 
 
     fun validateStep1(): Boolean {
-        return !mutablePetName.value.isNullOrEmpty() && !mutablePetSex.value.isNullOrEmpty() && !mutablePetSize.value.isNullOrEmpty() && !mutablePetType.value.isNullOrEmpty()
+        return !mutablePetName.value.isNullOrEmpty() && !mutablePetSex.value.isNullOrEmpty() && !mutablePetSize.value.isNullOrEmpty() && !mutablePetType.value.isNullOrEmpty() && !Uri.EMPTY.equals(
+            mutablePhoto.value
+        )
     }
 
     fun validateStep2(): Boolean {
@@ -123,8 +125,9 @@ class PetLostViewModel : ViewModel() {
     }
 
     private fun saveRequest(petRequest: LostPetRequest) {
-        RequestRepository().saveLostPetRequest(petRequest)
+        RequestRepository.saveLostPetRequest(petRequest)
     }
+
     private val mutablePhoto = MutableLiveData<Uri>()
     val photo: LiveData<Uri> get() = mutablePhoto
     fun setPhoto(value: Uri) {
@@ -158,9 +161,9 @@ class PetLostViewModel : ViewModel() {
             )
         }
         //upload image
-        if (petRequest.coordinates==null) petRequest.coordinates = ServiceLocation.getLocation()
-        viewModelScope.launch(Dispatchers.IO){
-            if(photo.value!=null) {
+        if (petRequest.coordinates == null) petRequest.coordinates = ServiceLocation.getLocation()
+        viewModelScope.launch(Dispatchers.IO) {
+            if (!Uri.EMPTY.equals(photo.value)) {
                 petRequest.imageURL = ImageHelper().storeImage(photo.value!!)
             }
             saveRequest(petRequest)

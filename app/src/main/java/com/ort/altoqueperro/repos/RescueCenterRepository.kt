@@ -1,14 +1,15 @@
 package com.ort.altoqueperro.repos
 
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.entities.Shelter
 import com.ort.altoqueperro.entities.Vet
 
-class RescueCenterRepository {
-    val db = Firebase.firestore
+object RescueCenterRepository {
+    private val db: FirebaseFirestore by lazy { Firebase.firestore }
 
     fun getVets(liveData: MutableLiveData<MutableList<Vet>>) {
         val vets: MutableList<Vet> = mutableListOf()

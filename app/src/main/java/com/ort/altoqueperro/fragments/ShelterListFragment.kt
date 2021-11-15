@@ -33,10 +33,9 @@ class ShelterListFragment : Fragment() {
         return v
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         listViewModel = ViewModelProvider(this).get(ShelterListViewModel::class.java)
-        // TODO: Use the ViewModel
         listViewModel.sheltersLiveData.observe(viewLifecycleOwner, {
 
             recShelters.adapter =
@@ -48,15 +47,13 @@ class ShelterListFragment : Fragment() {
         super.onStart()
         recShelters.setHasFixedSize(true)
         recShelters.layoutManager = LinearLayoutManager(context)
-        listViewModel.getShelters2()
-        //recShelters.adapter = ShelterListAdapter(shelterRepository.shelters){ onShelterClick(it)}
+        listViewModel.getShelters()
     }
 
-    fun onShelterClick(shelter: Shelter) {
-        //Snackbar.make(v, shelter.name.toString(),Snackbar.LENGTH_SHORT).show()
+    private fun onShelterClick(shelter: Shelter) {
         val action =
             ListModeDirections.actionListModeToShelterItemFragment(shelter)
-        v.findNavController().navigate(action);
+        v.findNavController().navigate(action)
     }
 
 }

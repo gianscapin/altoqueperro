@@ -13,11 +13,12 @@ class Shelter(
     var imageUrl: String?,
     var hoster: String?,
     var capMax: String?,
-    var address: String?,
+    var address: String,
+    var localidad: String?,
     var notes: String?,
 ) :
     Parcelable {
 
-    constructor() : this("", "", null, "", "","","","")
+    constructor() : this("", "", null, "", "","","","","")
 }
 
