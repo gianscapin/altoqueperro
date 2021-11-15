@@ -15,13 +15,14 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/neighborhood"
+            android:id="@+id/vetNeighborhood"
             android:layout_width="220dp"
             android:layout_height="21dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="3dp"
             android:text="Villa Urquiza"
+            android:drawableStart="@drawable/ic_location"
             app:layout_constraintBottom_toTopOf="@+id/txtVetName"
             app:layout_constraintEnd_toStartOf="@+id/distancia"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,7 @@
             android:gravity="end"
             app:layout_constraintBottom_toTopOf="@+id/txtVetName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/neighborhood"
+            app:layout_constraintStart_toEndOf="@+id/vetNeighborhood"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -46,13 +47,13 @@
             android:foregroundTint="@color/black"
             android:text="Tus Huellas"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/address"
+            app:layout_constraintBottom_toTopOf="@+id/txtVetAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtVetLogo"
             app:layout_constraintTop_toBottomOf="@+id/distancia" />
 
         <TextView
-            android:id="@+id/address"
+            android:id="@+id/txtVetAddress"
             android:layout_width="277dp"
             android:layout_height="23dp"
             android:text="Av. Olazabal 4341"
@@ -71,7 +72,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/txtVetBusinessHours"
             app:layout_constraintStart_toEndOf="@+id/txtVetLogo"
-            app:layout_constraintTop_toBottomOf="@+id/address" />
+            app:layout_constraintTop_toBottomOf="@+id/txtVetAddress" />
 
         <TextView
             android:id="@+id/txtVetBusinessHours"
@@ -84,7 +85,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtVetPhoneNumber"
-            app:layout_constraintTop_toBottomOf="@+id/address"
+            app:layout_constraintTop_toBottomOf="@+id/txtVetAddress"
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
@@ -98,7 +99,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/txtVetName"
             app:layout_constraintStart_toEndOf="@+id/txtVetName"
-            app:layout_constraintTop_toBottomOf="@+id/neighborhood"
+            app:layout_constraintTop_toBottomOf="@+id/vetNeighborhood"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/atp_logo" />
     </androidx.constraintlayout.widget.ConstraintLayout>

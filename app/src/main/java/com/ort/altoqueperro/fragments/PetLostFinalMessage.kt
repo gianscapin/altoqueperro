@@ -24,16 +24,15 @@ class PetLostFinalMessage : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         v = inflater.inflate(R.layout.pet_lost_final_message_fragment, container, false)
         backToMenu = v.findViewById(R.id.backToMenu)
         return v
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(PetLostFinalMessageViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onStart() {
@@ -41,9 +40,9 @@ class PetLostFinalMessage : Fragment() {
         backToMenu.setOnClickListener { backToMenu() }
     }
 
-    fun backToMenu(){
-        var action = PetLostFinalMessageDirections.actionPetLostFinalMessageToNewMapModeFragment()
-        v.findNavController().navigate(action);
+    private fun backToMenu(){
+        val action = PetLostFinalMessageDirections.actionPetLostFinalMessageToNewMapModeFragment()
+        v.findNavController().navigate(action)
     }
 
 }

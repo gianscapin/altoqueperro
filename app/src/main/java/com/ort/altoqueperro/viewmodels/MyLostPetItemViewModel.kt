@@ -12,11 +12,12 @@ class MyLostPetItemViewModel : ViewModel() {
 
     fun getRequestConsumer(uuid: String?) {
         if (uuid.isNullOrBlank()) return
-        RequestRepository().getFoundPetRequest(requestConsumerLiveData,uuid)
+        RequestRepository.getFoundPetRequest(requestConsumerLiveData, uuid)
     }
 
-    fun updateRequests(foundRequest: FoundPetRequest?, lostRequest: LostPetRequest){
-        RequestRepository().saveLostPetRequest(lostRequest)
-        if (foundRequest!= null)RequestRepository().saveFoundPetRequest(foundRequest)
+    fun updateRequests(foundRequest: FoundPetRequest?, lostRequest: LostPetRequest) {
+
+        RequestRepository.saveLostPetRequest(lostRequest)
+        if (foundRequest != null) RequestRepository.saveFoundPetRequest(foundRequest)
     }
 }

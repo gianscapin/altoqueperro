@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.adapter.SimilarPetsAdapter
-import com.ort.altoqueperro.entities.PetRequest
+import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.RequestScore
 import com.ort.altoqueperro.viewmodels.PetLostSearchSimilaritiesViewModel
 
@@ -25,7 +25,7 @@ class PetLostSearchSimilarities : Fragment() {
     private lateinit var viewModel: PetLostSearchSimilaritiesViewModel
     private lateinit var recSimilarPets: RecyclerView
     private lateinit var noResult: Button
-    private lateinit var petRequestData : PetRequest
+    private lateinit var petRequestData: LostPetRequest
     private lateinit var v: View
 
     override fun onCreateView(
@@ -35,40 +35,52 @@ class PetLostSearchSimilarities : Fragment() {
         v = inflater.inflate(R.layout.pet_lost_search_similarities_fragment, container, false)
         noResult = v.findViewById(R.id.noResults)
         recSimilarPets = v.findViewById(R.id.recicler_view_search_for_similarities)
+
         return v
+
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(PetLostSearchSimilaritiesViewModel::class.java)
-        // TODO: Use the ViewModel
         petRequestData = PetLostSearchSimilaritiesArgs.fromBundle(requireArguments()).petRequest
-        viewModel.getPosibleMatches(petRequestData)
-        viewModel.requestRepository.observe(viewLifecycleOwner, {
+        viewModel.getComparingScore()
+        viewModel.getFoundPetRequests()
+        viewModel.comparingScoreLiveData.observe(viewLifecycleOwner, {
+            viewModel.foundPetRequestRepository.observe(viewLifecycleOwner, {
 
-            recSimilarPets.adapter =
-                SimilarPetsAdapter(viewModel.requestRepository.value!!) { onSimilarPetsClick(it) }
+                recSimilarPets.adapter =
+                    SimilarPetsAdapter(viewModel.lookForSimilarities(petRequestData)) {
+                        onSimilarPetsClick(
+                            it
+                        )
+                    }
 
+            })
         })
-
     }
 
     override fun onStart() {
         super.onStart()
+
         noResult.setOnClickListener { noResult() }
         recSimilarPets.setHasFixedSize(true)
-        recSimilarPets.layoutManager = LinearLayoutManager(context)
+        recSimilarPets.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
-    fun onSimilarPetsClick(requestScore: RequestScore) {
+    private fun onSimilarPetsClick(requestScore: RequestScore) {
         val action =
-            PetLostSearchSimilaritiesDirections.actionPetLostSearchSimilaritiesToSimilarPetFragment(requestScore,petRequestData)
-        v.findNavController().navigate(action);
+            PetLostSearchSimilaritiesDirections.actionPetLostSearchSimilaritiesToSimilarPetFragment(
+                requestScore,
+                petRequestData
+            )
+        v.findNavController().navigate(action)
     }
 
-    fun noResult() {
-        var action =
+    private fun noResult() {
+        val action =
             PetLostSearchSimilaritiesDirections.actionPetLostSearchSimilaritiesToPetLostFinalMessage()
-        v.findNavController().navigate(action);
+        v.findNavController().navigate(action)
     }
 }

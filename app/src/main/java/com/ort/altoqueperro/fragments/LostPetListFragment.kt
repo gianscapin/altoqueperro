@@ -13,8 +13,8 @@ import com.ort.altoqueperro.R
 import com.ort.altoqueperro.adapter.MyFoundPetAdapter
 import com.ort.altoqueperro.adapter.MyPetAdapter
 import com.ort.altoqueperro.adapter.PetAdapter
+import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.LostPetRequest
-import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.utils.Notifications
 import com.ort.altoqueperro.viewmodels.LostPetListViewModel
 
@@ -41,20 +41,24 @@ class LostPetListFragment : Fragment() {
         return v
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         listViewModel = ViewModelProvider(this).get(LostPetListViewModel::class.java)
-        // TODO: Use the ViewModel
-        listViewModel.petRepository.observe(viewLifecycleOwner, {
-            listViewModel.distribute()
-            recLostPets.adapter = PetAdapter(listViewModel.othersLostPets) { onLostPetClick(it) }
+        listViewModel.requestRepository.observe(viewLifecycleOwner, {
+            listViewModel.filterRequests()
+            recLostPets.adapter =
+                PetAdapter(listViewModel.othersLostRequestsRepository) { onLostPetClick(it) }
             recOwnLostPets.adapter =
-                MyPetAdapter(listViewModel.myLostPets) { onMyLostPetClick(it as LostPetRequest) } //ToDo ver que todo esté usando la clase que debe
+                MyPetAdapter(listViewModel.myLostRequestsRepository) { onMyLostPetClick(it) }
 
         })
-        listViewModel.foundPetRepository.observe(viewLifecycleOwner, {
+        listViewModel.foundRequestsRepository.observe(viewLifecycleOwner, {
             recOwnFoundPets.adapter =
-                MyFoundPetAdapter(listViewModel.foundPetRepository.value!!) { onLostPetClick(it) }
+                MyFoundPetAdapter(listViewModel.foundRequestsRepository.value!!) {
+                    onMyFoundPetClick(
+                        it
+                    )
+                }
         })
     }
 
@@ -68,20 +72,26 @@ class LostPetListFragment : Fragment() {
         recOwnFoundPets.setHasFixedSize(false)
         recOwnFoundPets.layoutManager = LinearLayoutManager(context)
         listViewModel.getLostPets()
-        if(!Notifications.getNotificationPetFound()){
+        if (!Notifications.getNotificationPetFound()) {
             listViewModel.getOwnFoundPets()
         }
     }
 
-    fun onLostPetClick(lostPet: PetRequest) {
+    private fun onLostPetClick(lostPet: LostPetRequest) {
         val action =
             ListModeDirections.actionListModeToLostPetItemFragment(lostPet)
         v.findNavController().navigate(action)
     }
 
-    fun onMyLostPetClick(lostPet: LostPetRequest) {
+    private fun onMyLostPetClick(lostPet: LostPetRequest) {
         val action =
             ListModeDirections.actionListModeToMyLostPetItemFragment(lostPet)
+        v.findNavController().navigate(action)
+    }
+
+    private fun onMyFoundPetClick(foundPet: FoundPetRequest) {
+        val action =
+            ListModeDirections.actionListModeToMyFoundPetItemFragment(foundPet)
         v.findNavController().navigate(action)
     }
 

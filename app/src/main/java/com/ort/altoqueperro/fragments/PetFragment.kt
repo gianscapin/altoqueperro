@@ -1,16 +1,15 @@
 package com.ort.altoqueperro.fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.viewmodels.PetViewModel
@@ -21,19 +20,16 @@ class PetFragment : Fragment() {
         fun newInstance() = PetFragment()
     }
 
-    lateinit var welcomeText: TextView
+    private lateinit var welcomeText: TextView
     lateinit var v: View
-    lateinit var foundPet: Button
-    lateinit var lostPet: Button
-
+    private lateinit var foundPet: Button
+    private lateinit var lostPet: Button
     private lateinit var viewModel: PetViewModel
-    //private lateinit var database: DatabaseReference
-    val db = Firebase.firestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         v = inflater.inflate(R.layout.pet_fragment, container, false)
 
         welcomeText = v.findViewById(R.id.newMapModeText)
@@ -43,16 +39,18 @@ class PetFragment : Fragment() {
         return v
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(PetViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel.userLiveData.observe(viewLifecycleOwner, {
+            welcomeText.text = "Bienvenido ${it.name} !"
+        })
     }
 
     override fun onStart() {
         super.onStart()
 
-        welcomeMessage()
+        viewModel.getUser(Firebase.auth.currentUser?.uid.toString())
 
         foundPet.setOnClickListener {
             foundPet()
@@ -63,22 +61,12 @@ class PetFragment : Fragment() {
         }
     }
 
-    fun welcomeMessage():Unit{
-        val user = Firebase.auth.currentUser
-
-        val docRef = db.collection("users").document(user?.uid.toString())
-        docRef.get().addOnSuccessListener {
-            welcomeText.text = "Bienvenido "+it.get("name").toString()+"!"
-        }
-
-    }
-
-    fun foundPet():Unit{
+    private fun foundPet() {
         val action = PetFragmentDirections.actionPetFragment2ToPetFound()
         v.findNavController().navigate(action)
     }
 
-    fun lostPet():Unit{
+    private fun lostPet() {
         val action = PetFragmentDirections.actionPetFragment2ToPetLost()
         v.findNavController().navigate(action)
     }

@@ -1,122 +1,171 @@
 package com.ort.altoqueperro.fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.android.material.snackbar.Snackbar
 import com.ort.altoqueperro.R
-import com.ort.altoqueperro.entities.Coordinates
 import com.ort.altoqueperro.entities.LostPetRequest
-import com.ort.altoqueperro.entities.Pet
-import com.ort.altoqueperro.utils.ServiceLocation
+import com.ort.altoqueperro.utils.ImageHelper
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
+import java.io.File
 
-class PetLost : Fragment() {
+class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     companion object {
         fun newInstance() = PetLost()
     }
 
+    var imageHelper = ImageHelper()
+    lateinit var takePic: Button
+    lateinit var choosePic: Button
+    lateinit var imageUpload: ImageView
+    var inst: Fragment = this
+
     lateinit var petName: TextView
-    lateinit var petType: TextView
-    lateinit var petSize: TextView
-    lateinit var petSex: TextView
-    lateinit var petCoat: TextView
-    lateinit var petEyeColor: TextView
-    lateinit var sendPet: Button
+    lateinit var petType: Spinner
+
+    lateinit var petSex: RadioGroup
+    lateinit var petSize: RadioGroup
+
+    lateinit var nextButton: Button
+
     lateinit var v: View
+    private lateinit var rootLayout: ConstraintLayout
 
-    private lateinit var viewModel: PetLostViewModel
+    private val viewModel: PetLostViewModel by activityViewModels()
 
-    val db = Firebase.firestore
-    private lateinit var database: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        v = inflater.inflate(R.layout.pet_lost_fragment, container, false)
-        petName = v.findViewById(R.id.petLostName)
-        petType = v.findViewById(R.id.petLostType)
-        petSize = v.findViewById(R.id.petLostSize)
-        petSex = v.findViewById(R.id.petLostSex)
-        petCoat = v.findViewById(R.id.petLostCoat)
-        petEyeColor = v.findViewById(R.id.petLostEyeColor)
-        sendPet = v.findViewById(R.id.btnSendLostPet)
+    ): View {
+        v = inflater.inflate(R.layout.pet_lost_1_fragment, container, false)
+        nextButton = v.findViewById(R.id.btnNext)
+        rootLayout = v.findViewById(R.id.pet_lost_root_layout_1)
+        petSex = v.findViewById(R.id.sex_radio)
+        petSize = v.findViewById(R.id.size_radio)
+        petName = v.findViewById(R.id.petName)
+        petName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.setPetName(s.toString())
+            }
 
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        petType = v.findViewById(R.id.pet_types_spinner)
+        petType.setSelection(0, false)
+        petType.onItemSelectedListener = this
+        ArrayAdapter.createFromResource(
+            v.context, R.array.pet_types, android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            petType.adapter = adapter
+        }
+
+        (v.findViewById(R.id.radio_big_pet) as RadioButton).setOnClickListener(this)
+        (v.findViewById(R.id.radio_medium_pet) as RadioButton).setOnClickListener(this)
+        (v.findViewById(R.id.radio_small_pet) as RadioButton).setOnClickListener(this)
+        (v.findViewById(R.id.radio_mini_pet) as RadioButton).setOnClickListener(this)
+
+        (v.findViewById(R.id.radio_male) as RadioButton).setOnClickListener(this)
+        (v.findViewById(R.id.radio_female) as RadioButton).setOnClickListener(this)
+        takePic = v.findViewById(R.id.takePic)
+        choosePic = v.findViewById(R.id.choosePic)
+        imageUpload = v.findViewById(R.id.imageUpload)
+        takePic.setOnClickListener {
+            imageHelper.takePicture(inst)
+        }
+        choosePic.setOnClickListener {
+            imageHelper.choosePicture(inst)
+        }
+        imageUpload.setImageURI(viewModel.photo.value)
         return v
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PetLostViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.clearALl()
+        var lostPetRequest: LostPetRequest? = PetLostArgs.fromBundle(requireArguments()).petRequest
+        if (lostPetRequest != null) fillData(lostPetRequest)
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onClick(view: View) {
+        if (view is RadioButton) {
+            val checked = view.isChecked
 
-        sendPet.setOnClickListener {
-            var name = petName.text.toString()
-            var type = petType.text.toString()
-            var size = petSize.text.toString()
-            var sex = petSex.text.toString()
-            var coat = petCoat.text.toString()
-            var eyeColor = petEyeColor.text.toString()
-
-            database = Firebase.database.reference
-            if (ServiceLocation.location.provider.equals("null")) {
-                Toast.makeText(
-                    activity,
-                    "No hemos podido determinar su ubicación",
-                    Toast.LENGTH_LONG
-                )
-            } else {
-                if (name.isNotEmpty() && type.isNotEmpty() && size.isNotEmpty() && sex.isNotEmpty() && coat.isNotEmpty() && eyeColor.isNotEmpty()) {
-                    registerPet(
-                        name,
-                        type,
-                        size,
-                        sex,
-                        coat,
-                        eyeColor,
-                        ServiceLocation.getLocation()
-                    )
-                }
+            when (view.getId()) {
+                R.id.radio_big_pet,
+                R.id.radio_medium_pet,
+                R.id.radio_small_pet,
+                R.id.radio_mini_pet ->
+                    if (checked) {
+                        viewModel.setPetSize(view.text.toString())
+                    }
+                R.id.radio_male,
+                R.id.radio_female ->
+                    if (checked) {
+                        viewModel.setPetSex(view.text.toString())
+                    }
             }
         }
     }
 
-    fun registerPet( //ToDo va en el repository
-        name: String,
-        type: String,
-        size: String,
-        sex: String,
-        coat: String,
-        eyeColor: String,
-        location: Coordinates?
-    ): Unit {
-        val user = Firebase.auth.currentUser
-        val pet = Pet(name, type, size, sex, coat, eyeColor)
-
-        println(location)
-        val petRequest = LostPetRequest(pet, location, user!!.uid)
-        db.collection("lostPetRequests").document().set(petRequest)
-
-        var action = PetLostDirections.actionPetLostToPetLostSearchSimilarities(petRequest)
-        v.findNavController().navigate(action);
+    override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+        viewModel.setPetType(petType.selectedItem.toString())
     }
 
+    override fun onNothingSelected(parent: AdapterView<*>) {}
+
+
+    override fun onResume() {
+        super.onResume()
+
+        nextButton.setOnClickListener {
+            if (viewModel.validateStep1()) {
+                val action = PetLostDirections.actionPetLostToPetLost2()
+                v.findNavController().navigate(action)
+            } else {
+                Snackbar.make(rootLayout, "* Campos obligatorios", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun fillData(request: LostPetRequest) {
+        viewModel.setRequest(request)
+        petName.text = viewModel.petName.value
+        viewModel.setRadioButton(petSize, viewModel.petSize)
+        viewModel.setRadioButton(petSex, viewModel.petSex)
+        viewModel.setSpinner(viewModel.petType, R.array.pet_types, v.context, petType)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data);
+        when (requestCode) {
+            0 ->
+                if (resultCode == Activity.RESULT_OK) {
+                    viewModel.setPhoto(File(imageHelper.currentPhotoPath).toUri())
+                    imageUpload.setImageURI(viewModel.photo.value);
+                }
+            1 ->
+                if (resultCode == Activity.RESULT_OK) {
+                    viewModel.setPhoto(data?.data!!)
+                    imageUpload.setImageURI(viewModel.photo.value);
+                }
+        }
+    }
 
 }

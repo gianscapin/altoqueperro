@@ -34,9 +34,9 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="238dp"
-        android:layout_height="52dp"
-        android:text="Notificaciones"
+        android:layout_width="262dp"
+        android:layout_height="57dp"
+        android:text="Configuraciones"
         android:textAlignment="center"
         android:textSize="34sp"
         android:textStyle="bold"

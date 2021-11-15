@@ -14,7 +14,8 @@ open class PetRequest(
     var resolvedDate: Date?,
     var coordinates: Coordinates?,
     var requestCreator: String,
-    var requestConsumer: String?
+    var requestConsumer: String?,
+    var imageURL: String?
 ) : Parcelable {
 
     constructor() : this(
@@ -25,11 +26,12 @@ open class PetRequest(
         null,
         null,
         "",
+        null,
         null
     )
 
-    fun comparePetTo(other: PetRequest): Int {
-        return pet.compareTo(other.pet)
+    fun comparePetTo(other: PetRequest, comparingScore: ComparingScore): Int {
+        return pet.compareTo(other.pet, comparingScore)
     }
 
     open fun closeRequest() {

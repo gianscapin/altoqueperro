@@ -6,7 +6,4 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class RequestScore(val request: FoundPetRequest?, val score: Int) : Parcelable{
 
-    /*fun getPet(): Pet{
-        return request!!.pet
-    }*/
 }

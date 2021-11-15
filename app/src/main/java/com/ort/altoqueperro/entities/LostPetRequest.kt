@@ -12,7 +12,8 @@ class LostPetRequest(
     resolvedDate: Date?,
     coordinates: Coordinates?,
     requestCreator: String,
-    requestConsumer: String?
+    requestConsumer: String?,
+    imageURL: String?,
 ) : PetRequest(
     id,
     pet,
@@ -21,13 +22,14 @@ class LostPetRequest(
     resolvedDate,
     coordinates,
     requestCreator,
-    requestConsumer
+    requestConsumer,
+    imageURL
 ) {
 
     constructor() : this(
         "",
         Pet(), 1,
-        Calendar.getInstance().time, null, null, "", null
+        Calendar.getInstance().time, null, null, "", null, null
     )
 
     constructor(
@@ -37,7 +39,7 @@ class LostPetRequest(
     ) : this(
         "",
         pet, OPEN.ordinal,
-        Calendar.getInstance().time, null, coordinates, requestCreator, null
+        Calendar.getInstance().time, null, coordinates, requestCreator, null, null
     )
 
     private fun setPending(other: PetRequest) {

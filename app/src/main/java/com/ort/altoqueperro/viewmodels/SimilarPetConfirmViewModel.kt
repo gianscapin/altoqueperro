@@ -10,6 +10,6 @@ class SimilarPetConfirmViewModel : ViewModel() {
 
 
     fun getUser(userId: String) {
-        UserRepository().getUser(userLiveData, userId)
+        UserRepository.getUser(userLiveData, userId)
     }
 }
