@@ -18,7 +18,7 @@ class VetListAdapter(private var vetList : MutableList<Vet>,
 ) : RecyclerView.Adapter <VetListAdapter.VetHolder>() {
     class VetHolder(v: View): RecyclerView.ViewHolder(v) {
         var view: View = v
-        var neighborhood:TextView = view.findViewById(R.id.neighborhood)
+        var neighborhood:TextView = view.findViewById(R.id.vetNeighborhood)
         var distancia: TextView = view.findViewById(R.id.distancia)
         var txtname: TextView = view.findViewById(R.id.txtVetName)
         var address: TextView = view.findViewById(R.id.txtVetAddress)
@@ -37,6 +37,7 @@ class VetListAdapter(private var vetList : MutableList<Vet>,
             address.text = vet.address
             phone.text = vet.phone
             businesshour.text = vet.businessHours
+            neighborhood.text = vet.localidad
             Glide.with(view.context).load(vet.imageUrl).into(logo)
         }
     fun getCardLayout (): CardView {
