@@ -7,14 +7,11 @@ import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.util.Linkify
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentFactory
@@ -111,13 +108,6 @@ class NewProfileUserFragment : Fragment() {
                 btnEdit.text = "Confirmar"
             }
         }
-        /*birthUser.setOnClickListener {
-            birthUser.inputType = 1
-            btnEdit.isVisible = true
-            if(btnEdit.isEnabled){
-                btnEdit.text = "Confirmar"
-            }
-        }*/
 
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -161,7 +151,9 @@ class NewProfileUserFragment : Fragment() {
             phoneUser.inputType = 0
             birthUser.inputType = 0
 
-            Snackbar.make(v,"Perfil actualizado!", Snackbar.LENGTH_SHORT).show()
+            //Snackbar.make(v,"Perfil actualizado!", Snackbar.LENGTH_SHORT).
+            val toast = Toast.makeText(context,"Perfil actualizado!", Toast.LENGTH_LONG)
+            toast.show()
         }
 
         btnLogout.setOnClickListener {
