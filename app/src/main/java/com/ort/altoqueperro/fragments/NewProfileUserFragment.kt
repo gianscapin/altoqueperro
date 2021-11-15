@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentFactory
@@ -40,7 +41,7 @@ class NewProfileUserFragment : Fragment() {
     lateinit var phoneUser: TextView
     lateinit var birthUser: TextView
     lateinit var btnChangePassword:TextView
-    lateinit var btnEdit:Button
+    lateinit var btnEdit: Button
     lateinit var userImage: ImageView
     lateinit var v:View
     lateinit var btnLogout : TextView

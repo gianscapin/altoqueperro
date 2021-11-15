@@ -8,20 +8,6 @@
     android:focusable="auto"
     tools:context=".fragments.NewProfileUserFragment">
 
-    <Button
-        android:id="@+id/btnEdit2"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="105dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="106dp"
-        android:layout_marginBottom="150dp"
-        android:text="Editar Perfil"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnChangePassword" />
-
     <TextView
         android:id="@+id/textView11"
         android:layout_width="345dp"
@@ -44,14 +30,13 @@
         android:layout_height="50dp"
         android:layout_marginStart="105dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="106dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginEnd="105dp"
         android:text="Editar Perfil"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnChangePassword" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.739" />
 
     <EditText
         android:id="@+id/nameUser"
@@ -93,20 +78,21 @@
 
     <TextView
         android:id="@+id/btnChangePassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="210dp"
+        android:layout_height="27dp"
         android:layout_marginStart="125dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="125dp"
-        android:layout_marginBottom="5dp"
         android:text="Cambiar contraseña"
+        android:textAlignment="center"
         android:textColor="#F0CD71"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnEdit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birthUser" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
 
     <TextView
         android:id="@+id/textView12"
