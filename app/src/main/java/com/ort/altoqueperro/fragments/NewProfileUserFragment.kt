@@ -134,7 +134,6 @@ class NewProfileUserFragment : Fragment() {
             phoneUser.inputType = 0
             birthUser.inputType = 0
 
-            //Snackbar.make(v,"Perfil actualizado!", Snackbar.LENGTH_SHORT).
             val toast = Toast.makeText(context,"Perfil actualizado!", Toast.LENGTH_LONG)
             toast.show()
         }
