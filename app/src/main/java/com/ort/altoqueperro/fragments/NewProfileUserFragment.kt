@@ -17,6 +17,7 @@ import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.activities.MainActivity
@@ -40,7 +41,7 @@ class NewProfileUserFragment : Fragment() {
     lateinit var auth : FirebaseAuth
 
     val db = Firebase.firestore
-    val user = Firebase.auth.currentUser
+    val fbUser = Firebase.auth.currentUser
 
 
     private lateinit var name: String
@@ -147,7 +148,7 @@ class NewProfileUserFragment : Fragment() {
             )
             clearFields()
 
-            val docRef = db.collection("users").document(user?.uid.toString())
+            val docRef = db.collection("users").document(fbUser?.uid.toString())
 
             docRef.update("name",nameUser.text.toString())
             docRef.update("phone",phoneUser.text.toString())
