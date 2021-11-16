@@ -60,6 +60,11 @@ class HomeNavigationActivity : AppCompatActivity() {
                 R.id.petLostConfirmation -> setAppBarInvisible()
                 R.id.petLostSearchSimilarities -> setAppBarInvisible()
                 R.id.similarPetFragment -> setAppBarInvisible()
+                R.id.petFoundHostQuestion -> setAppBarInvisible()
+                R.id.petFoundHostNo -> setAppBarInvisible()
+                R.id.petFoundHostYes -> setAppBarInvisible()
+                R.id.petFoundHostQuestion -> setAppBarInvisible()
+                R.id.petLostFinalMessage -> setAppBarInvisible()
                 else -> setAppBarVisible()
             }
         }

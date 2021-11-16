@@ -1,7 +1,6 @@
 package com.ort.altoqueperro.fragments
 
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,13 +46,13 @@ class PetFoundConfirmation : Fragment() {
         txtCommentsValue = v.findViewById(R.id.txtCommentsValue)
         txtDateValue = v.findViewById(R.id.txtPetDateValue)
         txtFoundTitle = v.findViewById(R.id.txtFoundTitle)
-        txtPetEyeColorValue = v.findViewById(R.id.txtPetEyeColorValue)
+        txtPetEyeColorValue = v.findViewById(R.id.txtSimilarPetEyeColor)
         txtPetFurColorValue = v.findViewById(R.id.txtPetFurColorValue)
         txtPetFurLengthValue = v.findViewById(R.id.txtPetFurLengthValue)
         txtPetNoseValue = v.findViewById(R.id.txtPetNoseValue)
-        txtPetSexValue = v.findViewById(R.id.txtPetSexValue)
-        txtPetSizeValue = v.findViewById(R.id.txtPetSizeValue)
-        txtPetTypeValue = v.findViewById(R.id.txtPetTypeValue)
+        txtPetSexValue = v.findViewById(R.id.txtSimilarPetSex)
+        txtPetSizeValue = v.findViewById(R.id.txtSimilarPetSize)
+        txtPetTypeValue = v.findViewById(R.id.txtSimilarPetType)
         photo = v.findViewById(R.id.photo)
 
         viewModel.comments.observe(viewLifecycleOwner, {

@@ -63,7 +63,7 @@ class MyLostPetItemFragment : Fragment() {
         myLostPetSex = v.findViewById(R.id.txtMyPetSex)
         myLostPetCoat = v.findViewById(R.id.txtMyPetCoat)
         myLostPetEyeColor = v.findViewById(R.id.txtMyPetEyeColor)
-        similarPetImage = v.findViewById(R.id.imageSimilarPetDetail)
+        similarPetImage = v.findViewById(R.id.petImage)
         similarPetType = v.findViewById(R.id.txtSimilarPetType)
         similarPetSize = v.findViewById(R.id.txtSimilarPetSize)
         similarPetSex = v.findViewById(R.id.txtSimilarPetSex)

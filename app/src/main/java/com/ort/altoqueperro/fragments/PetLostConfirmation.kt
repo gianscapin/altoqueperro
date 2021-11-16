@@ -48,13 +48,13 @@ class PetLostConfirmation : Fragment() {
         txtCommentsValue = v.findViewById(R.id.txtCommentsValue)
         txtDateValue = v.findViewById(R.id.txtPetDateValue)
         txtFoundTitle = v.findViewById(R.id.txtFoundTitle)
-        txtPetEyeColorValue = v.findViewById(R.id.txtPetEyeColorValue)
+        txtPetEyeColorValue = v.findViewById(R.id.txtSimilarPetEyeColor)
         txtPetFurColorValue = v.findViewById(R.id.txtPetFurColorValue)
         txtPetFurLengthValue = v.findViewById(R.id.txtPetFurLengthValue)
         txtPetNoseValue = v.findViewById(R.id.txtPetNoseValue)
-        txtPetSexValue = v.findViewById(R.id.txtPetSexValue)
-        txtPetSizeValue = v.findViewById(R.id.txtPetSizeValue)
-        txtPetTypeValue = v.findViewById(R.id.txtPetTypeValue)
+        txtPetSexValue = v.findViewById(R.id.txtSimilarPetSex)
+        txtPetSizeValue = v.findViewById(R.id.txtSimilarPetSize)
+        txtPetTypeValue = v.findViewById(R.id.txtSimilarPetType)
         imagen = v.findViewById(R.id.imagen)
 
         viewModel.comments.observe(viewLifecycleOwner, {

@@ -15,11 +15,11 @@
 
         <TextView
             android:id="@+id/txtVetName"
-            android:layout_width="277dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="60dp"
+            android:layout_width="352dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="60dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:foregroundTint="@color/black"
             android:text="Tus Huellas"

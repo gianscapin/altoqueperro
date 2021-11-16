@@ -16,20 +16,26 @@ import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.entities.RequestScore
 import com.ort.altoqueperro.viewmodels.SimilarPetViewModel
+import org.w3c.dom.Text
 
 class SimilarPetFragment : Fragment() {
     lateinit var v: View
     private lateinit var petImage: ImageView
-    lateinit var petName: TextView
+    lateinit var titleFragment: TextView
     lateinit var petType: TextView
     lateinit var petSize: TextView
     private lateinit var petSex: TextView
-    private lateinit var petCoat: TextView
+    //private lateinit var petCoat: TextView
+    private lateinit var petNose : TextView
     private lateinit var petEyeColor: TextView
+    private lateinit var petFur: TextView
+    private lateinit var petFurColor: TextView
+    private lateinit var dateLost: TextView
     private lateinit var confirmButton: Button
     private lateinit var cancelButton: Button
-    private lateinit var requestScore: RequestScore
     lateinit var lostPetRequest: LostPetRequest
+    lateinit var requestScore: RequestScore
+    private lateinit var txtComments:TextView
 
     companion object {
         fun newInstance() = SimilarPetFragment()
@@ -42,13 +48,18 @@ class SimilarPetFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         v = inflater.inflate(R.layout.similar_pet_fragment, container, false)
-        petImage = v.findViewById(R.id.imageSimilarPetDetail)
-        petName = v.findViewById(R.id.txtSimilarPetName)
+        titleFragment = v.findViewById(R.id.titleFragment)
+        petImage = v.findViewById(R.id.petImage)
         petType = v.findViewById(R.id.txtSimilarPetType)
-        petSize = v.findViewById(R.id.txtSimilarPetSize)
         petSex = v.findViewById(R.id.txtSimilarPetSex)
-        petCoat = v.findViewById(R.id.txtSimilarPetCoat)
+        petSize = v.findViewById(R.id.txtSimilarPetSize)
+        petNose = v.findViewById(R.id.txtPetNoseValue)
+        petFur = v.findViewById(R.id.txtPetFurLengthValue)
+        petFurColor = v.findViewById(R.id.txtPetFurColorValue)
         petEyeColor = v.findViewById(R.id.txtSimilarPetEyeColor)
+        //petCoat = v.findViewById(R.id.txtSimilarPetCoat)
+        dateLost = v.findViewById(R.id.txtPetDateValue)
+        txtComments = v.findViewById(R.id.txtCommentsValue)
         confirmButton = v.findViewById(R.id.btnSimilarPetConfirm)
         cancelButton = v.findViewById(R.id.btnSimilarPetCancel)
         return v
@@ -62,15 +73,16 @@ class SimilarPetFragment : Fragment() {
 
         val foundPetRequest: PetRequest = requestScore.request!!
 
-        petName.text = requestScore.score.toString()
-        petType.text = foundPetRequest.pet.type
-        petSize.text = foundPetRequest.pet.size
-        petSex.text = foundPetRequest.pet.sex
-        petCoat.text = foundPetRequest.pet.furColor
-        petEyeColor.text = foundPetRequest.pet.eyes
-
-
         Glide.with(view.context).load(foundPetRequest.imageURL).into(petImage)
+        petType.text = foundPetRequest.pet.type
+        petSex.text = foundPetRequest.pet.sex
+        petSize.text = foundPetRequest.pet.size
+        petNose.text = foundPetRequest.pet.nose
+        petFur.text = foundPetRequest.pet.furLength
+        petFurColor.text = foundPetRequest.pet.furColor
+        petEyeColor.text = foundPetRequest.pet.eyes
+        dateLost.text = foundPetRequest.pet.lostDate
+        txtComments.text = foundPetRequest.pet.comments
 
         if (!lostPetRequest.isOpen()) {
             cancelButton.visibility = View.GONE
@@ -88,7 +100,6 @@ class SimilarPetFragment : Fragment() {
         }
 
     }
-
 
     private fun backToSimilarPetList() {
         v.findNavController().popBackStack()

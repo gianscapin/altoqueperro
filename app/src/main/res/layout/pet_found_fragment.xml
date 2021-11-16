@@ -18,12 +18,14 @@
             android:id="@+id/textView16"
             android:layout_width="348dp"
             android:layout_height="52dp"
+            android:layout_marginTop="5dp"
             android:paddingHorizontal="32dp"
             android:text="Cargá los datos de la mascota que encontraste"
             android:textAlignment="center"
             android:textColor="#151515"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +33,7 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="22dp"
             android:text="* Tipo de Mascota"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
@@ -40,7 +42,7 @@
             android:id="@+id/pet_types_spinner"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6"
@@ -66,26 +68,26 @@
 
             <RadioButton
                 android:id="@+id/radio_big_pet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:text="Grande" />
 
             <RadioButton
                 android:id="@+id/radio_medium_pet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:text="Mediano" />
 
             <RadioButton
                 android:id="@+id/radio_small_pet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:text="Chico" />
 
             <RadioButton
                 android:id="@+id/radio_mini_pet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:text="Mini" />
 
         </RadioGroup>
@@ -110,20 +112,20 @@
 
             <RadioButton
                 android:id="@+id/radio_male"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:text="Macho" />
 
             <RadioButton
                 android:id="@+id/radio_female"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:text="Hembra" />
 
             <RadioButton
                 android:id="@+id/radio_dont_know"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="95dp"
+                android:layout_height="40dp"
                 android:text="No estoy seguro" />
         </RadioGroup>
 
