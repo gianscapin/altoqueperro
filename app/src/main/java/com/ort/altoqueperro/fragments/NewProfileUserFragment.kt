@@ -131,6 +131,12 @@ class NewProfileUserFragment : Fragment() {
                 day
             )
             dpd.show()
+
+            birthUser.inputType = 1
+            btnEdit.isVisible = true
+            if (btnEdit.isEnabled) {
+                btnEdit.text = "Confirmar"
+            }
         }
 
 
