@@ -28,16 +28,25 @@ class NewProfileUserFragment : Fragment() {
         fun newInstance() = NewProfileUserFragment()
     }
 
-    private lateinit var nameUser: TextView
-    private lateinit var phoneUser: TextView
-    private lateinit var birthUser: TextView
-    private lateinit var btnChangePassword: TextView
-    private lateinit var btnEdit: Button
-    private lateinit var userImage: ImageView
-    private lateinit var btnLogout: TextView
-    lateinit var v: View
-    lateinit var auth: FirebaseAuth
-    private val fbUser = Firebase.auth.currentUser
+
+    lateinit var nameUser: TextView
+    lateinit var phoneUser: TextView
+    lateinit var birthUser: TextView
+    lateinit var btnChangePassword:TextView
+    lateinit var btnEdit: Button
+    lateinit var userImage: ImageView
+    lateinit var v:View
+    lateinit var btnLogout : TextView
+    lateinit var auth : FirebaseAuth
+
+    val db = Firebase.firestore
+    val user = Firebase.auth.currentUser
+
+
+    private lateinit var name: String
+    private lateinit var phone: String
+    private lateinit var birth: String
+
     private lateinit var viewModel: NewProfileUserViewModel
 
     override fun onCreateView(
@@ -137,6 +146,22 @@ class NewProfileUserFragment : Fragment() {
                 birthUser.text.toString()
             )
             clearFields()
+
+            val docRef = db.collection("users").document(user?.uid.toString())
+
+            docRef.update("name",nameUser.text.toString())
+            docRef.update("phone",phoneUser.text.toString())
+            docRef.update("birth",birthUser.text.toString())
+
+            btnEdit.text = "Editar"
+            btnEdit.isVisible = false
+
+            nameUser.inputType = 0
+            phoneUser.inputType = 0
+            birthUser.inputType = 0
+
+            val toast = Toast.makeText(context,"Perfil actualizado!", Toast.LENGTH_LONG)
+            toast.show()
 
         }
 
