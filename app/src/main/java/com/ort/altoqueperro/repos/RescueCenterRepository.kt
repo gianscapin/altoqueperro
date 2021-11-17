@@ -7,6 +7,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.entities.Shelter
 import com.ort.altoqueperro.entities.Vet
+import com.ort.altoqueperro.utils.ServiceLocation
 
 object RescueCenterRepository {
     private val db: FirebaseFirestore by lazy { Firebase.firestore }
@@ -18,7 +19,7 @@ object RescueCenterRepository {
                 for (vet in it) {
                     vets.add(vet.toObject())
                 }
-                liveData.postValue(vets)
+                liveData.postValue(vets.sortedBy { vet -> ServiceLocation.getDistance(vet.coordinates) } as MutableList<Vet>)
             }
             .addOnFailureListener { exception ->
                 println("Error getting documents: $exception")
@@ -32,7 +33,7 @@ object RescueCenterRepository {
                 for (shelter in it) {
                     shelters.add(shelter.toObject())
                 }
-                liveData.postValue(shelters)
+                liveData.postValue(shelters.sortedBy { shelter -> ServiceLocation.getDistance(shelter.coordinates) } as MutableList<Shelter>)
             }
             .addOnFailureListener { exception ->
                 println("Error getting documents: $exception")
