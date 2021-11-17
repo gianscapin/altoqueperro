@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -276,7 +277,7 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
 
         //ToDo no entiendo por que se pasa el view si no se usa
         private fun render(marker: Marker, view: View) {
-            val badge = R.drawable.dog // Passing 0 to setImageResource will clear the image view.
+            //val badge = R.drawable.dog // Passing 0 to setImageResource will clear the image view.
             val distance = window.findViewById<TextView>(R.id.distance)
             val size = window.findViewById<TextView>(R.id.size)
             val coatColor = window.findViewById<TextView>(R.id.coatColor)
@@ -288,7 +289,8 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
                 coatColor.text = "Color: ${pet.pet.furColor}"
                 distance.text =
                     "${ServiceLocation.getDistance(pet.coordinates!!).roundToInt()} mts."
-                imagen.setImageResource(badge)
+                //imagen.setImageResource(imagen)
+                Glide.with(view).load(pet.imageURL).into(imagen)
             }
             if (marker.tag is Vet) {
                 val vet: Vet = marker.tag as Vet
@@ -296,7 +298,8 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
                 coatColor.text = "Horario: ${vet.businessHours}"
                 distance.text =
                     "${ServiceLocation.getDistance(vet.coordinates!!).roundToInt()} mts."
-                imagen.setImageResource(R.drawable.vetmapa)
+                //imagen.setImageResource(R.drawable.vetmapa)
+                Glide.with(view).load(vet.imageUrl).into(imagen)
             }
             if (marker.tag is Shelter) {
                 val shelter: Shelter = marker.tag as Shelter
@@ -304,7 +307,8 @@ class NewMapModeFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener
                 coatColor.text = "Telefono: ${shelter.phoneNumber}"
                 distance.text =
                     "${ServiceLocation.getDistance(shelter.coordinates!!).roundToInt()} mts."
-                imagen.setImageResource(R.drawable.home)
+                //imagen.setImageResource(R.drawable.home)
+                Glide.with(view).load(shelter.imageUrl).into(imagen)
             }
         }
     }
