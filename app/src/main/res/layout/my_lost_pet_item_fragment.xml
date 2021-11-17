@@ -70,7 +70,7 @@
             tools:context=".fragments.MyLostPetItemFragment">
 
             <ImageView
-                android:id="@+id/imageSimilarPetDetail"
+                android:id="@+id/petImage"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:layout_marginStart="1dp"
@@ -91,7 +91,7 @@
                 android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imageSimilarPetDetail"
+                app:layout_constraintStart_toEndOf="@id/petImage"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TableRow
@@ -261,7 +261,9 @@
                 android:id="@+id/imageMyPetEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="135dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="125dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -293,7 +295,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/tableLayout"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.547"
+                app:layout_constraintHorizontal_bias="0.337"
                 app:layout_constraintStart_toEndOf="@+id/imageMyPetDetail"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -16,14 +16,16 @@
 
         <TextView
             android:id="@+id/txtTitle1"
-            android:layout_width="348dp"
-            android:layout_height="52dp"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="-8dp"
             android:paddingHorizontal="32dp"
             android:text="Cargá los datos de la mascota que perdiste"
             android:textAlignment="center"
             android:textColor="#151515"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.746"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +33,7 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="22dp"
             android:text="* Nombre"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtTitle1" />
@@ -40,9 +42,9 @@
             android:id="@+id/petName"
             android:layout_width="330dp"
             android:layout_height="48dp"
-            android:layout_marginTop="8dp"
-            android:inputType="textPersonName"
+            android:layout_marginTop="2dp"
             android:hint="Nombre de la mascota"
+            android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -50,7 +52,7 @@
             android:id="@+id/titleType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="18dp"
             android:text="* Tipo de Mascota"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/petName" />
@@ -59,7 +61,7 @@
             android:id="@+id/pet_types_spinner"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleType"
@@ -69,7 +71,7 @@
             android:id="@+id/titleSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:text="* Tamaño"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pet_types_spinner" />
@@ -78,33 +80,33 @@
             android:id="@+id/size_radio"
             android:layout_width="157dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleSize">
 
             <RadioButton
                 android:id="@+id/radio_big_pet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:text="Grande" />
 
             <RadioButton
                 android:id="@+id/radio_medium_pet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:text="Mediano" />
 
             <RadioButton
                 android:id="@+id/radio_small_pet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:text="Chico" />
 
             <RadioButton
                 android:id="@+id/radio_mini_pet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:text="Mini" />
 
         </RadioGroup>
@@ -129,14 +131,14 @@
 
             <RadioButton
                 android:id="@+id/radio_male"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:text="Macho" />
 
             <RadioButton
                 android:id="@+id/radio_female"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
                 android:text="Hembra" />
         </RadioGroup>
 
@@ -144,7 +146,7 @@
             android:id="@+id/textView21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:text="* Agregar fotos"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/size_radio" />
@@ -154,7 +156,7 @@
             android:id="@+id/uploadPictures"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:backgroundTint="#C6C6C6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView21"
@@ -178,6 +180,7 @@
                 android:backgroundTint="#EEB466"
                 android:text="Cargar"
                 app:icon="@android:drawable/ic_menu_gallery" />
+
             <ImageView
                 android:id="@+id/imageUpload"
                 android:layout_width="100dp"
@@ -190,7 +193,7 @@
             android:id="@+id/btnNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="28dp"
             android:layout_marginBottom="49dp"
             android:text="Siguiente"
             app:layout_constraintBottom_toBottomOf="parent"

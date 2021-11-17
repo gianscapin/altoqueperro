@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardItem"
     android:layout_width="320dp"
     android:layout_height="290dp"
@@ -66,11 +65,11 @@
 
         <TextView
             android:id="@+id/txtPetFoundItemDesc"
-            android:layout_width="155dp"
-            android:layout_height="55dp"
+            android:layout_width="269dp"
+            android:layout_height="50dp"
             android:layout_marginStart="26dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="139dp"
+            android:layout_marginEnd="26dp"
             android:layout_marginBottom="5dp"
             android:text="Caracteristicas"
             app:layout_constraintBottom_toBottomOf="parent"

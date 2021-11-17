@@ -17,9 +17,9 @@
             app:destination="@id/petLost2" />
         <argument
             android:name="petRequest"
+            android:defaultValue="@null"
             app:argType="com.ort.altoqueperro.entities.LostPetRequest"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/petFragment2"
@@ -36,15 +36,10 @@
             app:destination="@id/petFound2" />
         <argument
             android:name="petRequest"
+            android:defaultValue="@null"
             app:argType="com.ort.altoqueperro.entities.FoundPetRequest"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
-    <fragment
-        android:id="@+id/profileUser"
-        android:name="com.ort.altoqueperro.fragments.Profile"
-        android:label="profile_fragment"
-        tools:layout="@layout/profile_fragment" />
     <action
         android:id="@+id/action_petFragment2_to_petFound"
         app:destination="@id/petFound" />
@@ -61,7 +56,7 @@
         android:id="@+id/newMapModeFragment"
         android:name="com.ort.altoqueperro.fragments.NewMapModeFragment"
         android:label="@string/map_title"
-        tools:layout="@layout/new_map_mode_fragment" >
+        tools:layout="@layout/new_map_mode_fragment">
         <action
             android:id="@+id/action_newMapModeFragment_to_lostPetItemFragment"
             app:destination="@id/lostPetItemFragment" />
@@ -104,6 +99,10 @@
         <action
             android:id="@+id/action_listMode_to_myFoundPetItemFragment"
             app:destination="@id/myFoundPetItemFragment" />
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/vetItemFragment"
@@ -142,7 +141,7 @@
             app:destination="@id/petLostFinalMessage" />
         <argument
             android:name="petRequest"
-            app:argType="com.ort.altoqueperro.entities.PetRequest" />
+            app:argType="com.ort.altoqueperro.entities.LostPetRequest" />
         <action
             android:id="@+id/action_petLostSearchSimilarities_to_similarPetFragment"
             app:destination="@id/similarPetFragment" />
@@ -183,13 +182,9 @@
         android:label="pet_found_host_no_fragment"
         tools:layout="@layout/pet_found_host_no_fragment">
         <action
-            android:id="@+id/action_petFoundHostNo_to_shelterListFragment"
-            app:destination="@id/shelterListFragment" />
+            android:id="@+id/action_petFoundHostNo_to_listMode"
+            app:destination="@id/listMode" />
     </fragment>
-    <fragment
-        android:id="@+id/shelterListFragment"
-        android:name="com.ort.altoqueperro.fragments.ShelterListFragment"
-        android:label="ShelterListFragment" />
     <fragment
         android:id="@+id/changePassword"
         android:name="com.ort.altoqueperro.fragments.ChangePassword"
@@ -225,7 +220,7 @@
             app:argType="com.ort.altoqueperro.entities.RequestScore" />
         <argument
             android:name="petRequest"
-            app:argType="com.ort.altoqueperro.entities.PetRequest" />
+            app:argType="com.ort.altoqueperro.entities.LostPetRequest" />
         <action
             android:id="@+id/action_similarPetFragment_to_newMapModeFragment"
             app:destination="@id/newMapModeFragment" />
@@ -292,7 +287,7 @@
     <fragment
         android:id="@+id/myFoundPetItemFragment"
         android:name="com.ort.altoqueperro.fragments.MyFoundPetItemFragment"
-        android:label="MyFoundPetItemFragment" >
+        android:label="MyFoundPetItemFragment">
         <argument
             android:name="petData"
             app:argType="com.ort.altoqueperro.entities.FoundPetRequest" />

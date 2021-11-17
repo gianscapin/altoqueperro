@@ -15,7 +15,6 @@ import com.ort.altoqueperro.adapter.MyPetAdapter
 import com.ort.altoqueperro.adapter.PetAdapter
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.LostPetRequest
-import com.ort.altoqueperro.entities.PetRequest
 import com.ort.altoqueperro.utils.Notifications
 import com.ort.altoqueperro.viewmodels.LostPetListViewModel
 
@@ -45,16 +44,21 @@ class LostPetListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         listViewModel = ViewModelProvider(this).get(LostPetListViewModel::class.java)
-        listViewModel.petRepository.observe(viewLifecycleOwner, {
-            listViewModel.distribute()
-            recLostPets.adapter = PetAdapter(listViewModel.othersLostPets) { onLostPetClick(it) }
+        listViewModel.requestRepository.observe(viewLifecycleOwner, {
+            listViewModel.filterRequests()
+            recLostPets.adapter =
+                PetAdapter(listViewModel.othersLostRequestsRepository) { onLostPetClick(it) }
             recOwnLostPets.adapter =
-                MyPetAdapter(listViewModel.myLostPets) { onMyLostPetClick(it) }
+                MyPetAdapter(listViewModel.myLostRequestsRepository) { onMyLostPetClick(it) }
 
         })
-        listViewModel.foundPetRepository.observe(viewLifecycleOwner, {
+        listViewModel.foundRequestsRepository.observe(viewLifecycleOwner, {
             recOwnFoundPets.adapter =
-                MyFoundPetAdapter(listViewModel.foundPetRepository.value!!) { onMyFoundPetClick(it) }
+                MyFoundPetAdapter(listViewModel.foundRequestsRepository.value!!) {
+                    onMyFoundPetClick(
+                        it
+                    )
+                }
         })
     }
 

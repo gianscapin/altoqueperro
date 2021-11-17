@@ -1,19 +1,22 @@
 package com.ort.altoqueperro.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.viewmodels.PetFoundViewModel
 
-class PetFound2 : Fragment(), AdapterView.OnItemSelectedListener  {
+class PetFound2 : Fragment(), AdapterView.OnItemSelectedListener {
 
     companion object {
         fun newInstance() = PetFound2()
@@ -49,6 +52,16 @@ class PetFound2 : Fragment(), AdapterView.OnItemSelectedListener  {
         configureSpinner(petFurLengthSpinner, R.array.pet_fur_lengths)
         configureSpinner(petNosesSpinner, R.array.pet_noses)
 
+        nextButton.setOnClickListener {
+            if (viewModel.validateStep2()) {
+                val action = PetFound2Directions.actionPetFound2ToPetFound3()
+                v.findNavController().navigate(action)
+            } else {
+                Snackbar.make(rootLayout, "* Campos obligatorios", Snackbar.LENGTH_SHORT).show()
+
+            }
+        }
+
         return v
     }
 
@@ -65,17 +78,6 @@ class PetFound2 : Fragment(), AdapterView.OnItemSelectedListener  {
 
     override fun onResume() {
         super.onResume()
-
-        nextButton.setOnClickListener {
-            if (viewModel.validateStep2()) {
-                val action = PetFound2Directions.actionPetFound2ToPetFound3()
-                v.findNavController().navigate(action)
-            }
-            else {
-                Snackbar.make(rootLayout, "* Campos obligatorios", Snackbar.LENGTH_SHORT).show()
-
-            }
-        }
         fillData()
     }
 
@@ -92,8 +94,23 @@ class PetFound2 : Fragment(), AdapterView.OnItemSelectedListener  {
 
     private fun fillData() {
         viewModel.setSpinner(viewModel.petNose, R.array.pet_noses, v.context, petNosesSpinner)
-        viewModel.setSpinner(viewModel.petFurLength, R.array.pet_fur_lengths, v.context, petFurLengthSpinner)
-        viewModel.setSpinner(viewModel.petFurColor, R.array.pet_fur_colors, v.context, petFurColorSpinner)
-        viewModel.setSpinner(viewModel.petEyeColor, R.array.pet_eye_colors, v.context, petEyeColorSpinner)
+        viewModel.setSpinner(
+            viewModel.petFurLength,
+            R.array.pet_fur_lengths,
+            v.context,
+            petFurLengthSpinner
+        )
+        viewModel.setSpinner(
+            viewModel.petFurColor,
+            R.array.pet_fur_colors,
+            v.context,
+            petFurColorSpinner
+        )
+        viewModel.setSpinner(
+            viewModel.petEyeColor,
+            R.array.pet_eye_colors,
+            v.context,
+            petEyeColorSpinner
+        )
     }
 }

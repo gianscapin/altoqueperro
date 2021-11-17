@@ -47,6 +47,7 @@ class HomeNavigationActivity : AppCompatActivity() {
         val lostPetBtn: View = findViewById(R.id.fab1)
         val foundPetBtn: View = findViewById(R.id.fab2)
 
+        //ToDo fijarse si conviene hacerlo al revés
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.petFound -> setAppBarInvisible()
@@ -59,6 +60,11 @@ class HomeNavigationActivity : AppCompatActivity() {
                 R.id.petLostConfirmation -> setAppBarInvisible()
                 R.id.petLostSearchSimilarities -> setAppBarInvisible()
                 R.id.similarPetFragment -> setAppBarInvisible()
+                R.id.petFoundHostQuestion -> setAppBarInvisible()
+                R.id.petFoundHostNo -> setAppBarInvisible()
+                R.id.petFoundHostYes -> setAppBarInvisible()
+                R.id.petFoundHostQuestion -> setAppBarInvisible()
+                R.id.petLostFinalMessage -> setAppBarInvisible()
                 else -> setAppBarVisible()
             }
         }
@@ -88,7 +94,7 @@ class HomeNavigationActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-    fun setAppBarInvisible() {
+    private fun setAppBarInvisible() {
         val floatingButtonAction: View = findViewById(R.id.btnFloatingActions)
         val navBar: BottomAppBar = this.findViewById(R.id.bottomAppBar)
 
@@ -96,7 +102,7 @@ class HomeNavigationActivity : AppCompatActivity() {
         navBar.visibility = View.GONE
     }
 
-    fun setAppBarVisible() {
+    private fun setAppBarVisible() {
         val floatingButtonAction: View = findViewById(R.id.btnFloatingActions)
         val navBar: BottomAppBar = this.findViewById(R.id.bottomAppBar)
 

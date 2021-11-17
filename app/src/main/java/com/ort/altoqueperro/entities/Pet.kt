@@ -9,7 +9,6 @@ class Pet(
     var type: String,
     var size: String,
     var sex: String,
-    //var imageURL: String,
     var nose: String,
     var furLength: String,
     var furColor: String,
@@ -31,5 +30,9 @@ class Pet(
             if (eyes == other.eyes) currentScore += comparingScore.eyeColor
         }
         return currentScore
+    }
+
+    override fun toString(): String {
+        return "$type $size, $sex, Color $furColor, $comments"
     }
 }

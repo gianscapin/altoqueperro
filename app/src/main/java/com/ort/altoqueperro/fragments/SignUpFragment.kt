@@ -1,20 +1,20 @@
 package com.ort.altoqueperro.fragments
 
+import android.app.DatePickerDialog
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
+import android.icu.util.Calendar
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.activities.HomeNavigationActivity
 import com.ort.altoqueperro.viewmodels.SignUpViewModel
@@ -25,23 +25,21 @@ class SignUpFragment : Fragment() {
         fun newInstance() = SignUpFragment()
     }
 
-    lateinit var userName: TextView
-    lateinit var userPassword: TextView
-    lateinit var userMail: TextView
-    lateinit var passwordVerify: TextView
-    lateinit var userPhone: TextView
-    lateinit var userBirth: TextView
-    lateinit var signUp: Button
+    private lateinit var userName: TextView
+    private lateinit var userPassword: TextView
+    private lateinit var userMail: TextView
+    private lateinit var passwordVerify: TextView
+    private lateinit var userPhone: TextView
+    private lateinit var userBirth: TextView
+    private lateinit var signUp: Button
     lateinit var v: View
-    val db= Firebase.firestore
 
     private lateinit var viewModel: SignUpViewModel
-    private lateinit var database: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         v = inflater.inflate(R.layout.sign_up_fragment, container, false)
         userName = v.findViewById(R.id.userName)
         userPassword = v.findViewById(R.id.userPassword)
@@ -54,57 +52,48 @@ class SignUpFragment : Fragment() {
         return v
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel.success.observe(viewLifecycleOwner, {
+            if (it.toString() == "success") { //ToDo arreglar?
+                startActivity(Intent(activity, HomeNavigationActivity::class.java))
+            } else Snackbar.make(v, it, Snackbar.LENGTH_SHORT)
+                .show()
+        })
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onStart() {
         super.onStart()
-
         signUp.setOnClickListener {
-            var nameUser = userName.text.toString()
-            var passwordUser = userPassword.text.toString()
-            var mailUser = userMail.text.toString()
-            var phoneUser = userPhone.text.toString()
-            var birthUser = userBirth.text.toString()
+            viewModel.registerUser(
+                userName.text.toString(),
+                userPassword.text.toString(),
+                userMail.text.toString(),
+                userPhone.text.toString(),
+                userBirth.text.toString(),
+                passwordVerify.text.toString()
+            )
+        }
+        userBirth.setOnClickListener {
 
-            database = Firebase.database.reference
+            val c = Calendar.getInstance()
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
 
-            if(nameUser.isNotEmpty() && passwordUser.isNotEmpty() && mailUser.isNotEmpty() && phoneUser.isNotEmpty() && birthUser.isNotEmpty()){
-                registerUser(mailUser,passwordUser, nameUser, phoneUser, birthUser)
-                startActivity(Intent(activity, HomeNavigationActivity::class.java))
-            }else{
-                Snackbar.make(v,"Tenes que completar todos los campos",Snackbar.LENGTH_SHORT).show()
-            }
-
-            //db.collection("users").add(user)
+            val dpd = DatePickerDialog(
+                requireContext(),
+                { _: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
+                    val mMonthFix = mMonth + 1
+                    userBirth.text = "$mDay/$mMonthFix/$mYear"
+                },
+                year,
+                month,
+                day
+            )
+            dpd.show()
         }
     }
-
-    fun registerUser(mail:String, password:String, name:String, phone:String, birth:String): Unit{
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(mail,password).addOnCompleteListener{ task ->
-            if(task.isSuccessful){
-
-                val id = FirebaseAuth.getInstance().currentUser?.uid.toString()
-
-                val data = hashMapOf(
-                    "name" to name,
-                    "email" to mail,
-                    "phone" to phone,
-                    "birth" to birth,
-                    "id" to id
-                )
-
-
-                //database.child("users").child(id).setValue(data)
-                db.collection("users").document(id).set(data)
-                //val action = SignUpFragmentDirections.actionSignUpFragmentToPetFragment2()
-                //v.findNavController().navigate(action)
-
-            }
-        }
-    }
-
 }

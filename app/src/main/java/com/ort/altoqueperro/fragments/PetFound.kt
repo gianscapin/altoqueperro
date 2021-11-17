@@ -2,26 +2,23 @@ package com.ort.altoqueperro.fragments
 
 
 import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.FoundPetRequest
-import com.ort.altoqueperro.entities.LostPetRequest
-import com.ort.altoqueperro.viewmodels.PetFoundViewModel
-
-import android.content.Intent
-import android.net.Uri
-import android.provider.MediaStore
-import androidx.core.net.toUri
 import com.ort.altoqueperro.utils.ImageHelper
+import com.ort.altoqueperro.viewmodels.PetFoundViewModel
 import java.io.File
 
 
@@ -32,16 +29,16 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
     }
 
     private lateinit var petTypesSpinner: Spinner
-    lateinit var petSex: RadioGroup
+    private lateinit var petSex: RadioGroup
     lateinit var petSize: RadioGroup
-    //lateinit var petPhoto: ImageView
-    var imageHelper = ImageHelper()
-    lateinit var takePic: Button
-    lateinit var choosePic: Button
-    lateinit var imageUpload: ImageView
+
+    private var imageHelper = ImageHelper()
+    private lateinit var takePic: Button
+    private lateinit var choosePic: Button
+    private lateinit var imageUpload: ImageView
     private lateinit var nextButton: Button
     lateinit var v: View
-    var inst:Fragment = this
+    private var inst: Fragment = this
     private lateinit var rootLayout: ConstraintLayout
 
     private val viewModel: PetFoundViewModel by activityViewModels()
@@ -87,7 +84,20 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
         choosePic.setOnClickListener {
             imageHelper.choosePicture(inst)
         }
-        if (viewModel.photo!=null) imageUpload.setImageURI(viewModel.photo.value)
+        viewModel.photo.observe(viewLifecycleOwner, {
+            imageUpload.setImageURI(it)
+            Glide.with(v.context).load(it).into(imageUpload)
+        })
+
+        nextButton.setOnClickListener {
+            if (viewModel.validateStep1()) {
+                val action = PetFoundDirections.actionPetFoundToPetFound2()
+                v.findNavController().navigate(action)
+            } else {
+                Snackbar.make(rootLayout, "* Campos obligatorios", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
         return v
     }
 
@@ -119,46 +129,38 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
-    override fun onResume() {
-        super.onResume()
-        nextButton.setOnClickListener {
-            if (viewModel.validateStep1()) {
-                val action = PetFoundDirections.actionPetFoundToPetFound2()
-                v.findNavController().navigate(action)
-            } else {
-                Snackbar.make(rootLayout, "* Campos obligatorios", Snackbar.LENGTH_SHORT).show()
-            }
-        }
+    override fun onStart() {
+        super.onStart()
+        val foundPetRequest = PetFoundArgs.fromBundle(requireArguments()).petRequest
+        if (foundPetRequest != null) fillData(foundPetRequest)
 
     }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         viewModel.clearALl()
-        val foundPetRequest = PetFoundArgs.fromBundle(requireArguments()).petRequest
-        if (foundPetRequest!= null) fillData(foundPetRequest)
     }
 
     private fun fillData(request: FoundPetRequest) {
         viewModel.setRequest(request)
-        viewModel.setRadioButton(petSize,viewModel.petSize)
-        viewModel.setRadioButton(petSex,viewModel.petSex)
+        viewModel.setRadioButton(petSize, viewModel.petSize)
+        viewModel.setRadioButton(petSex, viewModel.petSex)
         viewModel.setSpinner(viewModel.petType, R.array.pet_types, v.context, petTypesSpinner)
-
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
-        super.onActivityResult(requestCode, resultCode, data);
-        when(requestCode) {
-            0->
-            if(resultCode == RESULT_OK){
-                viewModel.setPhoto(File(imageHelper.currentPhotoPath).toUri())
-                imageUpload.setImageURI(viewModel.photo.value);
-            }
-            1->
-            if(resultCode == RESULT_OK){
-                viewModel.setPhoto(data?.data!!)
-                imageUpload.setImageURI(viewModel.photo.value);
-            }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            0 ->
+                if (resultCode == RESULT_OK) {
+                    viewModel.setPhoto(File(imageHelper.currentPhotoPath).toUri())
+                    imageUpload.setImageURI(viewModel.photo.value)
+                }
+            1 ->
+                if (resultCode == RESULT_OK) {
+                    viewModel.setPhoto(data?.data!!)
+                    imageUpload.setImageURI(viewModel.photo.value)
+                }
         }
     }
 }

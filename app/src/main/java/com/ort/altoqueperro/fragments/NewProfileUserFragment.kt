@@ -4,32 +4,23 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Build
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.text.util.Linkify
-import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentFactory
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.activities.MainActivity
-import com.ort.altoqueperro.activities.SplashActivity
 import com.ort.altoqueperro.viewmodels.NewProfileUserViewModel
-import org.w3c.dom.Text
-import java.util.*
 
 class NewProfileUserFragment : Fragment() {
 
@@ -37,30 +28,23 @@ class NewProfileUserFragment : Fragment() {
         fun newInstance() = NewProfileUserFragment()
     }
 
-    lateinit var nameUser: TextView
-    lateinit var phoneUser: TextView
-    lateinit var birthUser: TextView
-    lateinit var btnChangePassword:TextView
-    lateinit var btnEdit: Button
-    lateinit var userImage: ImageView
-    lateinit var v:View
-    lateinit var btnLogout : TextView
-    lateinit var auth : FirebaseAuth
-
-    val db = Firebase.firestore
-    val user = Firebase.auth.currentUser
-
-
-    private lateinit var name: String
-    private lateinit var phone: String
-    private lateinit var birth: String
+    private lateinit var nameUser: TextView
+    private lateinit var phoneUser: TextView
+    private lateinit var birthUser: TextView
+    private lateinit var btnChangePassword: TextView
+    private lateinit var btnEdit: Button
+    private lateinit var userImage: ImageView
+    private lateinit var btnLogout: TextView
+    lateinit var v: View
+    lateinit var auth: FirebaseAuth
+    private val fbUser = Firebase.auth.currentUser
 
     private lateinit var viewModel: NewProfileUserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         v = inflater.inflate(R.layout.new_profile_user_fragment, container, false)
 
         nameUser = v.findViewById(R.id.nameUser)
@@ -75,39 +59,42 @@ class NewProfileUserFragment : Fragment() {
         return v
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(NewProfileUserViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel.userLiveData.observe(viewLifecycleOwner, {
+            nameUser.text = it.name
+            phoneUser.text = it.phone
+            birthUser.text = it.birth
+            if (fbUser?.photoUrl != null) {
+                print("imagen usuario")
+                Glide.with(v.context).load(fbUser.photoUrl).into(userImage)
+            } else {
+                print("imagen app")
+                Glide.with(v.context).load(R.drawable.dog_loupe).into(userImage)
+            }
+        })
+        viewModel.success.observe(viewLifecycleOwner, {
+            //Snackbar.make(v,"Perfil actualizado!", Snackbar.LENGTH_SHORT).
+            val toast = Toast.makeText(context, "Perfil actualizado!", Toast.LENGTH_LONG)
+            toast.show()
+        })
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onStart() {
         super.onStart()
 
-        loadInfo()
-
-        nameUser.inputType = 0
-        phoneUser.inputType = 0
-        birthUser.inputType = 0
-
-        btnEdit.isVisible = false
+        viewModel.getUser(fbUser?.uid.toString())
+        clearFields()
 
         nameUser.setOnClickListener {
-            nameUser.inputType = 1
-            btnEdit.isVisible = true
-            if(btnEdit.isEnabled){
-                btnEdit.text = "Confirmar"
-            }
+            setToEdit(nameUser)
         }
 
 
         phoneUser.setOnClickListener {
-            phoneUser.inputType = 1
-            btnEdit.isVisible = true
-            if(btnEdit.isEnabled){
-                btnEdit.text = "Confirmar"
-            }
+            setToEdit(phoneUser)
         }
 
         val c = Calendar.getInstance()
@@ -116,10 +103,11 @@ class NewProfileUserFragment : Fragment() {
         val day = c.get(Calendar.DAY_OF_MONTH)
 
         birthUser.setOnClickListener {
+            setToEdit(birthUser)
             val dpd = DatePickerDialog(
                 requireContext(),
-                DatePickerDialog.OnDateSetListener { view: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
-                    val mMonthFix = mMonth+1
+                { _: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
+                    val mMonthFix = mMonth + 1
                     birthUser.text = "$mDay/$mMonthFix/$mYear"
                 },
                 year,
@@ -130,36 +118,24 @@ class NewProfileUserFragment : Fragment() {
         }
 
 
-
-
         btnChangePassword.setOnClickListener {
-            val action = NewProfileUserFragmentDirections.actionNewProfileUserFragmentToChangePassword(user!!)
+            val action =
+                NewProfileUserFragmentDirections.actionNewProfileUserFragmentToChangePassword(fbUser!!)
             v.findNavController().navigate(action)
         }
 
         btnEdit.setOnClickListener {
+            viewModel.editUser(
+                nameUser.text.toString(),
+                phoneUser.text.toString(),
+                birthUser.text.toString()
+            )
+            clearFields()
 
-            val docRef = db.collection("users").document(user?.uid.toString())
-
-            docRef.update("name",nameUser.text.toString())
-            docRef.update("phone",phoneUser.text.toString())
-            docRef.update("birth",birthUser.text.toString())
-
-            btnEdit.text = "Editar"
-            btnEdit.isVisible = false
-
-            nameUser.inputType = 0
-            phoneUser.inputType = 0
-            birthUser.inputType = 0
-
-            //Snackbar.make(v,"Perfil actualizado!", Snackbar.LENGTH_SHORT).
-            val toast = Toast.makeText(context,"Perfil actualizado!", Toast.LENGTH_LONG)
-            toast.show()
         }
 
         btnLogout.setOnClickListener {
             auth.signOut()
-
             val logoutIntent = Intent(v.context, MainActivity::class.java)
             logoutIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(logoutIntent)
@@ -168,31 +144,23 @@ class NewProfileUserFragment : Fragment() {
 
     }
 
-    fun loadInfo():Unit{
+    private fun clearFields() {
 
-        val docRef = db.collection("users").document(user?.uid.toString())
+        nameUser.inputType = 0
+        phoneUser.inputType = 0
+        birthUser.inputType = 0
 
-        docRef.get().addOnSuccessListener {
-            name = it.get("name").toString()
-            phone = it.get("phone").toString()
-            birth = it.get("birth").toString()
+        btnEdit.isVisible = false
 
-            nameUser.text = name
-            phoneUser.text = phone
-            birthUser.text = birth
+    }
 
-            if(it.get("image")!=null){
-                println(it.get("image"))
-                print("imagen usuario")
-                Glide.with(view?.context).load(it.get("image")).into(userImage)
-            }else{
-                print("imagen app")
-                Glide.with(view?.context).load(R.drawable.dog_loupe).into(userImage)
-            }
+    private fun setToEdit(textview: TextView) {
 
-
+        textview.inputType = 1
+        btnEdit.isVisible = true
+        if (btnEdit.isEnabled) {
+            btnEdit.text = "Confirmar"
         }
-
     }
 
 }

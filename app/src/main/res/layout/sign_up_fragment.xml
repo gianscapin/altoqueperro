@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SignUpFragment" >
+    tools:context=".fragments.SignUpFragment">
 
     <TextView
         android:id="@+id/textView3"
@@ -157,6 +157,7 @@
         android:drawableStart="@drawable/custom_calendar_icon"
         android:drawablePadding="12dp"
         android:ems="10"
+        android:focusable="false"
         android:hint="Fecha Nac."
         android:inputType="date"
         android:paddingStart="12dp"

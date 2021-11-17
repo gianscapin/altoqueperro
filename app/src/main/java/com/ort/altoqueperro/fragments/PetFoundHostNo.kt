@@ -1,12 +1,12 @@
 package com.ort.altoqueperro.fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.viewmodels.PetFoundHostNoViewModel
@@ -24,16 +24,15 @@ class PetFoundHostNo : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         v = inflater.inflate(R.layout.pet_found_host_no_fragment, container, false)
         goToShelterList = v.findViewById(R.id.checkShelters)
         return v
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(PetFoundHostNoViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onStart() {
@@ -41,9 +40,10 @@ class PetFoundHostNo : Fragment() {
         goToShelterList.setOnClickListener { checkShelterList() }
     }
 
-    fun checkShelterList(){
-        var action = PetFoundHostNoDirections.actionPetFoundHostNoToShelterListFragment()
-        v.findNavController().navigate(action);
+    private fun checkShelterList() {
+        val action = PetFoundHostNoDirections.actionPetFoundHostNoToListMode()
+        action.position = 2
+        v.findNavController().navigate(action)
     }
 
 }

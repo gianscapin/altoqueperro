@@ -17,12 +17,14 @@
             android:id="@+id/textView30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-7dp"
             android:paddingHorizontal="32dp"
             android:text="Confirmación"
             android:textAlignment="center"
             android:textColor="#151515"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.511"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +32,7 @@
             android:id="@+id/textView31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="25dp"
             android:text="Asegurate de haber cargado todos los datos correctamente"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView30" />
@@ -39,7 +41,7 @@
             android:id="@+id/txtFoundTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="84dp"
             android:layout_marginTop="16dp"
             android:text="¡(pet type) encontrado!"
             android:textColor="#151515"
@@ -50,11 +52,11 @@
         <ImageView
             android:id="@+id/photo"
             android:layout_width="match_parent"
-            android:layout_height="168dp"
+            android:layout_height="140dp"
             android:layout_marginTop="16dp"
+            android:src="@drawable/happy_dog"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtFoundTitle"
-            android:src="@drawable/happy_dog" />
+            app:layout_constraintTop_toBottomOf="@+id/txtFoundTitle" />
 
         <TextView
             android:id="@+id/txtPetType"
@@ -66,7 +68,7 @@
             app:layout_constraintTop_toBottomOf="@+id/photo" />
 
         <TextView
-            android:id="@+id/txtPetTypeValue"
+            android:id="@+id/txtSimilarPetType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
@@ -84,7 +86,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txtPetType" />
 
         <TextView
-            android:id="@+id/txtPetSexValue"
+            android:id="@+id/txtSimilarPetSex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
@@ -102,7 +104,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txtPetSex" />
 
         <TextView
-            android:id="@+id/txtPetSizeValue"
+            android:id="@+id/txtSimilarPetSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
@@ -174,7 +176,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txtPetFurColor" />
 
         <TextView
-            android:id="@+id/txtPetEyeColorValue"
+            android:id="@+id/txtSimilarPetEyeColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
@@ -223,7 +225,7 @@
             android:id="@+id/btnPublish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="48dp"
             android:text="Publicar"
             app:layout_constraintBottom_toBottomOf="parent"
