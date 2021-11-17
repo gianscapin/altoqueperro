@@ -6,16 +6,15 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -28,11 +27,11 @@ class PetFound3 : Fragment() {
         fun newInstance() = PetFound3()
     }
 
-    private lateinit var nextButton : Button
-    private lateinit var date : TextView
-    lateinit var comments : TextView
-    lateinit var v : View
-    private lateinit var rootLayout : ConstraintLayout
+    private lateinit var nextButton: Button
+    private lateinit var date: TextView
+    lateinit var comments: TextView
+    lateinit var v: View
+    private lateinit var rootLayout: ConstraintLayout
     private val viewModel: PetFoundViewModel by activityViewModels()
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -40,7 +39,7 @@ class PetFound3 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        v =  inflater.inflate(R.layout.pet_found_3_fragment, container, false)
+        v = inflater.inflate(R.layout.pet_found_3_fragment, container, false)
 
         nextButton = v.findViewById(R.id.btnNext3)
 
@@ -52,6 +51,7 @@ class PetFound3 : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.setComments(s.toString())
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -72,9 +72,9 @@ class PetFound3 : Fragment() {
         date.setOnClickListener {
             val dpd = DatePickerDialog(
                 requireContext(),
-                DatePickerDialog.OnDateSetListener { view: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
-                    val mMonthFix = mMonth+1
-                    date.text= "$mDay/$mMonthFix/$mYear"
+                { _: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
+                    val mMonthFix = mMonth + 1
+                    date.text = "$mDay/$mMonthFix/$mYear"
                 },
                 year,
                 month,
@@ -83,23 +83,22 @@ class PetFound3 : Fragment() {
             dpd.show()
         }
 
+        nextButton.setOnClickListener {
+            viewModel.setLostDate(date.text.toString())
+            if (viewModel.validateStep3()) {
+                val action = PetFound3Directions.actionPetFound3ToPetFoundConfirmation()
+                v.findNavController().navigate(action)
+            } else {
+                Snackbar.make(rootLayout, "* Campos obligatorios", Snackbar.LENGTH_SHORT).show()
+
+            }
+        }
 
         return v
     }
 
     override fun onResume() {
         super.onResume()
-        nextButton.setOnClickListener {
-            viewModel.setLostDate(date.text.toString())
-            if (viewModel.validateStep3()) {
-                val action = PetFound3Directions.actionPetFound3ToPetFoundConfirmation()
-                v.findNavController().navigate(action)
-            }
-            else {
-                Snackbar.make(rootLayout, "* Campos obligatorios", Snackbar.LENGTH_SHORT).show()
-
-            }
-        }
         fillData()
     }
 

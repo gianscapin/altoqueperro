@@ -13,6 +13,7 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.FoundPetRequest
@@ -31,7 +32,6 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
     private lateinit var petSex: RadioGroup
     lateinit var petSize: RadioGroup
 
-    //lateinit var petPhoto: ImageView
     private var imageHelper = ImageHelper()
     private lateinit var takePic: Button
     private lateinit var choosePic: Button
@@ -84,7 +84,20 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
         choosePic.setOnClickListener {
             imageHelper.choosePicture(inst)
         }
-        imageUpload.setImageURI(viewModel.photo.value)
+        viewModel.photo.observe(viewLifecycleOwner, {
+            imageUpload.setImageURI(it)
+            Glide.with(v.context).load(it).into(imageUpload)
+        })
+
+        nextButton.setOnClickListener {
+            if (viewModel.validateStep1()) {
+                val action = PetFoundDirections.actionPetFoundToPetFound2()
+                v.findNavController().navigate(action)
+            } else {
+                Snackbar.make(rootLayout, "* Campos obligatorios", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
         return v
     }
 
@@ -116,24 +129,16 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
 
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
-    override fun onResume() {
-        super.onResume()
-        nextButton.setOnClickListener {
-            if (viewModel.validateStep1()) {
-                val action = PetFoundDirections.actionPetFoundToPetFound2()
-                v.findNavController().navigate(action)
-            } else {
-                Snackbar.make(rootLayout, "* Campos obligatorios", Snackbar.LENGTH_SHORT).show()
-            }
-        }
+    override fun onStart() {
+        super.onStart()
+        val foundPetRequest = PetFoundArgs.fromBundle(requireArguments()).petRequest
+        if (foundPetRequest != null) fillData(foundPetRequest)
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         viewModel.clearALl()
-        val foundPetRequest = PetFoundArgs.fromBundle(requireArguments()).petRequest
-        if (foundPetRequest != null) fillData(foundPetRequest)
     }
 
     private fun fillData(request: FoundPetRequest) {
@@ -141,7 +146,6 @@ class PetFound : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedLis
         viewModel.setRadioButton(petSize, viewModel.petSize)
         viewModel.setRadioButton(petSex, viewModel.petSex)
         viewModel.setSpinner(viewModel.petType, R.array.pet_types, v.context, petTypesSpinner)
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

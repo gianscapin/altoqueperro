@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.viewmodels.PetFoundViewModel
 
@@ -58,8 +59,7 @@ class PetFoundConfirmation : Fragment() {
         viewModel.comments.observe(viewLifecycleOwner, {
             if (it.isNullOrEmpty()) {
                 txtCommentsValue.text = "Sin comentarios"
-            }
-            else {
+            } else {
                 txtCommentsValue.text = it
 
             }
@@ -99,6 +99,7 @@ class PetFoundConfirmation : Fragment() {
         })
         viewModel.photo.observe(viewLifecycleOwner, {
             photo.setImageURI(it)
+            Glide.with(v.context).load(it).into(photo)
         })
 
         return v

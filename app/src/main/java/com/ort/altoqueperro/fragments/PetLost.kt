@@ -14,6 +14,7 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.LostPetRequest
@@ -92,16 +93,23 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
         choosePic.setOnClickListener {
             imageHelper.choosePicture(inst)
         }
-        imageUpload.setImageURI(viewModel.photo.value)
+        viewModel.photo.observe(viewLifecycleOwner, {
+            imageUpload.setImageURI(it)
+            Glide.with(v.context).load(it).into(imageUpload)
+        })
+
+        nextButton.setOnClickListener {
+            if (viewModel.validateStep1()) {
+                val action = PetLostDirections.actionPetLostToPetLost2()
+                v.findNavController().navigate(action)
+            } else {
+                Snackbar.make(rootLayout, "* Campos obligatorios", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
         return v
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.clearALl()
-        var lostPetRequest: LostPetRequest? = PetLostArgs.fromBundle(requireArguments()).petRequest
-        if (lostPetRequest != null) fillData(lostPetRequest)
-    }
 
     override fun onClick(view: View) {
         if (view is RadioButton) {
@@ -131,17 +139,16 @@ class PetLost : Fragment(), View.OnClickListener, AdapterView.OnItemSelectedList
     override fun onNothingSelected(parent: AdapterView<*>) {}
 
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
+        var lostPetRequest: LostPetRequest? = PetLostArgs.fromBundle(requireArguments()).petRequest
+        if (lostPetRequest != null) fillData(lostPetRequest)
 
-        nextButton.setOnClickListener {
-            if (viewModel.validateStep1()) {
-                val action = PetLostDirections.actionPetLostToPetLost2()
-                v.findNavController().navigate(action)
-            } else {
-                Snackbar.make(rootLayout, "* Campos obligatorios", Snackbar.LENGTH_SHORT).show()
-            }
-        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.clearALl()
     }
 
     private fun fillData(request: LostPetRequest) {

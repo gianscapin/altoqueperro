@@ -17,7 +17,6 @@ import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.activities.MainActivity
@@ -29,24 +28,16 @@ class NewProfileUserFragment : Fragment() {
         fun newInstance() = NewProfileUserFragment()
     }
 
-
-    lateinit var nameUser: TextView
-    lateinit var phoneUser: TextView
-    lateinit var birthUser: TextView
-    lateinit var btnChangePassword:TextView
-    lateinit var btnEdit: Button
-    lateinit var userImage: ImageView
-    lateinit var v:View
-    lateinit var btnLogout : TextView
-    lateinit var auth : FirebaseAuth
-
-    val db = Firebase.firestore
-    val fbUser = Firebase.auth.currentUser
-
-
-    private lateinit var name: String
-    private lateinit var phone: String
-    private lateinit var birth: String
+    private lateinit var nameUser: TextView
+    private lateinit var phoneUser: TextView
+    private lateinit var birthUser: TextView
+    private lateinit var btnChangePassword: TextView
+    private lateinit var btnEdit: Button
+    private lateinit var userImage: ImageView
+    private lateinit var btnLogout: TextView
+    lateinit var v: View
+    lateinit var auth: FirebaseAuth
+    private val fbUser = Firebase.auth.currentUser
 
     private lateinit var viewModel: NewProfileUserViewModel
 
@@ -98,20 +89,12 @@ class NewProfileUserFragment : Fragment() {
         clearFields()
 
         nameUser.setOnClickListener {
-            nameUser.inputType = 1
-            btnEdit.isVisible = true
-            if (btnEdit.isEnabled) {
-                btnEdit.text = "Confirmar"
-            }
+            setToEdit(nameUser)
         }
 
 
         phoneUser.setOnClickListener {
-            phoneUser.inputType = 1
-            btnEdit.isVisible = true
-            if (btnEdit.isEnabled) {
-                btnEdit.text = "Confirmar"
-            }
+            setToEdit(phoneUser)
         }
 
         val c = Calendar.getInstance()
@@ -120,6 +103,7 @@ class NewProfileUserFragment : Fragment() {
         val day = c.get(Calendar.DAY_OF_MONTH)
 
         birthUser.setOnClickListener {
+            setToEdit(birthUser)
             val dpd = DatePickerDialog(
                 requireContext(),
                 { _: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
@@ -131,12 +115,6 @@ class NewProfileUserFragment : Fragment() {
                 day
             )
             dpd.show()
-
-            birthUser.inputType = 1
-            btnEdit.isVisible = true
-            if (btnEdit.isEnabled) {
-                btnEdit.text = "Confirmar"
-            }
         }
 
 
@@ -153,22 +131,6 @@ class NewProfileUserFragment : Fragment() {
                 birthUser.text.toString()
             )
             clearFields()
-
-            val docRef = db.collection("users").document(fbUser?.uid.toString())
-
-            docRef.update("name",nameUser.text.toString())
-            docRef.update("phone",phoneUser.text.toString())
-            docRef.update("birth",birthUser.text.toString())
-
-            btnEdit.text = "Editar"
-            btnEdit.isVisible = false
-
-            nameUser.inputType = 0
-            phoneUser.inputType = 0
-            birthUser.inputType = 0
-
-            val toast = Toast.makeText(context,"Perfil actualizado!", Toast.LENGTH_LONG)
-            toast.show()
 
         }
 
@@ -190,6 +152,15 @@ class NewProfileUserFragment : Fragment() {
 
         btnEdit.isVisible = false
 
+    }
+
+    private fun setToEdit(textview: TextView) {
+
+        textview.inputType = 1
+        btnEdit.isVisible = true
+        if (btnEdit.isEnabled) {
+            btnEdit.text = "Confirmar"
+        }
     }
 
 }

@@ -1,11 +1,13 @@
 package com.ort.altoqueperro.viewmodels
 
+import android.R
 import android.content.Context
 import android.net.Uri
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
+import androidx.core.net.toUri
 import androidx.core.view.children
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,6 +22,7 @@ import com.ort.altoqueperro.utils.ImageHelper
 import com.ort.altoqueperro.utils.ServiceLocation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 class PetLostViewModel : ViewModel() {
 
@@ -44,6 +47,7 @@ class PetLostViewModel : ViewModel() {
         setPetSex(pet.sex)
         setPetSize(pet.size)
         setPetType(pet.type)
+        if (Uri.EMPTY.equals(mutablePhoto.value)) setPhoto(request.imageURL!!.toUri())
     }
 
     private val mutablePetEyeColor = MutableLiveData<String>()
@@ -163,7 +167,7 @@ class PetLostViewModel : ViewModel() {
         //upload image
         if (petRequest.coordinates == null) petRequest.coordinates = ServiceLocation.getLocation()
         viewModelScope.launch(Dispatchers.IO) {
-            if (!Uri.EMPTY.equals(photo.value)) {
+            if (!Uri.EMPTY.equals(photo.value) && petRequest.imageURL?.toUri() != photo.value) {
                 petRequest.imageURL = ImageHelper().storeImage(photo.value!!)
             }
             saveRequest(petRequest)
@@ -188,9 +192,9 @@ class PetLostViewModel : ViewModel() {
         val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
             context,
             array,
-            android.R.layout.simple_spinner_item
+            R.layout.simple_spinner_item
         )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
         if (selectedValue != null) {
             val spinnerPosition: Int = adapter.getPosition(selectedValue)
@@ -210,6 +214,7 @@ class PetLostViewModel : ViewModel() {
         setPetSex("")
         setPetSize("")
         setPetType("")
+        setPhoto(Uri.EMPTY)
     }
 
 }
