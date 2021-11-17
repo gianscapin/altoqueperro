@@ -31,6 +31,11 @@ class SimilarPetsAdapter(
         fun getCardLayout(): CardView {
             return view.findViewById(R.id.cardItem)
         }
+
+        fun setDesc(desc: String) {
+            val txt: TextView = view.findViewById(R.id.txtPetFoundItemDesc)
+            txt.text = desc
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimilarPetsHolder {
@@ -42,6 +47,7 @@ class SimilarPetsAdapter(
     override fun onBindViewHolder(holder: SimilarPetsHolder, position: Int) {
         val petScore = similarRequestList[position]
         holder.setScore(petScore.score)
+        holder.setDesc(petScore.request?.pet.toString())
         petScore.request?.imageURL?.let { holder.setImage(it) }
         holder.getCardLayout().setOnClickListener {
             onSimilarPetsClick(petScore)

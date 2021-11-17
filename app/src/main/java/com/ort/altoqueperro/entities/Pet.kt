@@ -31,4 +31,8 @@ class Pet(
         }
         return currentScore
     }
+
+    override fun toString(): String {
+        return "$type $size, $sex, Color $furColor, $comments"
+    }
 }

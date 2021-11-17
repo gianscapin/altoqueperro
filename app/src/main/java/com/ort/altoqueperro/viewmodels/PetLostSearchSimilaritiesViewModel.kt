@@ -2,6 +2,7 @@ package com.ort.altoqueperro.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.ort.altoqueperro.entities.ComparingScore
 import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.PetRequest
@@ -15,7 +16,10 @@ class PetLostSearchSimilaritiesViewModel : ViewModel() {
         MutableLiveData(mutableListOf())
 
     fun getFoundPetRequests() {
-        RequestRepository.getAllFoundPetRequests(foundPetRequestRepository)
+        RequestRepository.getOthersFoundPetRequests(
+            foundPetRequestRepository,
+            FirebaseAuth.getInstance().currentUser?.uid.toString()
+        )
     }
 
     fun lookForSimilarities(petRequest: PetRequest): MutableList<RequestScore> {

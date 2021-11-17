@@ -48,11 +48,12 @@ class PetLostSearchSimilarities : Fragment() {
         viewModel.getFoundPetRequests()
         viewModel.comparingScoreLiveData.observe(viewLifecycleOwner, {
             viewModel.foundPetRequestRepository.observe(viewLifecycleOwner, {
-
+                val similarRequests = viewModel.lookForSimilarities(petRequestData)
+                if (similarRequests.isEmpty() && it.isNotEmpty()) noResult()
                 recSimilarPets.adapter =
-                    SimilarPetsAdapter(viewModel.lookForSimilarities(petRequestData)) {
+                    SimilarPetsAdapter(similarRequests) { requestScore ->
                         onSimilarPetsClick(
-                            it
+                            requestScore
                         )
                     }
 

@@ -29,15 +29,20 @@ object RequestRepository {
             }
     }
 
-    fun getAllFoundPetRequests(liveData: MutableLiveData<MutableList<FoundPetRequest>>) {
+    fun getOthersFoundPetRequests(
+        liveData: MutableLiveData<MutableList<FoundPetRequest>>,
+        userUid: String
+    ) {
         val foundPetRequests: MutableList<FoundPetRequest> = mutableListOf()
         db.collection("foundPetRequests")
-            .whereEqualTo("state", State.OPEN.ordinal)
+            .whereNotEqualTo("requestCreator", userUid)
             .get()
             .addOnSuccessListener {
                 for (request in it) {
                     val requestObject = request.toObject<FoundPetRequest>()
-                    foundPetRequests.add(requestObject)
+                    if (requestObject.state == State.OPEN.ordinal) foundPetRequests.add(
+                        requestObject
+                    )
                 }
                 liveData.postValue(foundPetRequests)
             }
