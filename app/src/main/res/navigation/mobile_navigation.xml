@@ -99,6 +99,10 @@
         <action
             android:id="@+id/action_listMode_to_myFoundPetItemFragment"
             app:destination="@id/myFoundPetItemFragment" />
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/vetItemFragment"
@@ -178,13 +182,9 @@
         android:label="pet_found_host_no_fragment"
         tools:layout="@layout/pet_found_host_no_fragment">
         <action
-            android:id="@+id/action_petFoundHostNo_to_shelterListFragment"
-            app:destination="@id/shelterListFragment" />
+            android:id="@+id/action_petFoundHostNo_to_listMode"
+            app:destination="@id/listMode" />
     </fragment>
-    <fragment
-        android:id="@+id/shelterListFragment"
-        android:name="com.ort.altoqueperro.fragments.ShelterListFragment"
-        android:label="ShelterListFragment" />
     <fragment
         android:id="@+id/changePassword"
         android:name="com.ort.altoqueperro.fragments.ChangePassword"

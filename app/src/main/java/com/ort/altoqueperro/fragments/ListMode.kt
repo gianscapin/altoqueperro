@@ -50,6 +50,13 @@ class ListMode : Fragment() {
         }.attach()
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        tabLayout.postOnAnimation {
+            tabLayout.getTabAt(ListModeArgs.fromBundle(requireArguments()).position)!!.select()
+        }
+    }
+
     class ViewPagerAdapter(fragmentActivity: FragmentActivity) :
         FragmentStateAdapter(fragmentActivity) {
         override fun createFragment(position: Int): Fragment {

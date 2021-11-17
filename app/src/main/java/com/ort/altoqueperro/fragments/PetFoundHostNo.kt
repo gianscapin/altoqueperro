@@ -41,7 +41,8 @@ class PetFoundHostNo : Fragment() {
     }
 
     private fun checkShelterList() {
-        val action = PetFoundHostNoDirections.actionPetFoundHostNoToShelterListFragment()
+        val action = PetFoundHostNoDirections.actionPetFoundHostNoToListMode()
+        action.position = 2
         v.findNavController().navigate(action)
     }
 

@@ -1,12 +1,17 @@
 package com.ort.altoqueperro.fragments
 
+import android.app.DatePickerDialog
 import android.content.Intent
+import android.icu.util.Calendar
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
@@ -58,6 +63,7 @@ class SignUpFragment : Fragment() {
         })
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onStart() {
         super.onStart()
         signUp.setOnClickListener {
@@ -69,6 +75,25 @@ class SignUpFragment : Fragment() {
                 userBirth.text.toString(),
                 passwordVerify.text.toString()
             )
+        }
+        userBirth.setOnClickListener {
+
+            val c = Calendar.getInstance()
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            val dpd = DatePickerDialog(
+                requireContext(),
+                { _: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
+                    val mMonthFix = mMonth + 1
+                    userBirth.text = "$mDay/$mMonthFix/$mYear"
+                },
+                year,
+                month,
+                day
+            )
+            dpd.show()
         }
     }
 }
