@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
+import androidx.core.net.toUri
 import androidx.core.view.children
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -47,6 +48,7 @@ class PetFoundViewModel : ViewModel() {
         setPetSex(pet.sex)
         setPetSize(pet.size)
         setPetType(pet.type)
+        if (Uri.EMPTY.equals(mutablePhoto.value)) setPhoto(request.imageURL!!.toUri())
     }
 
     private val mutablePetEyeColor = MutableLiveData<String>()
@@ -138,9 +140,9 @@ class PetFoundViewModel : ViewModel() {
             )
         }
         //upload image
-        if (petRequest.coordinates==null) petRequest.coordinates = ServiceLocation.getLocation()
+        if (petRequest.coordinates == null) petRequest.coordinates = ServiceLocation.getLocation()
         viewModelScope.launch(Dispatchers.IO) {
-            if (!Uri.EMPTY.equals(photo.value)) {
+            if (!Uri.EMPTY.equals(photo.value) && petRequest.imageURL?.toUri() != photo.value) {
                 petRequest.imageURL = ImageHelper().storeImage(photo.value!!)
             }
             saveRequest(petRequest)
@@ -149,7 +151,9 @@ class PetFoundViewModel : ViewModel() {
 
 
     fun validateStep1(): Boolean {
-        return !mutablePetSex.value.isNullOrEmpty() && !mutablePetSize.value.isNullOrEmpty() && !mutablePetType.value.isNullOrEmpty() && !Uri.EMPTY.equals(mutablePhoto.value)
+        return !mutablePetSex.value.isNullOrEmpty() && !mutablePetSize.value.isNullOrEmpty() && !mutablePetType.value.isNullOrEmpty() && !Uri.EMPTY.equals(
+            mutablePhoto.value
+        )
     }
 
     fun validateStep2(): Boolean {

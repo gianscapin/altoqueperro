@@ -7,6 +7,7 @@ import com.ort.altoqueperro.entities.FoundPetRequest
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.repos.RequestRepository
 import com.ort.altoqueperro.utils.Notifications
+import com.ort.altoqueperro.utils.ServiceLocation
 
 class LostPetListViewModel : ViewModel() {
     var requestRepository: MutableLiveData<MutableList<LostPetRequest>> =
@@ -34,6 +35,7 @@ class LostPetListViewModel : ViewModel() {
         }
         othersLostRequestsRepository =
             requestRepository.value!!.filter { !shouldRetain(it) } as MutableList<LostPetRequest>
+        othersLostRequestsRepository.sortBy { ServiceLocation.getDistance(it.coordinates) }
     }
 
     private fun shouldRetain(it: LostPetRequest): Boolean {

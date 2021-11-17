@@ -27,7 +27,7 @@ class PetLostSearchSimilaritiesViewModel : ViewModel() {
             val petScore = petRequest.comparePetTo(it, comparingScoreLiveData.value!!)
             if (petScore >= minScoreValue) similarPetsFound.add(RequestScore(it, petScore))
         }
-        return similarPetsFound
+        return similarPetsFound.sortedByDescending { it.score }.toMutableList()
     }
 
     fun getComparingScore() {

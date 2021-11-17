@@ -119,13 +119,14 @@
         android:drawableEnd="@drawable/ic_baseline_edit_24"
         android:drawablePadding="12dp"
         android:ems="10"
+        android:focusable="false"
         android:hint="Fecha Nac."
         android:inputType="date"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/userPhone"
+        app:layout_constraintStart_toEndOf="@+id/phoneUser"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <EditText
@@ -144,7 +145,7 @@
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@+id/userBirth"
+        app:layout_constraintEnd_toStartOf="@+id/birthUser"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 

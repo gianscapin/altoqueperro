@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.ort.altoqueperro.R
 import com.ort.altoqueperro.entities.LostPetRequest
 import com.ort.altoqueperro.viewmodels.PetLostViewModel
@@ -70,6 +71,7 @@ class PetLostConfirmation : Fragment() {
         })
         viewModel.photo.observe(viewLifecycleOwner, {
             imagen.setImageURI(it)
+            Glide.with(v.context).load(it).into(imagen)
         })
 
         viewModel.petFurColor.observe(viewLifecycleOwner, {
@@ -109,7 +111,8 @@ class PetLostConfirmation : Fragment() {
     override fun onStart() {
         super.onStart()
         nextButton.setOnClickListener {
-            val petRequest = viewModel.registerPet() //ToDo a revisar esto porque si da error se rompe la app creo
+            val petRequest =
+                viewModel.registerPet() //ToDo a revisar esto porque si da error se rompe la app creo
             lookForSimilarities(petRequest)
         }
     }

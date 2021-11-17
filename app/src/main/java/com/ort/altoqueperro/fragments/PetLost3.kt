@@ -81,9 +81,9 @@ class PetLost3 : Fragment() {
         date.setOnClickListener {
             val dpd = DatePickerDialog(
                 requireContext(),
-                DatePickerDialog.OnDateSetListener { view: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
-                    val mMonthFix = mMonth+1
-                    date.text= "$mDay/$mMonthFix/$mYear"
+                { _: DatePicker, mYear: Int, mMonth: Int, mDay: Int ->
+                    val mMonthFix = mMonth + 1
+                    date.text = "$mDay/$mMonthFix/$mYear"
                 },
                 year,
                 month,
@@ -91,12 +91,6 @@ class PetLost3 : Fragment() {
             )
             dpd.show()
         }
-
-        return v
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         nextButton.setOnClickListener {
             viewModel.setLostDate(date.text.toString())
@@ -108,6 +102,12 @@ class PetLost3 : Fragment() {
 
             }
         }
+
+        return v
+    }
+
+    override fun onResume() {
+        super.onResume()
         fillData()
     }
 
